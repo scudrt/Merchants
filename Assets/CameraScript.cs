@@ -7,7 +7,7 @@ public class CameraScript : MonoBehaviour
     //Data Area begin
     bool movable; //not movable in main menu
     float moveSpeed, rollSpeed;
-    float rollLimitBack, rollLimitAhead;
+    float rollLimitBack, rollLimitAhead, rotateSpeed;
     float moveLimitBack, moveLimitAhead, moveLimitSide;
     //Data Area end
 
@@ -55,6 +55,15 @@ public class CameraScript : MonoBehaviour
                 this.transform.Translate(0, 0, rollSpeed * sensity);
             }
         }
+
+        //camera movement: horizontal rotation, no vertical for now
+        if (Input.GetMouseButton(1))
+        {
+            sensity = Input.GetAxis("Mouse X");
+            float prex = this.transform.rotation.x;
+            this.transform.Rotate(0, sensity * rotateSpeed, 0, Space.World);
+        }
+
     }
     
 
@@ -65,8 +74,9 @@ public class CameraScript : MonoBehaviour
         movable = true;
         moveSpeed = 0.16f;
         rollSpeed = 4.00f;
-        rollLimitAhead = 1.0f;
+        rollLimitAhead = 1.5f;
         rollLimitBack = 16.0f;
+        rotateSpeed = 3.0f;
         moveLimitAhead = 12.0f;
         moveLimitBack = -20.0f;
         moveLimitSide = 16.0f;

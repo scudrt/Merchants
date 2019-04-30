@@ -51,47 +51,47 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.r
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.g
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.b
-    value: 0
+    value: 0.8065431
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_NormalColor.a
-    value: 1
+    value: 0.627451
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.r
-    value: 0.5849056
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_HighlightedColor.g
-    value: 0.019312933
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_Colors.m_HighlightedColor.b
-    value: 0.019312933
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: m_Colors.m_HighlightedColor.a
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: m_Colors.m_HighlightedColor.b
+    value: 0.8078432
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Colors.m_HighlightedColor.a
+    value: 0.627451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.r
-    value: 0.9716981
+    value: 0.6462264
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.g
-    value: 0.36209506
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.b
-    value: 0.36209506
+    value: 0.97420514
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_Colors.m_PressedColor.a
