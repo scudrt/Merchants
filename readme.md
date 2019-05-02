@@ -2,17 +2,17 @@
 只是个作业
 
 
-* ## ** Requirement :**
+* ## **Requirement:**
     + Visual Studio 2015+
     + Unity3D 2018.3.8+
 
-* ## Version log
-(TODO项只需写在最新版本后)
+* ## **Version log**(TODO项只需写在最新版本后)
     + ### **Version 0.1.0** :
         - DONE :
             - 镜头移动、拉伸以及其活动区域限制
             - 基本UI界面
             - 阴影效果
+            
     + ### **version 0.1.1** :
         - DONE :
             - 修改了主菜单UI，添加了标题
