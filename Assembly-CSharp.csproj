@@ -63,7 +63,9 @@
     <Compile Include="Assets\ButtonsScript.cs" />
     <Compile Include="Assets\CameraScript.cs" />
     <Compile Include="Assets\CityScript.cs" />
+    <Compile Include="Assets\RandomMoveScript.cs" />
     <Compile Include="Assets\SunScript.cs" />
+    <Compile Include="Assets\TimerScript.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

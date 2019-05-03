@@ -8,13 +8,31 @@ public class CameraScript : MonoBehaviour
     bool movable; //not movable in main menu
     float moveSpeed, rollSpeed;
     float rollLimitBack, rollLimitAhead, rotateSpeed;
-    float moveLimitBack, moveLimitAhead, moveLimitSide;
+    float sideLimit;
     //Data Area end
 
     //Test Data Area Begin
     int frameTick;
-    bool showFPS;
+    bool showFPS = true;
     //Test Data Area End
+    
+    void Start()
+    {
+        /********************init start********************/
+        movable = true;
+        moveSpeed = 0.24f;
+        rollSpeed = 4.00f;
+        rollLimitAhead = 1.5f;
+        rollLimitBack = 10.0f;
+        rotateSpeed = 3.0f;
+        sideLimit = 16.0f;
+
+        frameTick = 0;
+        showFPS = false;
+        /********************init done ********************/
+
+        Debug.Log("Camera Script: Start() Accomplished.");
+    }
 
     private void __judgeAndMove()
     {
@@ -23,28 +41,45 @@ public class CameraScript : MonoBehaviour
         {
             return;
         }
-        Vector3 pos = this.transform.position;
+
+        //Get camera's position and rotation
+        Vector3 pos = this.transform.position,
+                direction = Vector3.zero;
+        float rot = this.transform.rotation.eulerAngles.y;
 
         //left and right
         float sensity = Input.GetAxis("Horizontal");
         if (sensity != 0.0f)
         {
-            if ((sensity > 0 && pos.x <= moveLimitSide) || (sensity < 0 && pos.x >= -moveLimitSide))
-            {
-                this.transform.Translate(moveSpeed * sensity, 0, 0);
-            }
+            direction.x = moveSpeed * sensity;
         }
 
         //forward and backward
-        float ySpeed = moveSpeed / Mathf.Sqrt(2), zSpeed = moveSpeed / Mathf.Sqrt(2);
         sensity = Input.GetAxis("Vertical");
         if (sensity != 0.0f)
         {
-            if ((sensity > 0 && pos.z <= moveLimitAhead) || (sensity < 0 && pos.z >= moveLimitBack))
-            {
-                this.transform.Translate(0, ySpeed * sensity, zSpeed * sensity);
-            }
+            direction.z = moveSpeed * sensity;
         }
+        
+        //turn vector to world space
+        float tempx = Mathf.Sqrt(direction.x * direction.x + direction.z * direction.z), tempz;
+        if (tempx != 0.0f)
+        {
+            rot = (rot + Mathf.Asin(direction.x / tempx)) * Mathf.Deg2Rad;
+        }
+        float sin = Mathf.Sin(rot), cos = Mathf.Cos(rot);
+        tempx = direction.z * sin + direction.x * cos;
+        tempz = direction.z * cos - direction.x * sin;
+        //check the border and move
+        if (Mathf.Abs(pos.x + tempx) >= sideLimit)
+        {
+            tempx = 0;
+        }
+        if (Mathf.Abs(pos.z + tempz) >= sideLimit)
+        {
+            tempz = 0;
+        }
+        this.transform.Translate(tempx, 0, tempz, Space.World);
 
         //camera movement: roll in and roll out
         sensity = Input.GetAxis("Mouse ScrollWheel");
@@ -57,35 +92,19 @@ public class CameraScript : MonoBehaviour
         }
 
         //camera movement: horizontal rotation, no vertical for now
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1)) //right click
         {
             sensity = Input.GetAxis("Mouse X");
-            float prex = this.transform.rotation.x;
             this.transform.Rotate(0, sensity * rotateSpeed, 0, Space.World);
+            sensity = Input.GetAxis("Mouse Y");
+            rot = this.transform.rotation.eulerAngles.x;
+            sensity *= -rotateSpeed;
+            if ((rot + sensity) >= 15.0f && (rot + sensity)<= 75.0f)
+            {
+                this.transform.Rotate(sensity, 0, 0);
+            }
         }
 
-    }
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        /********************init start********************/
-        movable = true;
-        moveSpeed = 0.16f;
-        rollSpeed = 4.00f;
-        rollLimitAhead = 1.5f;
-        rollLimitBack = 16.0f;
-        rotateSpeed = 3.0f;
-        moveLimitAhead = 12.0f;
-        moveLimitBack = -20.0f;
-        moveLimitSide = 16.0f;
-
-        frameTick = 0;
-        showFPS = false;
-        /********************init done ********************/
-
-        Debug.Log("Camera Script: Start() Accomplished.");
     }
 
     // Update is called once per frame

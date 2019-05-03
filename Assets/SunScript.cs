@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class SunScript : MonoBehaviour
 {
-    float lastTime;
-    float dayMinute; //x minutes per day
+    float delta, day, night;
     // Start is called before the first frame update
     void Start()
     {
-        lastTime = 0.0f;
-        dayMinute = 1.0f;
+        day = TimerScript.dayMinute;
+        night = TimerScript.nightMinute;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float delta = Time.time - lastTime;
-        lastTime = Time.time;
-        this.transform.Rotate(delta * 6.0f / dayMinute, 0, 0);
+        delta = TimerScript.delta;
+        if (this.transform.localEulerAngles.x <= 180.0f) //day
+        {
+            this.transform.Rotate(delta * 3.0f / day, 0, 0);
+        }
+        else //night
+        {
+            this.transform.Rotate(delta * 3.0f / night, 0, 0);
+        }
     }
 }
