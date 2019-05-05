@@ -18,6 +18,7 @@ public class TimerScript : MonoBehaviour
         minute = 0;
         second = 0.0f;
         sumMinute = dayMinute + nightMinute;
+        this.transform.position = new Vector3(0, UnityEngine.Screen.height - 30, 0);
     }
 
     // Update is called once per frame

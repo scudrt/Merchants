@@ -31,7 +31,7 @@ public class CameraScript : MonoBehaviour
         showFPS = false;
         /********************init done ********************/
 
-        Debug.Log("Camera Script: Start() Accomplished.");
+        //Debug.Log("Camera Script: Start() Accomplished.");
     }
 
     private void __judgeAndMove()

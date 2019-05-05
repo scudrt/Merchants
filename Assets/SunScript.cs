@@ -8,8 +8,8 @@ public class SunScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        day = TimerScript.dayMinute;
-        night = TimerScript.nightMinute;
+        day = TimerScript.dayMinute / 3.0f;
+        night = TimerScript.nightMinute / 3.0f;
     }
 
     // Update is called once per frame
@@ -18,11 +18,11 @@ public class SunScript : MonoBehaviour
         delta = TimerScript.delta;
         if (this.transform.localEulerAngles.x <= 180.0f) //day
         {
-            this.transform.Rotate(delta * 3.0f / day, 0, 0);
+            this.transform.Rotate(delta / day, 0, 0);
         }
         else //night
         {
-            this.transform.Rotate(delta * 3.0f / night, 0, 0);
+            this.transform.Rotate(delta / night, 0, 0);
         }
     }
 }
