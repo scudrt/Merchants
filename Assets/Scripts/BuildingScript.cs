@@ -8,11 +8,13 @@ public class BuildingScript : MonoBehaviour {
 
     public Canvas UI;//Canvas displayed when the building is clicked
 
+    public enum Status { EMPTY, BOUGHT, BUILT }
+
     //building's attribute
     public bool IsEmpty { get; set; }
     public double LandPrice { get; set; }
     public double BuildingPrice { get; set; }
-
+    public Status status { get; set; }
     private Renderer renderer;
     private Color defaultColor;
 
@@ -20,6 +22,7 @@ public class BuildingScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        status = Status.EMPTY;
         renderer = GetComponent<Renderer>();
         defaultColor = renderer.material.color;
 
@@ -43,8 +46,15 @@ public class BuildingScript : MonoBehaviour {
 
     void OnMouseDown()
     {
-        EmptyBuildingUIScript script = UI.GetComponent<EmptyBuildingUIScript>();
+        BuildingUIScript script = UI.GetComponent<BuildingUIScript>();
         script.Building = gameObject;
-        script.SendMessage("UIEntry");
+
+        //display UI according to the building's status
+        switch (status)
+        {
+            case Status.EMPTY: script.SendMessage("EmptyPanelEntry"); break;
+            case Status.BUILT: script.SendMessage("BuildingPanelEntry"); break;
+            case Status.BOUGHT: script.SendMessage("BoughtPanelEntry"); break;
+        }   
     }
 }
