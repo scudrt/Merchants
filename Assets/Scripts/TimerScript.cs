@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TimerScript : MonoBehaviour
 {
+    public static bool isActivate = false; //pause and continue switch
     public static float lastSecond = 0.0f, delta = 0.0f;
     public static float dayMinute = 0.6f, nightMinute = 0.4f; //(day + night) minutes per day
 
+    //private data
     float sumMinute;
     float second;
     int day, hour, minute;
@@ -18,15 +20,23 @@ public class TimerScript : MonoBehaviour
         minute = 0;
         second = 0.0f;
         sumMinute = dayMinute + nightMinute;
-        this.transform.position = new Vector3(0, UnityEngine.Screen.height - 30, 0);
+        this.transform.position = new Vector3(UnityEngine.Screen.width / 2, UnityEngine.Screen.height - 30, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        delta = Time.time - lastSecond;
-        lastSecond = Time.time;
-        
+        if (isActivate == false) //pause time lapsing
+        {
+            lastSecond = Time.time;
+            return;
+        }
+        else
+        {
+            delta = Time.time - lastSecond;
+            lastSecond = Time.time;
+        }
+
         second += (delta / sumMinute * 1440.0f);
         minute += (int)(second / 60.0f); second = second - Mathf.Floor(second / 60.0f) * 60.0f;
         hour += minute / 60; minute %= 60;

@@ -4,7 +4,7 @@
 
 * ## **Requirement:**
     + Visual Studio 2015+
-    + Unity3D 2018.3.8+
+    + Unity3D 2019.1
 
 * ## **Version log**(TODO项只需写在最新版本后)
     + ### **Version 0.1.0** :
@@ -44,7 +44,13 @@
 			- 添加了Company和Talent类
 			- 增加了UI组件
 			- 解决了UI不随游戏界面大小改变的问题
+            - 时间允许暂停并且进入游戏后才开始时间流逝
+            - 增加了population类
+            - 缩小了UI尺寸
+            - 换了背景音乐-一步之遥
 		- TODO：
+            - camera往后拉远镜头出界以后就不能移动了
+            - 丰富population内容
 			- Building的信息完善
 			- 物体间以及脚本间的信息传递代码太过复杂，应该可以优化一下（GetComponent太多了。。。又不想给子物体单独写代码）
 			- UI显示时视角操作的锁定

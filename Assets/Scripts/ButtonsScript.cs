@@ -16,7 +16,8 @@ public class ButtonsScript : MonoBehaviour
 
     public void OnSingleStartButtonClick()
     {
-        GetComponentInParent<Canvas>().enabled = false;
+        GetComponentInParent<Canvas>().enabled = false; //disable main menu
+        TimerScript.isActivate = true; //activate time lapsing
     }
 
     // Start is called before the first frame update
