@@ -62,19 +62,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BuildingButtonScript.cs" />
-    <Compile Include="Assets\Scripts\BuildingScript.cs" />
-    <Compile Include="Assets\Scripts\BuildingUIScript.cs" />
-    <Compile Include="Assets\Scripts\ButtonsScript.cs" />
-    <Compile Include="Assets\Scripts\CameraScript.cs" />
-    <Compile Include="Assets\Scripts\CityScript.cs" />
-    <Compile Include="Assets\Scripts\CompanyScript.cs" />
-    <Compile Include="Assets\Scripts\PopulationScript.cs" />
-    <Compile Include="Assets\Scripts\RandomMoveScript.cs" />
-    <Compile Include="Assets\Scripts\SunScript.cs" />
-    <Compile Include="Assets\Scripts\TalentScript.cs" />
-    <Compile Include="Assets\Scripts\TimerScript.cs" />
-    <Compile Include="Assets\Scripts\UIPanelScript.cs" />
+    <Compile Include="Assets\Scripts\Building.cs" />
+    <Compile Include="Assets\Scripts\BuildingButton.cs" />
+    <Compile Include="Assets\Scripts\BuildingUI.cs" />
+    <Compile Include="Assets\Scripts\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Camera.cs" />
+    <Compile Include="Assets\Scripts\City.cs" />
+    <Compile Include="Assets\Scripts\Company.cs" />
+    <Compile Include="Assets\Scripts\Population.cs" />
+    <Compile Include="Assets\Scripts\Sun.cs" />
+    <Compile Include="Assets\Scripts\Talent.cs" />
+    <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\UIPanel.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -83,6 +82,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
@@ -113,9 +115,6 @@
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>G:/UnityProjects/Merchants/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/2019.1.0f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
