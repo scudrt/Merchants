@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Building : MonoBehaviour {
 
@@ -34,18 +35,36 @@ public class Building : MonoBehaviour {
 		
 	}
 
+    private void OnMouseOver()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            renderer.material.color = defaultColor;
+        }
+        else
+        {
+            renderer.material.color = Color.red;
+        }
+    }
+
     void OnMouseEnter()
     {
-        renderer.material.color = Color.red; 
+        if (!EventSystem.current.IsPointerOverGameObject())
+            renderer.material.color = Color.red; 
     }
 
     void OnMouseExit()
     {
-        renderer.material.color = defaultColor;
+        if (!EventSystem.current.IsPointerOverGameObject())
+            renderer.material.color = defaultColor;
     }
 
     void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         BuildingUI script = UI.GetComponent<BuildingUI>();
         script.Building = gameObject;
 
