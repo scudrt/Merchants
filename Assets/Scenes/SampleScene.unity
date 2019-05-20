@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 116829075}
   - component: {fileID: 116829074}
   m_Layer: 0
-  m_Name: LandPriceLabel
+  m_Name: BlockPriceLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,7 +1351,7 @@ GameObject:
   - component: {fileID: 577095106}
   - component: {fileID: 577095105}
   m_Layer: 0
-  m_Name: BuildingUI
+  m_Name: BlockUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45ad5e3b5a8ecb4c9cd81ea76056e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Building: {fileID: 0}
+  Block: {fileID: 0}
 --- !u!114 &577095106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fe3fa222d59d4448346aca6786296d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingUI: {fileID: 577095108}
+  BlockUI: {fileID: 0}
   prefab: {fileID: 185358161192277591, guid: 07abefd0467648342be36004284d3351, type: 3}
 --- !u!114 &917370529
 MonoBehaviour:
@@ -3695,6 +3695,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209254936}
   m_CullTransparentMesh: 0
+--- !u!1 &1257611104 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6413064912138760860, guid: d3e71dd4cd6c6484583572ec8bc17f05,
+    type: 3}
+  m_PrefabInstance: {fileID: 6413064911270904018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1307542442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4137,7 +4143,7 @@ GameObject:
   - component: {fileID: 1382152394}
   - component: {fileID: 1382152393}
   m_Layer: 0
-  m_Name: LandPrice
+  m_Name: BlockPrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6011,7 +6017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fe3fa222d59d4448346aca6786296d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingUI: {fileID: 577095108}
+  BlockUI: {fileID: 0}
   prefab: {fileID: 0}
 --- !u!1 &2092678126
 GameObject:
@@ -6330,7 +6336,7 @@ PrefabInstance:
     - target: {fileID: 6413064912138760860, guid: d3e71dd4cd6c6484583572ec8bc17f05,
         type: 3}
       propertyPath: m_Name
-      value: Building
+      value: Block
       objectReference: {fileID: 0}
     - target: {fileID: 6413064912138760833, guid: d3e71dd4cd6c6484583572ec8bc17f05,
         type: 3}
@@ -6392,5 +6398,10 @@ PrefabInstance:
       propertyPath: UI
       value: 
       objectReference: {fileID: 577095108}
+    - target: {fileID: 6413064912138760861, guid: d3e71dd4cd6c6484583572ec8bc17f05,
+        type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 1257611104}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3e71dd4cd6c6484583572ec8bc17f05, type: 3}

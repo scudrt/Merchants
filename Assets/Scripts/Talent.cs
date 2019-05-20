@@ -5,7 +5,7 @@ using UnityEngine;
 public class Talent
 {
 
-    public double satisfication
+    public float satisfication
     {
         set
         {
@@ -16,7 +16,7 @@ public class Talent
         get { return satisfication; }
     }
 
-    public double salary
+    public float salary
     {
         set
         {
@@ -30,18 +30,18 @@ public class Talent
     }
 
     //talent's qualities
-    public double management//management will increase speed of serving a customer
+    public float capacity//capacity will increase speed of serving a customer
     {
         set
         {
             if (value >= 100 || value < 0)
                 return;
-            management = value;
+            capacity = value;
         }
-        get { return management; }
+        get { return capacity; }
     }
 
-    public double advertising//advertising will increase building's reputation
+    public float advertising//advertising will increase Block's reputation
     {
         set
         {
@@ -52,7 +52,7 @@ public class Talent
         get { return advertising; }
     }
 
-    public double effort//effort will increase quality of service
+    public float effort//effort will increase quality of service
     {
         set
         {
