@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class BlockUI : MonoBehaviour
 {
-
-    public GameObject Block;//which Block's information to display
+    public Block targetBlock;//which Block's information to display
 
     private GameObject emptyPanel;
     private GameObject buildingPanel;
@@ -33,7 +32,7 @@ public class BlockUI : MonoBehaviour
 
         //set the information
         emptyPanel.transform.Find("BlockPrice").GetComponent<Text>().text
-            = Block.GetComponent<Block>().price.ToString();
+            = targetBlock.price.ToString();
     }
 
     public void BuildingPanelEntry()

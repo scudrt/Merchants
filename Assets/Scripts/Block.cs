@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Block : MonoBehaviour {
+public class Block : MonoBehaviour {    
 
-    public GameObject block; //Block located on this block
-
-    public Canvas UI;//Canvas displayed when the Block is clicked
-
+    public Building building;
+    private Renderer blockRenderer;
+    private Color defaultColor;
     //Block's attribute
     public float price { get; set; }
-    public int belong { get; set; }
+    public Company companyBelong { get; set; }
     public bool isOwned{
         get{
-            return this.belong != 0;
+            return this.companyBelong != null;
         }
-        set {
-            if (value == false){
-                this.belong = 0;
-            }
-        }
+        private set {}
     }
     public bool isEmpty {
         get {
@@ -29,82 +24,83 @@ public class Block : MonoBehaviour {
         private set{}
     }
 
-    public Building building;
-    private Renderer renderer;
-    private Color defaultColor;
-
-    
-
     // Use this for initialization
-    void Start () {
-        renderer = GetComponent<Renderer>();
-        defaultColor = renderer.material.color;
+    public void Awake() {
+        this.onGnerate();
+    }
 
-        this.isOwned = this.isEmpty = false;
-        this.belong = 0;
-        this.price = 100f;
-        this.building = null;
+    void Start () {
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
-    public bool canBeOwned(){
-        return this.belong == 0;
-    }
+    private void onGnerate() {
+        blockRenderer = GetComponent<Renderer>();
+        defaultColor = blockRenderer.material.color;
 
-    public bool canBuild() {
-        return this.isEmpty;
-    }
+        this.isOwned = false;
+        this.isEmpty = true;
 
+        this.building = null;
+        this.companyBelong = null;
+
+        this.price = 100f;
+        Debug.Log("Block onGenerate done");
+    }
+    
     public void build() {
         ;//??
+    }
+
+    public void sellBuilding() {
+        companyBelong.fund += building.price;
     }
     private void OnMouseOver(){
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            renderer.material.color = defaultColor;
+            blockRenderer.material.color = defaultColor;
         }
         else
         {
-            renderer.material.color = Color.red;
+            blockRenderer.material.color = Color.red;
         }
     }
 
     private void OnMouseEnter(){
-        if (!EventSystem.current.IsPointerOverGameObject())
-            renderer.material.color = Color.red; 
+        if (!EventSystem.current.IsPointerOverGameObject()) {
+            blockRenderer.material.color = Color.red;
+        }
     }
 
     private void OnMouseExit(){
         if (!EventSystem.current.IsPointerOverGameObject())
-            renderer.material.color = defaultColor;
+            blockRenderer.material.color = defaultColor;
     }
 
     private void OnMouseDown(){
         if (EventSystem.current.IsPointerOverGameObject()){
             return;
         }
-        BlockUI script = UI.GetComponent<BlockUI>();
-        script.Block = gameObject;
+        BlockUI blockUI = Canvas.FindObjectOfType<BlockUI>();
+        blockUI.targetBlock = this;
 
         //display UI according to the Block's status
         if (this.isOwned){
             if (this.isEmpty){
-                script.SendMessage("BuildingPanelEntry");
+                blockUI.SendMessage("BuildingPanelEntry");
             }
             else{
-                script.SendMessage("BoughtPanelEntry");
+                blockUI.SendMessage("BoughtPanelEntry");
             }
         }
         else{
             if (this.isEmpty){
-                script.SendMessage("EmptyPanelEntry");
+                blockUI.SendMessage("EmptyPanelEntry");
             }
             else{
-                script.SendMessage("NaturalBlockEntry");
+                blockUI.SendMessage("NaturalBlockEntry");
             }
         }
     }

@@ -6,7 +6,7 @@ public class Timer : MonoBehaviour
 {
     public static bool isActivate = false; //pause and continue switch
     public static float lastSecond = 0.0f, delta = 0.0f;
-    public static float dayMinute = 0.6f, nightMinute = 0.4f; //(day + night) minutes per day
+    public static float dayMinute = 1.2f, nightMinute = 0.8f; //(day + night) minutes per day
 
     //private data
     float sumMinute;
@@ -41,10 +41,9 @@ public class Timer : MonoBehaviour
         minute += (int)(second / 60.0f); second = second - Mathf.Floor(second / 60.0f) * 60.0f;
         hour += minute / 60; minute %= 60;
         day += hour / 24; hour %= 24;
-        string timeString = "Day " + day/10 + day%10 + " "
-            + hour/10 + hour%10 + ":" + 
-            minute/10 + minute%10 + ":" + 
-            (int)second/10 + (int)second%10;
+        string timeString = "Day " + day / 10 + day % 10 + " "
+            + hour / 10 + hour % 10 + ":" +
+            minute / 10 + minute % 10;
         this.GetComponent<UnityEngine.UI.Text>().text = timeString;
     }
 }

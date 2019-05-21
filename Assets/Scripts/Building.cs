@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float price { get; set; }
-    void Start()
-    {
-        this.price = 0f;
-    }
+    public Company companyBelong;
+    public float price;
+    public float earnRate;
+    public Talent workingTalent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public string buildingType;
+    public void makeMoney() {
+        if (companyBelong == null) {
+            return;
+        }
+        companyBelong.fund += this.earnRate;
+    }
+    public void Awake() {
+        price = 50f;
+        earnRate = 0.01f;
+
+        workingTalent = null;
+        companyBelong = null;
+    }
+    void Start(){
+    }
+    void Update(){
+        makeMoney();
     }
 }

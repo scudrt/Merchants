@@ -20,9 +20,8 @@ public class Talent
     {
         set
         {
-            if (value < 0)
-            {
-                return;
+            if (value < 0) {
+                value = 0f;
             }
             salary = value;
         }
@@ -34,44 +33,27 @@ public class Talent
     {
         set
         {
-            if (value >= 100 || value < 0)
-                return;
+            if (value > 100) {
+                value = 100;
+            }else if (value < 0) {
+                value = 0;
+            }
             capacity = value;
         }
         get { return capacity; }
     }
 
-    public float advertising//advertising will increase Block's reputation
+    public float charm//charm will increase Block's reputation
     {
-        set
-        {
-            if (value >= 100 || value < 0)
-                return;
-            advertising = value;
+        set {
+            if (value > 100) {
+                value = 100;
+            } else if (value < 0) {
+                value = 0;
+            }
+            charm = value;
         }
-        get { return advertising; }
+        get { return charm; }
     }
-
-    public float effort//effort will increase quality of service
-    {
-        set
-        {
-            if (value > 100 || value < 0)
-                return;
-            effort = value;
-        }
-        get { return effort; }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

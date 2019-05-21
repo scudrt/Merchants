@@ -3,46 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Company : MonoBehaviour{
-    public int companyId { get; set; }
+    public int id { get; set; }
     public float fund { get; set; }
     public float fame{get; set;}
+    public Color companyColor { get; set; }
 
     private List<Block> blockList;
     private List<Talent> talentList;
 
-    // Start is called before the first frame update
+    public void Awake() {
+        this.onGenerate();
+    }
     void Start(){
-        this.companyId = 0;
-        this.fund = 0f;
+    }
+
+    private void onGenerate() {
+        this.id = 0;
+        this.fund = 1000f;
         this.fame = 50f;
         this.blockList = new List<Block>();
         this.talentList = new List<Talent>();
-    }
 
-    public bool tryBuyBlock(ref Block block){
-        if (block.canBeOwned() && this.fund >= block.price){
-            block.belong = this.companyId;
-            this.fund -= block.price;
-            blockList.Add(block);
-            return true;
-        }
-        else{
+        Debug.Log("Company init done");
+    }
+    public bool buyBlock(ref Block block) {
+        //return false if block buying failed
+        if (block.isOwned || this.fund < block.price) {
             return false;
         }
+        block.companyBelong = this;
+        this.fund -= block.price;
+        return true;
     }
 
-    public bool tryBuild(ref Block block){
-        if (block.isEmpty && this.fund >= block.building.price) {
-            this.fund -= block.building.price;
-            block.build();
-            return true;
-        } else {
+    public bool buildOnBlock(ref Block block) {
+        //return false if building buying failed
+        if (!block.isEmpty || this.fund < block.building.price) {
             return false;
         }
+        block.build();
+        this.fund -= block.building.price;
+        return true;
+    }
+
+    public bool canBuildOn(Block block){ // if can build, return true and spend money
+        return block.isEmpty && this.fund >= block.building.price;
     }
 
     // Update is called once per frame
     void Update(){
-        
     }
 }

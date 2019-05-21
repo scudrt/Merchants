@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BlockButton : MonoBehaviour
 {
-
-    public Canvas BlockUI;//reference to BlockUI so that all buttons can access to it
+    public BlockUI blockUI;//reference to Canvas so that all buttons can access to it
 
     public Object prefab;//Block's prefab
 
@@ -28,10 +27,12 @@ public class BlockButton : MonoBehaviour
 
     public void OnBuyButtonClick()
     {
-        Company onlyCompany = UnityEngine.Object.FindObjectOfType<Company>();
-        Block block = BlockUI.GetComponent<BlockUI>().Block.GetComponent<Block>();
-        bool flag = onlyCompany.tryBuyBlock(ref block);
-        Debug.Log(flag);
+        Company company = City.currentCompany;
+        if (!company.buyBlock(ref blockUI.targetBlock)) {
+            //block buying faied
+            Debug.Log("block buying failed.");
+            return;
+        }
 
         SendMessageUpwards("UIExit");
         SendMessageUpwards("BoughtPanelEntry");
@@ -39,11 +40,11 @@ public class BlockButton : MonoBehaviour
 
     public void OnBuildButtonClick()
     {
-        GameObject Block = BlockUI.GetComponent<BlockUI>().Block; //the Block controlled
+        Block block = blockUI.targetBlock; //the Block controlled
 
-        Block.GetComponent<Block>().build(); //call build() function of Block
+        block.build(); //call build() function of Block
 
-        GameObject newBuilding = (GameObject) GameObject.Instantiate(prefab, Block.transform);
+        GameObject newBuilding = (GameObject) GameObject.Instantiate(prefab, block.transform);
 
         SendMessageUpwards("UIExit");
         SendMessageUpwards("BuildingPanelEntry");
