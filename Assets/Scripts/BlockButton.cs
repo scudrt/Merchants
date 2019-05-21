@@ -11,7 +11,7 @@ public class BlockButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        blockUI = Canvas.FindObjectOfType<BlockUI>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,8 @@ public class BlockButton : MonoBehaviour
     public void OnBuyButtonClick()
     {
         Company company = City.currentCompany;
-        if (!company.buyBlock(ref blockUI.targetBlock)) {
+        Debug.Log(blockUI.targetBlock == null?"yes":"no");
+        if (!company.buyBlock(ref blockUI.targetBlock)){
             //block buying faied
             Debug.Log("block buying failed.");
             return;

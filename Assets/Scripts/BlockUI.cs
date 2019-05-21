@@ -14,6 +14,7 @@ public class BlockUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        targetBlock = null;
         emptyPanel = transform.Find("EmptyPanel").gameObject;
         buildingPanel = transform.Find("BuildingPanel").gameObject;
         boughtPanel = transform.Find("BoughtPanel").gameObject;
