@@ -26,7 +26,7 @@ public class Block : MonoBehaviour {
 
     // Use this for initialization
     public void Awake() {
-        this.onGnerate();
+        this.onGenerate();
     }
 
     void Start () {
@@ -36,7 +36,7 @@ public class Block : MonoBehaviour {
 	void Update () {
 	}
 
-    private void onGnerate() {
+    private void onGenerate() {
         blockRenderer = GetComponent<Renderer>();
         defaultColor = blockRenderer.material.color;
 
