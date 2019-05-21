@@ -8,8 +8,8 @@ public class Company : MonoBehaviour{
     public float fame{get; set;}
     public Color companyColor { get; set; }
 
-    private List<Block> blockList;
-    private List<Talent> talentList;
+    public List<Block> blockList;
+    public List<Talent> talentList;
 
     public void Awake() {
         this.onGenerate();

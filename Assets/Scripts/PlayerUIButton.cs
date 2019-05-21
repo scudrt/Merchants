@@ -25,4 +25,9 @@ public class PlayerUIButton : MonoBehaviour
     {
         SendMessageUpwards("TalentsManagePanelEntry");
     }
+
+    public void OnExitButton()
+    {
+        SendMessageUpwards("UIExit");
+    }
 }

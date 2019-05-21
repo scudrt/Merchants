@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Talent
 {
+    public string name { get; set; }
 
     public float satisfication
     {
