@@ -36,6 +36,7 @@ public class PlayerUI : MonoBehaviour
 
     public void TalentsManagePanelEntry()
     {
+        talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
         talentsManagePanel.SetActive(true);
     }
 

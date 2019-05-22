@@ -16,14 +16,18 @@
             - 增加block选中的效果
             - 更好的光照效果(可选)
             - camera镜头移动仍然有问题
+			- 能不能解释一下Agent里面各种东西的enabled是个啥，TalentsManageUI的start需要在City的start生成company之后调用才行，我怎么让start执行???
         + @Vivid233:
-            - 菜单有点丑
+			- 人才详细信息显示
+            - 菜单有点丑(???)
             - 菜单内容和填充
             - 帮我催一下田明志(@scudrt)
             - 增加游戏场景的背景
-            - scrollRect报错解决一下？
             - 菜单界面位置、大小需要适配
             - 为主菜单增加背景遮住游戏场景
+	+ ### **version 0.1.8** :
+		- 人才列表显示代码
+		- 解决了blockUI Panel可能同时显示的问题
     + ### **version 0.1.7** :
         - 找到了prefab的正确用法
         - 可以指定生成建筑的类型

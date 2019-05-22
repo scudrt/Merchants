@@ -28,6 +28,8 @@ public class BlockUI : MonoBehaviour
 
     public void EmptyBlockPanelEntry()
     {
+        BroadcastMessage("UIExit");//make all other panel exit
+
         //display UI
         emptyBlockPanel.GetComponent<UIPanel>().UIEntry();
 
@@ -38,6 +40,8 @@ public class BlockUI : MonoBehaviour
 
     public void BuildingInfoPanelEntry()
     {
+        BroadcastMessage("UIExit");//make all other panel exit
+
         //display UI
         buildingInfoPanel.GetComponent<UIPanel>().UIEntry();
 
@@ -46,6 +50,8 @@ public class BlockUI : MonoBehaviour
 
     public void OwnedBlockPanelEntry()
     {
+        BroadcastMessage("UIExit");//make all other panel exit
+
         //display UI
         ownedBlockPanel.GetComponent<UIPanel>().UIEntry();
 

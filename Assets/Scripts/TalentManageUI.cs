@@ -14,10 +14,20 @@ public class TalentManageUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        talentInfoPrefab = (GameObject)Resources.Load("Prefabs/TalentContent");
         currentCompany = City.companyList[0];
         talents = transform.Find("Talents").GetComponent<ScrollRect>();
         scrollbar = talents.transform.Find("Scrollbar Vertical").GetComponent<Scrollbar>();
         viewport = transform.Find("Viewport").gameObject;
+
+        Debug.Log("OnTalnetManageStart:" + currentCompany);
+
+        /********test code*********/
+        Talent test = new Talent();
+        test.name = "DRT";
+        test.workPlace = null;
+        currentCompany.talentList.Add(test);
+        /********test code*********/
     }
 
     // Update is called once per frame
@@ -26,12 +36,18 @@ public class TalentManageUI : MonoBehaviour
         
     }
 
-    private void OnBecameVisible()
+    public void OnOpen()
     {
+        //init the talents list scroll view
+
         foreach(Talent talent in currentCompany.talentList)
         {
             GameObject talentinfo = (GameObject)GameObject.Instantiate(talentInfoPrefab,viewport.transform);
             talentinfo.transform.Find("Name").GetComponent<Text>().text = talent.name;
+            if (talent.workPlace != null)
+                talentinfo.transform.Find("WorkingPlace").GetComponent<Text>().text = talent.workPlace.buildingType;
+            else
+                talentinfo.transform.Find("WorkingPlace").GetComponent<Text>().text = "暂未分配";
         }
     }
 
