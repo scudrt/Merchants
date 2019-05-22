@@ -23,6 +23,7 @@ public class Company : MonoBehaviour{
         this.fame = 50f;
         this.blockList = new List<Block>();
         this.talentList = new List<Talent>();
+        this.companyColor = Color.green;
 
         Debug.Log("Company init done");
     }
@@ -31,8 +32,9 @@ public class Company : MonoBehaviour{
         if (block.isOwned || this.fund < block.price) {
             return false;
         }
-        block.companyBelong = this;
         this.fund -= block.price;
+        block.companyBelong = this;
+        block.color = this.companyColor;
         return true;
     }
 

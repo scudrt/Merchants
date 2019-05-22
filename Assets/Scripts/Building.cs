@@ -22,6 +22,7 @@ public class Building : MonoBehaviour
 
         workingTalent = null;
         companyBelong = null;
+        Debug.Log("Building Awake done");
     }
     void Start(){
     }

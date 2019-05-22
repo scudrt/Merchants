@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Block : MonoBehaviour {    
-
+public class Block : MonoBehaviour {
+    string buildingPrefabName { get; set; }
     public Building building;
     private Renderer blockRenderer;
-    private Color defaultColor;
+    private Color blockColor;
+    public Color color { get {
+            return this.blockColor;
+        }
+        set {
+            this.blockRenderer.material.color = this.blockColor = value;
+        }
+    }
     //Block's attribute
     public float price { get; set; }
     public Company companyBelong { get; set; }
@@ -38,34 +45,35 @@ public class Block : MonoBehaviour {
 
     private void onGenerate() {
         blockRenderer = GetComponent<Renderer>();
-        defaultColor = blockRenderer.material.color;
-
-        this.isOwned = false;
-        this.isEmpty = true;
+        color = blockRenderer.material.color;
 
         this.building = null;
         this.companyBelong = null;
 
+        this.buildingPrefabName = "prefabTower";
         this.price = 100f;
         Debug.Log("Block onGenerate done");
     }
     
-    public void build() {
-        ;//??
+    public bool build(string prefabName = "") {
+        if (!isEmpty) {
+            return false;
+        }
+        if (prefabName != "") {
+            this.buildingPrefabName = prefabName;
+        }
+        GameObject newBuilding = GameObject.FindGameObjectWithTag(this.buildingPrefabName);
+        newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
+        this.building = newBuilding.AddComponent<Building>();
+        return true;
     }
 
     public void sellBuilding() {
-        companyBelong.fund += building.price;
-    }
-    private void OnMouseOver(){
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            blockRenderer.material.color = defaultColor;
+        if (companyBelong != null) {
+            companyBelong.fund += building.price;
         }
-        else
-        {
-            blockRenderer.material.color = Color.red;
-        }
+        GameObject.DestroyImmediate(building.GetComponentInParent<GameObject>());
+        this.building = null;
     }
 
     private void OnMouseEnter(){
@@ -75,8 +83,7 @@ public class Block : MonoBehaviour {
     }
 
     private void OnMouseExit(){
-        if (!EventSystem.current.IsPointerOverGameObject())
-            blockRenderer.material.color = defaultColor;
+        blockRenderer.material.color = blockColor;
     }
 
     private void OnMouseDown(){
@@ -88,11 +95,11 @@ public class Block : MonoBehaviour {
 
         //display UI according to the Block's status
         if (this.isOwned){
-            if (this.isEmpty){
-                blockUI.SendMessage("BuildingPanelEntry");
-            }
-            else{
+            if (this.isEmpty) {
                 blockUI.SendMessage("BoughtPanelEntry");
+            }
+            else {
+                blockUI.SendMessage("BuildingPanelEntry");
             }
         }
         else{
