@@ -5,9 +5,9 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public Company companyBelong;
+    public Talent workingTalent;
     public float price;
     public float earnRate;
-    public Talent workingTalent;
 
     public string buildingType;
     public void makeMoney() {
@@ -16,15 +16,13 @@ public class Building : MonoBehaviour
         }
         companyBelong.fund += this.earnRate;
     }
-    public void Awake() {
+    void Start() {
         price = 50f;
         earnRate = 0.01f;
 
         workingTalent = null;
         companyBelong = null;
-        Debug.Log("Building Awake done");
-    }
-    void Start(){
+        Debug.Log("Building Start done");
     }
     void Update(){
         makeMoney();

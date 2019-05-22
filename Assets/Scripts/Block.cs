@@ -7,7 +7,7 @@ public class Block : MonoBehaviour {
     string buildingPrefabName { get; set; }
     public Building building;
     private Renderer blockRenderer;
-    private Color blockColor;
+    private Color blockColor, activeColor, chosenColor;
     public Color color { get {
             return this.blockColor;
         }
@@ -32,11 +32,8 @@ public class Block : MonoBehaviour {
     }
 
     // Use this for initialization
-    public void Awake() {
-        this.onGenerate();
-    }
-
     void Start () {
+        this.onGenerate();
     }
 	
 	// Update is called once per frame
@@ -51,7 +48,7 @@ public class Block : MonoBehaviour {
         this.companyBelong = null;
 
         this.buildingPrefabName = "prefabTower";
-        this.price = 100f;
+        this.price = Random.Range(10f, 100f);
         Debug.Log("Block onGenerate done");
     }
     
@@ -64,6 +61,12 @@ public class Block : MonoBehaviour {
         }
         GameObject newBuilding = GameObject.FindGameObjectWithTag(this.buildingPrefabName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
+        Vector3 blockScale = this.transform.localScale;
+        Vector3 buildingScale = newBuilding.transform.localScale;
+        buildingScale.x *= blockScale.x;
+        buildingScale.y *= blockScale.y;
+        buildingScale.z *= blockScale.z;
+        newBuilding.transform.localScale = buildingScale;
         this.building = newBuilding.AddComponent<Building>();
         return true;
     }
@@ -76,9 +79,11 @@ public class Block : MonoBehaviour {
         this.building = null;
     }
 
-    private void OnMouseEnter(){
+    private void OnMouseOver(){
         if (!EventSystem.current.IsPointerOverGameObject()) {
             blockRenderer.material.color = Color.red;
+        } else {
+            blockRenderer.material.color = this.blockColor;
         }
     }
 
@@ -90,21 +95,23 @@ public class Block : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject()){
             return;
         }
+
         BlockUI blockUI = Canvas.FindObjectOfType<BlockUI>();
         blockUI.targetBlock = this;
 
+        GameObject.FindObjectOfType<BlockButton>().SendMessageUpwards("UIExit");
         //display UI according to the Block's status
         if (this.isOwned){
             if (this.isEmpty) {
-                blockUI.SendMessage("BoughtPanelEntry");
+                blockUI.SendMessage("OwnedBlockPanelEntry");
             }
             else {
-                blockUI.SendMessage("BuildingPanelEntry");
+                blockUI.SendMessage("BuildingInfoPanelEntry");
             }
         }
         else{
             if (this.isEmpty){
-                blockUI.SendMessage("EmptyPanelEntry");
+                blockUI.SendMessage("EmptyBlockPanelEntry");
             }
             else{
                 blockUI.SendMessage("NaturalBlockEntry");

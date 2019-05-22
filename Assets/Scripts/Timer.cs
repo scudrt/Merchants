@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public static bool isActivate = false; //pause and continue switch
-    public static float lastSecond = 0.0f, delta = 0.0f;
+    public static float delta = 0.0f;
     public static float dayMinute = 1.2f, nightMinute = 0.8f; //(day + night) minutes per day
 
     //private data
     float sumMinute;
     float second;
     int day, hour, minute;
+
+    private void Awake() {
+        enabled = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -20,22 +23,14 @@ public class Timer : MonoBehaviour
         minute = 0;
         second = 0.0f;
         sumMinute = dayMinute + nightMinute;
-        this.transform.position = new Vector3(UnityEngine.Screen.width / 2, UnityEngine.Screen.height - 30, 10);
+        this.transform.position = 
+            new Vector3(UnityEngine.Screen.width / 2, UnityEngine.Screen.height - 30, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isActivate == false) //pause time lapsing
-        {
-            lastSecond = Time.time;
-            return;
-        }
-        else
-        {
-            delta = Time.time - lastSecond;
-            lastSecond = Time.time;
-        }
+        delta = Time.deltaTime;
 
         second += (delta / sumMinute * 1440.0f);
         minute += (int)(second / 60.0f); second = second - Mathf.Floor(second / 60.0f) * 60.0f;

@@ -27,7 +27,7 @@ public class City : MonoBehaviour
                 GameObject temp = Object.Instantiate(GameObject.FindGameObjectWithTag("prefabBlock"),
                     new Vector3(blockSize * (i + 0.5f) - 0.5f * mapSize, 0.01f, blockSize * (j + 0.5f) - 0.5f * mapSize),
                     new Quaternion());
-                temp.transform.localScale = new Vector3(blockScale, 1f, blockScale);
+                temp.transform.localScale = new Vector3(blockScale, blockScale, blockScale);
                 Block newBlock = temp.AddComponent<Block>();
                 blockList.Add(newBlock);
             }
@@ -43,7 +43,10 @@ public class City : MonoBehaviour
         }
         currentCompany = companyList[0]; //zero is the host of game
     }
-    
+
+    private void Awake() {
+    }
+
     void Start() {
         makeBlocks();
         makeCompanies();

@@ -10,11 +10,9 @@ public class Company : MonoBehaviour{
 
     public List<Block> blockList;
     public List<Talent> talentList;
-
-    public void Awake() {
+    
+    void Start() {
         this.onGenerate();
-    }
-    void Start(){
     }
 
     private void onGenerate() {

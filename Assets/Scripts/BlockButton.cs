@@ -18,13 +18,11 @@ public class BlockButton : MonoBehaviour
         
     }
 
-    public void OnExitButtonClick()
-    {
+    public void OnExitButtonClick(){
         SendMessageUpwards("UIExit");
     }
 
-    public void OnBuyButtonClick()
-    {
+    public void OnBuyButtonClick() {
         Company company = City.currentCompany;
         if (!company.buyBlock(ref blockUI.targetBlock)){
             //block buying faied
@@ -33,16 +31,13 @@ public class BlockButton : MonoBehaviour
         }
 
         SendMessageUpwards("UIExit");
-        SendMessageUpwards("BoughtPanelEntry");
+        SendMessageUpwards("OwnedBlockPanelEntry");
     }
 
-    public void OnBuildButtonClick()
-    {
-        Block block = blockUI.targetBlock; //the Block controlled
-
-        block.build(); //call build() function of Block
+    public void OnBuildButtonClick() {
+        blockUI.targetBlock.build(); //builds on the block
 
         SendMessageUpwards("UIExit");
-        SendMessageUpwards("BuildingPanelEntry");
+        SendMessageUpwards("BuildingInfoPanelEntry");
     }
 }

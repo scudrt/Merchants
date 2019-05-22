@@ -7,17 +7,17 @@ public class BlockUI : MonoBehaviour
 {
     public Block targetBlock;//which Block's information to display
 
-    private GameObject emptyPanel;
-    private GameObject buildingPanel;
-    private GameObject boughtPanel; //UI when the Block is bought but not constructed any Block
+    private GameObject emptyBlockPanel;
+    private GameObject buildingInfoPanel;
+    private GameObject ownedBlockPanel; //UI when the Block is bought but not constructed any Block
 
     // Start is called before the first frame update
     void Start()
     {
         targetBlock = null;
-        emptyPanel = transform.Find("EmptyPanel").gameObject;
-        buildingPanel = transform.Find("BuildingPanel").gameObject;
-        boughtPanel = transform.Find("BoughtPanel").gameObject;
+        emptyBlockPanel = transform.Find("EmptyBlockPanel").gameObject;
+        buildingInfoPanel = transform.Find("BuildingInfoPanel").gameObject;
+        ownedBlockPanel = transform.Find("OwnedBlockPanel").gameObject;
     }
 
     // Update is called once per frame
@@ -26,28 +26,28 @@ public class BlockUI : MonoBehaviour
         
     }
 
-    public void EmptyPanelEntry()
+    public void EmptyBlockPanelEntry()
     {
         //display UI
-        emptyPanel.GetComponent<UIPanel>().UIEntry();
+        emptyBlockPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
-        emptyPanel.transform.Find("BlockPrice").GetComponent<Text>().text
+        emptyBlockPanel.transform.Find("BlockPrice").GetComponent<Text>().text
             = targetBlock.price.ToString();
     }
 
-    public void BuildingPanelEntry()
+    public void BuildingInfoPanelEntry()
     {
         //display UI
-        buildingPanel.GetComponent<UIPanel>().UIEntry();
+        buildingInfoPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
     }
 
-    public void BoughtPanelEntry()
+    public void OwnedBlockPanelEntry()
     {
         //display UI
-        boughtPanel.GetComponent<UIPanel>().UIEntry();
+        ownedBlockPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
     }

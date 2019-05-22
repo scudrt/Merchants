@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Agent.cs" />
+    <Compile Include="Assets\Scripts\AIController.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\BlockButton.cs" />
     <Compile Include="Assets\Scripts\BlockUI.cs" />

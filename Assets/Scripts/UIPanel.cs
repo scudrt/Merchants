@@ -6,8 +6,7 @@ public class UIPanel : MonoBehaviour
 {
     private Animator animator;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         animator = GetComponent<Animator>();
     }
 
@@ -24,6 +23,7 @@ public class UIPanel : MonoBehaviour
 
     public void UIExit()
     {
+        Debug.Log("panel exits");
         animator.SetBool("isDisplayed", false);
     }
 }

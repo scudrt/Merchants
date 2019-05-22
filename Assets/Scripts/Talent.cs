@@ -5,7 +5,7 @@ using UnityEngine;
 public class Talent
 {
     public string name { get; set; }
-
+    public Building workPlace;
     public float satisfication
     {
         set
@@ -16,7 +16,6 @@ public class Talent
         }
         get { return satisfication; }
     }
-
     public float salary
     {
         set
@@ -28,8 +27,6 @@ public class Talent
         }
         get { return salary; }
     }
-
-    //talent's qualities
     public float capacity//capacity will increase speed of serving a customer
     {
         set
@@ -43,7 +40,6 @@ public class Talent
         }
         get { return capacity; }
     }
-
     public float charm//charm will increase Block's reputation
     {
         set {
@@ -56,5 +52,4 @@ public class Talent
         }
         get { return charm; }
     }
-    
 }
