@@ -6,7 +6,9 @@
     + Visual Studio 2015+
     + Unity3D 2019.1
 
-* ## **Version log**(TODO项只需写在最新版本后)
+* 统计行数 find assets/ -name "*.cs" |xargs wc -l
+
+* ## **Version log**
     - TODO：
         + @scudrt:
             - 增加背景图
