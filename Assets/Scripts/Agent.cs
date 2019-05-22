@@ -23,6 +23,8 @@ public class Agent : MonoBehaviour {
         GameObject.FindObjectOfType<City>().enabled = false;
         GameObject.FindObjectOfType<News>().enabled = false;
         GameObject.FindObjectOfType<Sun>().enabled = false;
+        //make prefabs invisible
+
     }
     void Start() {
     }

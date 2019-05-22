@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Block : MonoBehaviour {
-    string buildingPrefabName { get; set; }
     public Building building;
+    
     private Renderer blockRenderer;
     private Color blockColor, activeColor, chosenColor;
     public Color color { get {
@@ -41,25 +41,21 @@ public class Block : MonoBehaviour {
 	}
 
     private void onGenerate() {
-        blockRenderer = GetComponent<Renderer>();
-        color = blockRenderer.material.color;
+        this.blockRenderer = GetComponent<Renderer>();
+        this.color = blockRenderer.material.color;
 
         this.building = null;
         this.companyBelong = null;
-
-        this.buildingPrefabName = "prefabTower";
+        
         this.price = Random.Range(10f, 100f);
         Debug.Log("Block onGenerate done");
     }
     
-    public bool build(string prefabName = "") {
-        if (!isEmpty) {
+    public bool build(string prefabName = "Tower") {
+        if (!isEmpty) { //current block isn't empty
             return false;
         }
-        if (prefabName != "") {
-            this.buildingPrefabName = prefabName;
-        }
-        GameObject newBuilding = GameObject.FindGameObjectWithTag(this.buildingPrefabName);
+        GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + prefabName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
         Vector3 blockScale = this.transform.localScale;
         Vector3 buildingScale = newBuilding.transform.localScale;

@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: 49a5914bc1abd2e439e5e380f210008d
-timeCreated: 1557246355
-licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - building: {instanceID: 0}
+  - prefabTower: {fileID: 185358161192277591, guid: 07abefd0467648342be36004284d3351,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

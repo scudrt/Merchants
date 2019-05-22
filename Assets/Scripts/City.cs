@@ -8,14 +8,16 @@ public class City : MonoBehaviour
     public static List<Block> blockList;
     public static List<Company> companyList;
 
-    private const int BLOCK_NUMBER = 64; // it must be a square of integer
+    private const int BLOCK_NUMBER = 49; // it must be a square of integer
     public static int numOfPlayers = 2;
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
     private void makeBlocks() {
+        GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/Block");
         blockList = new List<Block>();
+
         int n = (int)Mathf.Sqrt((float)BLOCK_NUMBER);
         float mapSize = gameObject.GetComponent<Collider>().bounds.size.x;
         float blockSize = mapSize / n;
@@ -24,7 +26,7 @@ public class City : MonoBehaviour
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 //generate blocks using prefab
-                GameObject temp = Object.Instantiate(GameObject.FindGameObjectWithTag("prefabBlock"),
+                GameObject temp = Object.Instantiate(prefabBlock,
                     new Vector3(blockSize * (i + 0.5f) - 0.5f * mapSize, 0.01f, blockSize * (j + 0.5f) - 0.5f * mapSize),
                     new Quaternion());
                 temp.transform.localScale = new Vector3(blockScale, blockScale, blockScale);
