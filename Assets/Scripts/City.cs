@@ -47,6 +47,7 @@ public class City : MonoBehaviour
     }
 
     private void Awake() {
+        this.enabled = false;
     }
 
     void Start() {

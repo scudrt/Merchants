@@ -6,6 +6,9 @@ public class Sun : MonoBehaviour
 {
     float delta, day, night;
     // Start is called before the first frame update
+    private void Awake() {
+        this.enabled = false;
+    }
     void Start()
     {
         day = Timer.dayMinute / 3.0f;

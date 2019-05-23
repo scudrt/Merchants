@@ -15,7 +15,10 @@ public class Camera : MonoBehaviour
     int frameTick;
     bool showFPS = true;
     //Test Data Area End
-    
+
+    private void Awake() {
+        this.enabled = false;
+    }
     void Start()
     {
         /********************init start********************/

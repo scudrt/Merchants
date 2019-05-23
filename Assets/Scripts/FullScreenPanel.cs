@@ -19,13 +19,11 @@ public class FullScreenPanel : MonoBehaviour
         
     }
 
-    public void UIExit()
-    {
+    public void UIExit() {
         gameObject.SetActive(false);
     }
 
-    public void UIEntry()
-    {
+    public void UIEntry(){
         gameObject.SetActive(true);
     }
 }

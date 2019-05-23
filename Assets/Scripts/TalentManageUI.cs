@@ -11,11 +11,14 @@ public class TalentManageUI : MonoBehaviour
     private Scrollbar scrollbar;//bar controlling the talents' scroll view
     private GameObject viewport;//viewport contain talents' information
 
+    private void Awake() {
+        gameObject.SetActive(false);
+    }
     // Start is called before the first frame update
     void Start()
     {
         talentInfoPrefab = (GameObject)Resources.Load("Prefabs/TalentContent");
-        currentCompany = City.companyList[0];
+        currentCompany = City.currentCompany;
         talents = transform.Find("Talents").GetComponent<ScrollRect>();
         scrollbar = talents.transform.Find("Scrollbar Vertical").GetComponent<Scrollbar>();
         viewport = transform.Find("Viewport").gameObject;
@@ -39,7 +42,6 @@ public class TalentManageUI : MonoBehaviour
     public void OnOpen()
     {
         //init the talents list scroll view
-
         foreach(Talent talent in currentCompany.talentList)
         {
             GameObject talentinfo = (GameObject)GameObject.Instantiate(talentInfoPrefab,viewport.transform);

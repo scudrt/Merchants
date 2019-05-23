@@ -12,6 +12,9 @@ public class Population : MonoBehaviour{
     public static float birthRate { get; set; }
     public static float deathRate { get; set; }
 
+    private void Awake() {
+        this.enabled = false;
+    }
     // Start is called before the first frame update
     void Start(){
         birthRate = 0.03f;

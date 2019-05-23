@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
-{
-    // Start is called before the first frame update
+public class AIController : MonoBehaviour {
+    private void Awake() {
+        this.enabled = false;
+    }
     void Start()
     {
         
