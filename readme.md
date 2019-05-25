@@ -23,9 +23,10 @@
             - 菜单内容和填充
             - 帮我催一下田明志(@scudrt)
             - 增加游戏场景的背景
-            - 菜单界面位置、大小需要适配
             - 为主菜单增加背景遮住游戏场景
-            - viewport找不到
+			- setActive执行在onopen之后，目前只是让脚本在游戏开始时运行start然后关闭。解决方法：https://blog.csdn.net/HiCarolLi/article/details/81335316
+	+ ### **version 0.1.9** :
+		- 添加了人才滚动列表在TalentManageUI中，可以显示（测试时间比写代码时间要长。。。）
 	+ ### **version 0.1.8** :
         - UI的awake使用setactive，并且由按钮唤醒它们
         - 每个物体自己禁用自己，直到游戏开始才enable

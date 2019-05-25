@@ -6,31 +6,24 @@ public class TalentManageUI : MonoBehaviour
 {
     public GameObject talentInfoPrefab;
 
-    private Company currentCompany;//player's company
-    private ScrollRect talents;//talents' scroll view
+    private ScrollRect scrollrect;//talents' scroll view
     private Scrollbar scrollbar;//bar controlling the talents' scroll view
-    private GameObject viewport;//viewport contain talents' information
-
+    private GameObject content;//content contains talent informations
+    private RectTransform contentTR;
     private void Awake() {
-        gameObject.SetActive(false);
     }
     // Start is called before the first frame update
     void Start()
     {
-        talentInfoPrefab = (GameObject)Resources.Load("Prefabs/TalentContent");
-        currentCompany = City.currentCompany;
-        talents = transform.Find("Talents").GetComponent<ScrollRect>();
-        scrollbar = talents.transform.Find("Scrollbar Vertical").GetComponent<Scrollbar>();
-        viewport = transform.Find("Viewport").gameObject;
+        //talentInfoPrefab = (GameObject) Resources.Load("Prefabs/TalentContent");
 
-        Debug.Log("OnTalnetManageStart:" + currentCompany);
-
-        /********test code*********/
-        Talent test = new Talent();
-        test.name = "DRT";
-        test.workPlace = null;
-        currentCompany.talentList.Add(test);
-        /********test code*********/
+        scrollrect = transform.Find("Talents").GetComponent<ScrollRect>();
+        scrollbar = transform.Find("Talents").Find("Scrollbar").GetComponent<Scrollbar>();
+        content = transform.Find("Talents").transform.Find("Content").gameObject;
+        contentTR = content.GetComponent<RectTransform>();
+        contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+        Debug.Log("Talent management complete");
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,17 +32,25 @@ public class TalentManageUI : MonoBehaviour
         
     }
 
+    // Init information when open the panel
     public void OnOpen()
     {
-        //init the talents list scroll view
-        foreach(Talent talent in currentCompany.talentList)
+        List<Talent> talents = City.currentCompany.talentList;
+        GameObject talentInfo;
+        RectTransform rectTransform;
+        int i = 0;
+        Debug.Log(content == null);
+        Debug.Log(scrollrect == null);
+        foreach(Talent talent in talents)
         {
-            GameObject talentinfo = (GameObject)GameObject.Instantiate(talentInfoPrefab,viewport.transform);
-            talentinfo.transform.Find("Name").GetComponent<Text>().text = talent.name;
+            talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
+            rectTransform = talentInfo.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition.Set(i * 50, 0);
+            talentInfo.transform.Find("Name").GetComponent<Text>().text = talent.name;
             if (talent.workPlace != null)
-                talentinfo.transform.Find("WorkingPlace").GetComponent<Text>().text = talent.workPlace.buildingType;
+                talentInfo.transform.Find("WorkingPlace").GetComponent<Text>().text = talent.workPlace.buildingType;
             else
-                talentinfo.transform.Find("WorkingPlace").GetComponent<Text>().text = "暂未分配";
+                talentInfo.transform.Find("WorkingPlace").GetComponent<Text>().text = "待分配";
         }
     }
 

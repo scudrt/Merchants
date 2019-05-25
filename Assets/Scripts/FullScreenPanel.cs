@@ -20,10 +20,12 @@ public class FullScreenPanel : MonoBehaviour
     }
 
     public void UIExit() {
+        GameObject.FindObjectOfType<Camera>().enabled = true;   
         gameObject.SetActive(false);
     }
 
     public void UIEntry(){
+        GameObject.FindObjectOfType<Camera>().enabled = false;
         gameObject.SetActive(true);
     }
 }
