@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour {
     private void Awake() {
-        this.enabled = false;
+
     }
     void Start()
     {

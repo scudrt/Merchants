@@ -57,8 +57,15 @@ public class PlayerUI : MonoBehaviour
         /*****test code******/
         Talent talent = new Talent();
         talent.name = "drt";
+        talent.capacity = 50;
+        talent.charm = 50;
+        talent.salary = 100;
+        talent.satisfication = 50;
         City.currentCompany.talentList.Add(talent);
         /*****test code******/
+
+        Debug.Log(City.currentCompany.talentList.Count);
+
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }

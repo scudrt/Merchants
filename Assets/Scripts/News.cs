@@ -5,7 +5,7 @@ using UnityEngine;
 public class News : MonoBehaviour {
     private string newsFileName = "news.xml";
     private void Awake() {
-        this.enabled = false;
+
     }
     void Start() {
         loadNewsFile();

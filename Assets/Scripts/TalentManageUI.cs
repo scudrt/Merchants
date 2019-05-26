@@ -10,21 +10,44 @@ public class TalentManageUI : MonoBehaviour
     private Scrollbar scrollbar;//bar controlling the talents' scroll view
     private GameObject content;//content contains talent informations
     private RectTransform contentTR;
-    private void Awake() {
-    }
+
+    //details panel's objects
+    private int serial;//displayed talent's serial number in talents list
+    private Transform details;
+    private Text satisfication;
+    private Text talentName;
+    private Text capacity;
+    private Text charm;
+    private Text salary;
+    private Slider salaryController;
+    private InputField salaryInput;
+    private Text inputText;
+    private Text status;
+    
     // Start is called before the first frame update
     void Start()
     {
-        //talentInfoPrefab = (GameObject) Resources.Load("Prefabs/TalentContent");
+        talentInfoPrefab = (GameObject) Resources.Load("Prefabs/TalentContent");
 
         scrollrect = transform.Find("Talents").GetComponent<ScrollRect>();
         scrollbar = transform.Find("Talents").Find("Scrollbar").GetComponent<Scrollbar>();
         content = transform.Find("Talents").transform.Find("Content").gameObject;
         contentTR = content.GetComponent<RectTransform>();
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
-        Debug.Log("Talent management complete");
-        gameObject.SetActive(false);
+
+        details = transform.Find("Details");
+        satisfication = details.Find("Satisfication").GetComponent<Text>();
+        talentName = details.Find("Name").GetComponent<Text>();
+        capacity = details.Find("Capacity").GetComponent<Text>();
+        charm = details.Find("Charm").GetComponent<Text>();
+        salary = details.Find("Salary").GetComponent<Text>();
+        salaryController = details.Find("SalaryController").GetComponent<Slider>();
+        salaryInput = details.Find("SalaryInput").GetComponent<InputField>();
+        inputText = salaryInput.transform.Find("Placeholder").GetComponent<Text>();
+        status = details.Find("Status").GetComponent<Text>();
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -35,27 +58,82 @@ public class TalentManageUI : MonoBehaviour
     // Init information when open the panel
     public void OnOpen()
     {
+        //disable the details panel
+        details.gameObject.SetActive(false);
+
+        //clear the previous content
+        BroadcastMessage("DestroyTalentInfo");
+
         List<Talent> talents = City.currentCompany.talentList;
         GameObject talentInfo;
         RectTransform rectTransform;
-        int i = 0;
-        Debug.Log(content == null);
-        Debug.Log(scrollrect == null);
+        TalentInfo script;
+        int i = 0;//i is the number of column
+
         foreach(Talent talent in talents)
         {
+            //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition.Set(i * 50, 0);
+            script = talentInfo.GetComponent<TalentInfo>();
+
+            script.serial = i;
+
+            //set position
+            rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, i * 50, 50);
+
+            //set text
             talentInfo.transform.Find("Name").GetComponent<Text>().text = talent.name;
             if (talent.workPlace != null)
                 talentInfo.transform.Find("WorkingPlace").GetComponent<Text>().text = talent.workPlace.buildingType;
             else
                 talentInfo.transform.Find("WorkingPlace").GetComponent<Text>().text = "待分配";
+
+            i++;
         }
+
+        //change content rect's height
+        contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+
+        Debug.Log(contentTR.sizeDelta);
     }
 
-    private void OnBecameInvisible()
+    public void DisplayTalentInfo(int serial)
     {
-        
+        this.serial = serial;
+        details.gameObject.SetActive(true);
+
+        Talent talent= City.currentCompany.talentList[serial];
+
+        talentName.text = talent.name;
+        satisfication.text = talent.satisfication.ToString();
+        capacity.text = talent.capacity.ToString();
+        charm.text = talent.charm.ToString();
+        salary.text = talent.salary.ToString();
+        //status' content has not been decided yet
+        salaryController.value = 5;
+        salaryInput.text = salary.text;
+    }
+
+    public void OnSalaryControllValueChanged()
+    {
+        double salaryValue = System.Convert.ToDouble(salary.text);
+        double currentValue = System.Convert.ToDouble(salaryInput.text);
+        double delta = salaryValue * 0.1;//changed by 10 percents
+
+        salaryInput.text = (salaryValue + (delta * (salaryController.value - 5))).ToString();
+    }
+
+    public void OnDecideButtonClicked()
+    {
+        Talent talent = City.currentCompany.talentList[serial];
+        talent.salary = (float) System.Convert.ToDouble(salaryInput.text);
+        this.DisplayTalentInfo(serial);
+    }
+
+    public void OnFireButtonClicked()
+    {
+        City.currentCompany.talentList.RemoveAt(serial);
+        this.OnOpen();
     }
 }

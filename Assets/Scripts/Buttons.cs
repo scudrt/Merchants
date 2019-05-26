@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
@@ -16,8 +17,7 @@ public class Buttons : MonoBehaviour
 
     public void OnSingleStartButtonClick()
     {
-        GetComponentInParent<Canvas>().enabled = false; //disable main menu
-        Agent.enableAllRoomScripts(); //enable the room scripts
+        SceneManager.LoadScene("SampleScene");
     }
 
     // Start is called before the first frame update

@@ -5,12 +5,14 @@ using UnityEngine;
 public class FullScreenPanel : MonoBehaviour
 {
 
-    private Animator animator;
+    private CanvasGroup canvasGroup;
     
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        Debug.Log("Full Screen Panel init Done");
+        UIExit();
     }
 
     // Update is called once per frame
@@ -20,12 +22,14 @@ public class FullScreenPanel : MonoBehaviour
     }
 
     public void UIExit() {
-        GameObject.FindObjectOfType<Camera>().enabled = true;   
-        gameObject.SetActive(false);
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void UIEntry(){
-        GameObject.FindObjectOfType<Camera>().enabled = false;
-        gameObject.SetActive(true);
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
     }
 }

@@ -17,14 +17,18 @@
             - 更好的光照效果(可选)
             - camera镜头移动仍然有问题
             - 去掉blockUI退出的debug提示
+            - 我刚刚发现属性的get，set写法有点问题，现在这样可能会StackOverflow。。。变量是private，属性是public加set和get，具体可以看下Talent类，你看一下其他类有不有要改的
         + @Vivid233:
-			- 人才详细信息显示
-            - 菜单有点丑(???)
-            - 菜单内容和填充
-            - 帮我催一下田明志(@scudrt)
             - 增加游戏场景的背景
             - 为主菜单增加背景遮住游戏场景
-			- setActive执行在onopen之后，目前只是让脚本在游戏开始时运行start然后关闭。解决方法：https://blog.csdn.net/HiCarolLi/article/details/81335316
+            - 玩家公司信息显示
+            - 考虑把TalentManageUI扩充一下，写成所有公司都可以用的Canvas
+            - UI是真的丑（没有美工莫得法）
+            - 好像在UI上有时候会莫名其妙点到Block。。。
+    + ### **version 0.1.10** ：
+        - 人才滚动列表已经可以完美运行
+        - 创建了主菜单场景
+        - 人才详细信息界面完成
 	+ ### **version 0.1.9** :
 		- 添加了人才滚动列表在TalentManageUI中，可以显示（测试时间比写代码时间要长。。。）
 	+ ### **version 0.1.8** :

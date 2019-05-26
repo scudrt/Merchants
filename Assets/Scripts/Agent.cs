@@ -13,6 +13,7 @@ public class Agent : MonoBehaviour {
         GameObject.FindObjectOfType<City>().enabled = true;
         GameObject.FindObjectOfType<News>().enabled = true;
         GameObject.FindObjectOfType<Sun>().enabled = true;
+        GameObject.FindObjectOfType<TalentManageUI>().gameObject.SetActive(true);
     }
     void Start() {
     }

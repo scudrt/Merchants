@@ -6,50 +6,69 @@ public class Talent
 {
     public string name { get; set; }
     public Building workPlace;
+    private float _satisfication;
     public float satisfication
     {
+        get
+        {
+            return _satisfication;
+        }
         set
         {
-            if (value > 100 || satisfication < 0)
-                return;
-            satisfication = value;
+            if (value > 100)
+                value = 100;
+            if (value < 0)
+                value = 0;
+            _satisfication = value;
         }
-        get { return satisfication; }
     }
+    
+    private float _salary;
     public float salary
     {
+        get
+        {
+            return _salary;
+        }
         set
         {
-            if (value < 0) {
-                value = 0f;
-            }
-            salary = value;
+            if (value < 0)
+                value = 0;
+            _salary = value;
         }
-        get { return salary; }
     }
-    public float capacity//capacity will increase speed of serving a customer
+
+    private float _capacity;//capacity will increase speed of serving a customer
+    public float capacity
     {
+        get
+        {
+            return _satisfication;
+        }
         set
         {
-            if (value > 100) {
+            if (value > 100)
                 value = 100;
-            }else if (value < 0) {
+            if (value < 0)
                 value = 0;
-            }
-            capacity = value;
+            _satisfication = value;
         }
-        get { return capacity; }
     }
-    public float charm//charm will increase Block's reputation
+
+    private float _charm;//charm will increase Block's reputation
+    public float charm
     {
-        set {
-            if (value > 100) {
-                value = 100;
-            } else if (value < 0) {
-                value = 0;
-            }
-            charm = value;
+        get
+        {
+            return _satisfication;
         }
-        get { return charm; }
+        set
+        {
+            if (value > 100)
+                value = 100;
+            if (value < 0)
+                value = 0;
+            _satisfication = value;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-public class client : MonoBehaviour
+public class Client : MonoBehaviour
 {
     
     private byte reliableChannel;

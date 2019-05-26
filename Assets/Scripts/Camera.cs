@@ -17,7 +17,7 @@ public class Camera : MonoBehaviour
     //Test Data Area End
 
     private void Awake() {
-        this.enabled = false;
+
     }
     void Start()
     {
