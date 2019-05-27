@@ -30,4 +30,9 @@ public class PlayerUIButton : MonoBehaviour
     {
         SendMessageUpwards("UIExit");
     }
+
+    public void OnDecisionButtonClicked()
+    {
+        SendMessageUpwards("DecisionPanelEntry");
+    }
 }
