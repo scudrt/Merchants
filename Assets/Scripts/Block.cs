@@ -7,7 +7,7 @@ public class Block : MonoBehaviour {
     public Building building;
     
     private Renderer blockRenderer;
-    private Color blockColor, activeColor, chosenColor;
+    private Color blockColor, activeColor = Color.red, chosenColor = Color.blue;
     public Color color { get {
             return this.blockColor;
         }
@@ -88,7 +88,7 @@ public class Block : MonoBehaviour {
     }
 
     private void OnMouseDown(){
-        if (EventSystem.current.IsPointerOverGameObject()){
+        if (EventSystem.current.IsPointerOverGameObject()) {
             return;
         }
 

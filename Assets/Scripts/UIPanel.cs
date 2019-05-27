@@ -23,7 +23,6 @@ public class UIPanel : MonoBehaviour
 
     public void UIExit()
     {
-        Debug.Log("panel exits");
         animator.SetBool("isDisplayed", false);
     }
 }

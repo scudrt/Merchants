@@ -17,7 +17,7 @@ public class Buttons : MonoBehaviour
 
     public void OnSingleStartButtonClick()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     // Start is called before the first frame update
