@@ -11,20 +11,25 @@
 * ## **Version log**
     - TODO：
         + @scudrt:
-            - 填充各个子建筑类
             - 继续丰富完善各个类
             - 增加block选中的效果
             - 景区叫做scenic会不会不恰当
-            - camera镜头移动仍然有小小问题
+            - 将building转为虚类，并且填充各个子建筑类
             - 我刚刚发现属性的get，set写法有点问题，现在这样可能会StackOverflow。。。变量是private，属性是public加set和get，具体可以看下Talent类，你看一下其他类有不有要改的
-            - 更好的光照效果(可选)
+            - camera镜头移动仍然有小小问题（可忽略）
+            - 更好的光照效果（可选）
+            - 名字生成可以用辅音元音优化（可选）
         + @Vivid233:
+            - 人才的属性仍然是显示全50？？
             - onopen那里DestroyTalentInfo没人接收啊?
             - 增加游戏场景的背景
-            - 玩家公司信息读取啊啊啊啊
             - 考虑把TalentManageUI扩充一下，写成所有公司都可以用的Canvas
             - UI是真的丑（美工不要紧，至少换个配色嘛）
             - 好像在UI上有时候会莫名其妙点到Block(各个场景独立是不是能解决了)
+    + ### **version 0.2.1** :
+        - 改了下命名中的错别字
+        - 增加了公司信息的即时更新
+        - 在Talent中写了一个随机生成talent的静态函数
     + ### **version 0.2.0** :
         - 给场景更换了名字，不叫samplescene了，叫gamescene
         - 改了设置，现在mainmenu是最开始运行的场景，gamescene在点击开始游戏后才会被加载

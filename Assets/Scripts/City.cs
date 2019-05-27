@@ -53,8 +53,6 @@ public class City : MonoBehaviour
         makeBlocks();
         makeCompanies();
         Debug.Log("City init done");
-
-        
     }
 
     // Update is called once per frame

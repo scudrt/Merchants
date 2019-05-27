@@ -46,8 +46,8 @@ public class Block : MonoBehaviour {
 
         this.building = null;
         this.companyBelong = null;
-        
-        this.price = Random.Range(10f, 100f);
+
+        this.price = 50000f;
         Debug.Log("Block onGenerate done");
     }
     

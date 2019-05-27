@@ -42,9 +42,9 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //property.text = City.currentCompany.fund.ToString();
-        //reputation.text = City.currentCompany.fame.ToString();
-        //population.text = Population.totalAmount.ToString();
+        property.text = City.currentCompany.fund.ToString();
+        reputation.text = City.currentCompany.fame.ToString();
+        population.text = Population.totalAmount.ToString();
     }
 
     public void PlayerInfoPanelEntry()
@@ -60,13 +60,7 @@ public class PlayerUI : MonoBehaviour
     public void TalentsManagePanelEntry()
     {
         /*****test code******/
-        Talent talent = new Talent();
-        talent.name = "drt";
-        talent.capacity = 50;
-        talent.charm = 50;
-        talent.salary = 100;
-        talent.satisfication = 50;
-        City.currentCompany.talentList.Add(talent);
+        City.currentCompany.talentList.Add(Talent.generateTalent());
         /*****test code******/
 
         Debug.Log(City.currentCompany.talentList.Count);

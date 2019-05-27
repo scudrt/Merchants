@@ -14,7 +14,7 @@ public class TalentManageUI : MonoBehaviour
     //details panel's objects
     private int serial;//displayed talent's serial number in talents list
     private Transform details;
-    private Text satisfication;
+    private Text satisfaction;
     private Text talentName;
     private Text capacity;
     private Text charm;
@@ -36,7 +36,7 @@ public class TalentManageUI : MonoBehaviour
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
 
         details = transform.Find("Details");
-        satisfication = details.Find("Satisfication").GetComponent<Text>();
+        satisfaction = details.Find("Satisfaction").GetComponent<Text>();
         talentName = details.Find("Name").GetComponent<Text>();
         capacity = details.Find("Capacity").GetComponent<Text>();
         charm = details.Find("Charm").GetComponent<Text>();
@@ -98,15 +98,15 @@ public class TalentManageUI : MonoBehaviour
         Debug.Log(contentTR.sizeDelta);
     }
 
-    public void DisplayTalentInfo(int serial)
+    public void DisplayTalentInfo(int _serial)
     {
-        this.serial = serial;
+        this.serial = _serial;
         details.gameObject.SetActive(true);
 
-        Talent talent= City.currentCompany.talentList[serial];
+        Talent talent = City.currentCompany.talentList[_serial];
 
         talentName.text = talent.name;
-        satisfication.text = talent.satisfication.ToString();
+        satisfaction.text = talent.satisfaction.ToString();
         capacity.text = talent.capacity.ToString();
         charm.text = talent.charm.ToString();
         salary.text = talent.salary.ToString();

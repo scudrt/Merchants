@@ -4,14 +4,42 @@ using UnityEngine;
 
 public class Talent
 {
+    private static float generateNormalDistribution(float expectation, float radius) {
+        float ret = Random.Range(expectation - radius, expectation);
+        return ret + Random.Range(0, radius);
+    }
+    private static float floorOf(float x) {
+        return (float)((int)x);
+    }
+    public static Talent generateTalent() {
+        //return a randomly generated talent
+        //generate name
+        Talent _talent = new Talent();
+
+        int lenOfName = Random.Range(3, 6);
+        string _name = "" + (char)Random.Range(65, 90); //'A' - 'Z'
+        for (int i = 1; i < lenOfName; ++i) {
+            _name += (char)Random.Range(97, 122); //'a' - 'z'
+        }
+        _talent.name = _name;
+        //generate other value
+        float _charm = floorOf(generateNormalDistribution(50f, 50f)),
+            _capacity = floorOf(generateNormalDistribution(50f, 50f));
+        _talent.capacity = _capacity;
+        _talent.charm = _charm;
+
+        _talent.satisfaction = 50f;
+        _talent.salary = _charm + _capacity + floorOf(generateNormalDistribution(50, 25));
+        return _talent;
+    }
     public string name { get; set; }
-    public Building workPlace;
-    private float _satisfication;
-    public float satisfication
+    public Building workPlace = null;
+    private float _satisfaction;
+    public float satisfaction
     {
         get
         {
-            return _satisfication;
+            return _satisfaction;
         }
         set
         {
@@ -19,7 +47,7 @@ public class Talent
                 value = 100;
             if (value < 0)
                 value = 0;
-            _satisfication = value;
+            _satisfaction = value;
         }
     }
     
@@ -43,7 +71,7 @@ public class Talent
     {
         get
         {
-            return _satisfication;
+            return _satisfaction;
         }
         set
         {
@@ -51,7 +79,7 @@ public class Talent
                 value = 100;
             if (value < 0)
                 value = 0;
-            _satisfication = value;
+            _satisfaction = value;
         }
     }
 
@@ -60,7 +88,7 @@ public class Talent
     {
         get
         {
-            return _satisfication;
+            return _satisfaction;
         }
         set
         {
@@ -68,7 +96,7 @@ public class Talent
                 value = 100;
             if (value < 0)
                 value = 0;
-            _satisfication = value;
+            _satisfaction = value;
         }
     }
 }

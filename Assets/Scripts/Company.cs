@@ -17,7 +17,7 @@ public class Company : MonoBehaviour{
 
     private void onGenerate() {
         this.id = 0;
-        this.fund = 1000f;
+        this.fund = 100000f;
         this.fame = 50f;
         this.blockList = new List<Block>();
         this.talentList = new List<Talent>();
