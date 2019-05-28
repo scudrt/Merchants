@@ -1,5 +1,10 @@
 ﻿public class Stadium: Building {
-    // Start is called before the first frame update
+    public override void makeMoney() {
+
+    }
+    public override void onGenerate() {
+
+    }
     void Start() {
 
     }

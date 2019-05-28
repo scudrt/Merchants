@@ -71,7 +71,7 @@ public class Talent
     {
         get
         {
-            return _satisfaction;
+            return _capacity;
         }
         set
         {
@@ -79,7 +79,7 @@ public class Talent
                 value = 100;
             if (value < 0)
                 value = 0;
-            _satisfaction = value;
+            _capacity = value;
         }
     }
 
@@ -88,7 +88,7 @@ public class Talent
     {
         get
         {
-            return _satisfaction;
+            return _charm;
         }
         set
         {
@@ -96,7 +96,7 @@ public class Talent
                 value = 100;
             if (value < 0)
                 value = 0;
-            _satisfaction = value;
+            _charm = value;
         }
     }
 }

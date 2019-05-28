@@ -8,6 +8,9 @@ public class City : MonoBehaviour
     public static List<Block> blockList;
     public static List<Company> companyList;
 
+    public static Population population;
+    public static News newsMaker;
+
     private const int BLOCK_NUMBER = 49; // it must be a square of integer
     public static int numOfPlayers = 2;
 
@@ -52,6 +55,8 @@ public class City : MonoBehaviour
     void Start() {
         makeBlocks();
         makeCompanies();
+        population = GameObject.FindObjectOfType<Population>();
+        newsMaker = GameObject.FindObjectOfType<News>();
         Debug.Log("City init done");
     }
 

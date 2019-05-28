@@ -51,19 +51,54 @@ public class Block : MonoBehaviour {
         Debug.Log("Block onGenerate done");
     }
     
-    public bool build(string prefabName = "Tower") {
+    public bool build(string buildingTypeName = "Sword") {
         if (!isEmpty) { //current block isn't empty
             return false;
         }
-        GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + prefabName);
+        //load the prefab of building
+        GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
+        //set building's scale
         Vector3 blockScale = this.transform.localScale;
         Vector3 buildingScale = newBuilding.transform.localScale;
         buildingScale.x *= blockScale.x;
         buildingScale.y *= blockScale.y;
         buildingScale.z *= blockScale.z;
         newBuilding.transform.localScale = buildingScale;
-        this.building = newBuilding.AddComponent<Building>();
+        //attach script to the new building
+        switch (buildingTypeName) {
+            case "ArtGallery":
+                this.building = newBuilding.AddComponent<ArtGallery>();
+                break;
+            case "Bank":
+                this.building = newBuilding.AddComponent<Bank>();
+                break;
+            case "Cinema":
+                this.building = newBuilding.AddComponent<Cinema>();
+                break;
+            case "Hospital":
+                this.building = newBuilding.AddComponent<Hospital>();
+                break;
+            case "Restaurant":
+                this.building = newBuilding.AddComponent<Restaurant>();
+                break;
+            case "Scenic":
+                this.building = newBuilding.AddComponent<Scenic>();
+                break;
+            case "School":
+                this.building = newBuilding.AddComponent<School>();
+                break;
+            case "Stadium":
+                this.building = newBuilding.AddComponent<Stadium>();
+                break;
+            case "SuperMarket":
+                this.building = newBuilding.AddComponent<SuperMarket>();
+                break;
+            default:
+                this.building = newBuilding.AddComponent<Scenic>();
+                //can throw an exception here
+                break;
+        }
         return true;
     }
 
