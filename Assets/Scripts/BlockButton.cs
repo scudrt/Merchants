@@ -35,7 +35,8 @@ public class BlockButton : MonoBehaviour
     }
 
     public void OnBuildButtonClick() {
-        blockUI.targetBlock.build(); //builds on the block
+        //build on the block
+        City.currentCompany.buildOnBlock(ref blockUI.targetBlock);
 
         SendMessageUpwards("UIExit");
         SendMessageUpwards("BuildingInfoPanelEntry");

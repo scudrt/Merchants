@@ -36,14 +36,21 @@ public class Company : MonoBehaviour{
         return true;
     }
 
-    public bool buildOnBlock(ref Block block) {
+    public bool buildOnBlock(ref Block block, string buildingType = "Sword") {
         //return false if building buying failed
-        if (!block.isEmpty || this.fund < block.building.price) {
+        //TODO: this implementation is ugly
+        if (block.companyBelong != this) {
             return false;
         }
-        block.build();
-        this.fund -= block.building.price;
-        return true;
+        if (this.fund < Building.purchasePrice) {
+            return false;
+        }
+        bool flag = block.build(buildingType);
+        if (flag) {
+            Debug.Log("building price: " + Building.purchasePrice);
+            this.fund -= Building.purchasePrice;
+        } else { }
+        return flag;
     }
 
     public bool canBuildOn(Block block){ // if can build, return true and spend money

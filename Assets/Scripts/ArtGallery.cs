@@ -1,4 +1,13 @@
 ﻿public class ArtGallery: Building {
+    public override void upgrade() {
+        ;
+    }
+    public override void addTalent(Talent talent) {
+        ;
+    }
+    public override void removeTalent(string talentName) {
+        ;
+    }
     public override void makeMoney() {
 
     }

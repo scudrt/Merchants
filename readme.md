@@ -14,17 +14,23 @@
             - 填充各个子建筑类
             - 继续丰富完善各个类
             - 增加block选中的效果
-            - 剑的大小怎么没变化。。
+            - 建筑购买的价格用一个静态成员表示，扩展性太低了
+            - 重新考虑city、company、block和building的交互实现
             - camera镜头移动仍然有小小问题（可忽略）
             - 更好的光照效果（可选）
             - 名字生成可以用辅音元音优化（可选）
         + @Vivid233:
+            - 记得丰富一下建造面板UI
             - onopen那里DestroyTalentInfo没人接收啊?
             - 增加游戏场景的背景
             - 考虑把TalentManageUI扩充一下，写成所有公司都可以用的Canvas
             - UI是真的丑（美工不要紧，至少换个配色嘛）
             - 好像在UI上有时候会莫名其妙点到Block
     + ### **version 0.2.1** :
+        - 建造也要花钱了
+        - 优化了building类的结构
+        - 丰富了building的接口定义
+        - 添加了医院的prefab
         - 将建筑的默认prefab改为了剑
         - 将building类改为了抽象类
         - 修改了一点点bug

@@ -6,7 +6,7 @@
 
     }
     void Start() {
-
+        this.onGenerate();
     }
 
     // Update is called once per frame

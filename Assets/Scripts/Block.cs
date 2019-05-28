@@ -7,7 +7,9 @@ public class Block : MonoBehaviour {
     public Building building;
     
     private Renderer blockRenderer;
-    private Color blockColor, activeColor = Color.red, chosenColor = Color.blue;
+    private Color blockColor,
+        activeColor = Color.red, 
+        chosenColor = Color.blue;
     public Color color { get {
             return this.blockColor;
         }
@@ -47,11 +49,11 @@ public class Block : MonoBehaviour {
         this.building = null;
         this.companyBelong = null;
 
-        this.price = 50000f;
+        this.price = 20000f;
         Debug.Log("Block onGenerate done");
     }
     
-    public bool build(string buildingTypeName = "Sword") {
+    public bool build(string buildingTypeName) {
         if (!isEmpty) { //current block isn't empty
             return false;
         }
@@ -99,6 +101,7 @@ public class Block : MonoBehaviour {
                 //can throw an exception here
                 break;
         }
+        this.building.blockBelong = this;
         return true;
     }
 
