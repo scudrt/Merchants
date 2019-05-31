@@ -10,6 +10,7 @@ public class TalentsMarket : MonoBehaviour
 
     private ScrollRect scrollrect;//talents' scroll view
     private GameObject content;//content contains talent informations
+    private TalentManageUI talentManageUI;
     private RectTransform contentTR;
 
     //details panel's objects
@@ -23,7 +24,9 @@ public class TalentsMarket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        talentInfoPrefab = (GameObject)Resources.Load("Prefabs/TalentContent");
+        talentInfoPrefab = (GameObject)Resources.Load("Prefabs/UnhiredTalentInfo");
+
+        talentManageUI = GameObject.FindObjectOfType<TalentManageUI>();
 
         scrollrect = transform.Find("Talents").GetComponent<ScrollRect>();
         content = transform.Find("Talents").transform.Find("Content").gameObject;
@@ -49,12 +52,12 @@ public class TalentsMarket : MonoBehaviour
         details.gameObject.SetActive(false);
 
         //clear the previous content
-        BroadcastMessage("DestroyTalentInfo");
+        BroadcastMessage("DestroyItemInfo");
 
-        List<Talent> talents = City.currentCompany.talentList;// use unhired talent list
+        List<Talent> talents = City.talentsMarketList;
         GameObject talentInfo;
         RectTransform rectTransform;
-        TalentInfo script;
+        ItemInfo script;
         int i = 0;//i is the number of column
 
         foreach (Talent talent in talents)
@@ -62,7 +65,7 @@ public class TalentsMarket : MonoBehaviour
             //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
-            script = talentInfo.GetComponent<TalentInfo>();
+            script = talentInfo.GetComponent<ItemInfo>();
 
             script.serial = i;
 
@@ -72,11 +75,35 @@ public class TalentsMarket : MonoBehaviour
             //set text
             talentInfo.transform.Find("Name").GetComponent<Text>().text = talent.name;
             talentInfo.transform.Find("Salary").GetComponent<Text>().text = talent.salary.ToString();
+            talentInfo.transform.Find("Capacity").GetComponent<Text>().text = talent.capacity.ToString();
+            talentInfo.transform.Find("Charm").GetComponent<Text>().text = talent.charm.ToString();
+
 
             i++;
         }
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+    }
+
+    public void DisplayTalentInfo(int _serial)
+    {
+        this.serial = _serial;
+        details.gameObject.SetActive(true);
+
+        Talent talent = City.talentsMarketList[serial];
+
+        talentName.text = talent.name;
+        capacity.text = talent.capacity.ToString();
+        charm.text = talent.charm.ToString();
+        salary.text = talent.salary.ToString();
+    }
+
+    public void OnHireButtonClicked()
+    {
+        City.currentCompany.talentList.Add(City.talentsMarketList[serial]);
+        City.talentsMarketList.RemoveAt(serial);
+        this.OnOpen();
+        talentManageUI.OnOpen();
     }
 }

@@ -62,12 +62,12 @@ public class TalentManageUI : MonoBehaviour
         details.gameObject.SetActive(false);
 
         //clear the previous content
-        BroadcastMessage("DestroyTalentInfo");
+        BroadcastMessage("DestroyItemInfo");
 
         List<Talent> talents = City.currentCompany.talentList;
         GameObject talentInfo;
         RectTransform rectTransform;
-        TalentInfo script;
+        ItemInfo script;
         int i = 0;//i is the number of column
 
         foreach(Talent talent in talents)
@@ -75,7 +75,7 @@ public class TalentManageUI : MonoBehaviour
             //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
-            script = talentInfo.GetComponent<TalentInfo>();
+            script = talentInfo.GetComponent<ItemInfo>();
 
             script.serial = i;
 
@@ -94,8 +94,6 @@ public class TalentManageUI : MonoBehaviour
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
-
-        Debug.Log(contentTR.sizeDelta);
     }
 
     public void DisplayTalentInfo(int _serial)

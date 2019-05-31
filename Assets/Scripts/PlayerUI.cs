@@ -59,12 +59,6 @@ public class PlayerUI : MonoBehaviour
 
     public void TalentsManagePanelEntry()
     {
-        /*****test code******/
-        City.currentCompany.talentList.Add(Talent.generateTalent());
-        /*****test code******/
-
-        Debug.Log(City.currentCompany.talentList.Count);
-
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }
@@ -82,5 +76,6 @@ public class PlayerUI : MonoBehaviour
     public void TalentsMarketPanelEntry()
     {
         talentsMarketPanel.GetComponent<FullScreenPanel>().UIEntry();
+        talentsMarketPanel.GetComponent<TalentsMarket>().OnOpen();
     }
 }

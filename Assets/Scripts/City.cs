@@ -7,6 +7,7 @@ public class City : MonoBehaviour
     /**********data area**********/
     public static List<Block> blockList;
     public static List<Company> companyList;
+    public static List<Talent> talentsMarketList;
 
     public static Population population;
     public static News newsMaker;
@@ -16,6 +17,16 @@ public class City : MonoBehaviour
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
+
+    public static void generateTalentsMarket()
+    {
+        talentsMarketList.Clear();
+        int num = Random.Range(10, 15);
+        for(int i = 0; i < num; i++)
+        {
+            talentsMarketList.Add(Talent.generateTalent());
+        }
+    }
 
     private void makeBlocks() {
         GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/Block");
@@ -57,6 +68,8 @@ public class City : MonoBehaviour
         makeCompanies();
         population = GameObject.FindObjectOfType<Population>();
         newsMaker = GameObject.FindObjectOfType<News>();
+        talentsMarketList = new List<Talent>();
+        generateTalentsMarket();
         Debug.Log("City init done");
     }
 

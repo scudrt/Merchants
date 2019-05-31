@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TalentInfo : MonoBehaviour
+public class ItemInfo : MonoBehaviour
 {
     public int serial;//talent's serial number
 
@@ -18,7 +18,7 @@ public class TalentInfo : MonoBehaviour
         
     }
 
-    public void DestroyTalentInfo()
+    public void DestroyItemInfo()
     {
         Destroy(gameObject);
     }

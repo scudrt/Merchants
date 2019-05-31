@@ -7,6 +7,8 @@ public class BlockUI : MonoBehaviour
 {
     public Block targetBlock;//which Block's information to display
 
+    private string type = "Sword";//constructed building's type
+
     private GameObject emptyBlockPanel;
     private GameObject buildingInfoPanel;
     private GameObject ownedBlockPanel; //UI when the Block is bought but not constructed any Block
@@ -56,5 +58,32 @@ public class BlockUI : MonoBehaviour
         ownedBlockPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
+    }
+
+    public void OnBuyButtonClick()
+    {
+        Company company = City.currentCompany;
+        if (!company.buyBlock(ref targetBlock))
+        {
+            //block buying faied
+            Debug.Log("block buying failed.");
+            return;
+        }
+        emptyBlockPanel.GetComponent<UIPanel>().UIExit();
+        SendMessageUpwards("OwnedBlockPanelEntry");
+    }
+
+    public void OnBuildButtonClick()
+    {
+        //build on the block
+        City.currentCompany.buildOnBlock(ref targetBlock, type);
+
+        ownedBlockPanel.GetComponent<UIPanel>().UIExit();
+        SendMessageUpwards("BuildingInfoPanelEntry");
+    }
+
+    public void OnBuildingTypeButtonClicked(string type)
+    {
+        this.type = type;
     }
 }

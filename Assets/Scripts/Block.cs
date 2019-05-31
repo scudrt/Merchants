@@ -133,7 +133,7 @@ public class Block : MonoBehaviour {
         BlockUI blockUI = Canvas.FindObjectOfType<BlockUI>();
         blockUI.targetBlock = this;
 
-        GameObject.FindObjectOfType<BlockButton>().SendMessageUpwards("UIExit");
+        GameObject.FindObjectOfType<BlockUI>().BroadcastMessage("UIExit");
         //display UI according to the Block's status
         if (this.isOwned){
             if (this.isEmpty) {
