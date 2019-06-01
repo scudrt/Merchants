@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class BuildingManagement : MonoBehaviour
 {
     public GameObject blockInfoPrefab;
 
@@ -44,7 +44,7 @@ public class NewBehaviourScript : MonoBehaviour
         List<Block> blocks = City.currentCompany.blockList;
         GameObject blockInfo;
         RectTransform rectTransform;
-        ChangableItemInfo script; 
+        ItemInfo script; 
         int i = 0;//i is the number of column
 
         foreach (Block block in blocks)
@@ -52,7 +52,7 @@ public class NewBehaviourScript : MonoBehaviour
             //add talent's information
             blockInfo = GameObject.Instantiate(blockInfoPrefab, content.transform);
             rectTransform = blockInfo.GetComponent<RectTransform>();
-            script = blockInfo.GetComponent<ChangableItemInfo>();
+            script = blockInfo.GetComponent<ItemInfo>();
 
             script.serial = i;
 

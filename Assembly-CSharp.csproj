@@ -69,15 +69,14 @@
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\BlockUI.cs" />
     <Compile Include="Assets\Scripts\Building.cs" />
+    <Compile Include="Assets\Scripts\BuildingManagement.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
-    <Compile Include="Assets\Scripts\ChangableItemInfo.cs" />
     <Compile Include="Assets\Scripts\Cinema.cs" />
     <Compile Include="Assets\Scripts\City.cs" />
     <Compile Include="Assets\Scripts\Client.cs" />
     <Compile Include="Assets\Scripts\Company.cs" />
     <Compile Include="Assets\Scripts\FullScreenPanel.cs" />
-    <Compile Include="Assets\Scripts\FundDistribution.cs" />
     <Compile Include="Assets\Scripts\Hospital.cs" />
     <Compile Include="Assets\Scripts\ItemInfo.cs" />
     <Compile Include="Assets\Scripts\News.cs" />
