@@ -25,6 +25,6 @@ public class ItemInfo : MonoBehaviour
 
     public void OnClick()
     {
-        SendMessageUpwards("DisplayTalentInfo", serial);
+        SendMessageUpwards("DisplayItemInfo", serial);
     }
 }
