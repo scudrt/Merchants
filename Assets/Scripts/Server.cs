@@ -1,28 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
-public class Client : MonoBehaviour
+using System.IO;
+public class Server:MonoBehaviour
 {
-    
+    //block位置静态
+
+
     private byte reliableChannel;
-    private const int MAX_USER = 100;
+    private int MAX_USER = 100;
 
     private int PORT = 26000;
     private int WEB_PORT = 26001;
 
     private int hostId;
     private int webHostId;
-    private int connectionId;
-   
+
     private bool isStarted = false;
-
-    private const string SERVER_IP = "127.0.0.1";
-    private byte error;
-
     private const int BYTE_SIZE = 1024;
+    private byte error;
     // Start is called before the first frame update
     #region Monobehaviour
     private void Start()
@@ -30,19 +28,13 @@ public class Client : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Init();
     }
-    
 
     private void Update()
     {
-        /*CreateAccount account = new CreateAccount();
-        account.userName = "MilesTin";
-        account.passWd = "12345678";
-        account.email = "115452@qq.com";
-        account.OP = NetOP.CreateAccount;
-        SendServer(account);*/
         UpdateMessgaePump();
     }
     #endregion
+
     public void Init()
     {
         NetworkTransport.Init();
@@ -52,20 +44,10 @@ public class Client : MonoBehaviour
 
         HostTopology topo = new HostTopology(cc, MAX_USER);
 
-        //client only code
-        hostId = NetworkTransport.AddHost(topo, 0);
-#if UNITY_EDITOR || !UNITY_WEBGL
-        //Stand alone client
-        Debug.Log("connecting from standalone");
-        connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+        hostId = NetworkTransport.AddHost(topo, PORT, null);
+        webHostId = NetworkTransport.AddWebsocketHost(topo, WEB_PORT, null);
 
-#else
-        //web client
-        Debug.Log("connecting from web client");
-        connectionId = NetworkTransport.Connect(hostId, SERVER_IP, WEB_PORT, 0, out error);
-#endif
-        
-        Debug.Log(string.Format("Attemping to connect on {0}...", SERVER_IP));
+        Debug.Log(string.Format("Opening connection on port {0} and webport {1}", PORT, WEB_PORT));
 
         isStarted = true;
     }
@@ -77,8 +59,6 @@ public class Client : MonoBehaviour
         Debug.Log("network shutdown");
     }
     // Update is called once per frame
-
-  
     public void UpdateMessgaePump()
     {
         if (!isStarted)
@@ -86,6 +66,8 @@ public class Client : MonoBehaviour
             return;
         }
         int recHostId; //web client or standalone
+        //standalone 0
+        //webclient 1
         int connectionId;// which user
         int channelId;//which lane or channel
 
@@ -98,11 +80,11 @@ public class Client : MonoBehaviour
             case NetworkEventType.Nothing:
                 break;
             case NetworkEventType.ConnectEvent:
-                Debug.Log("We have been connected to the server");
+                Debug.Log(string.Format("User {0} has connected through {1} !", connectionId, recHostId));
                 break;
 
             case NetworkEventType.DisconnectEvent:
-                Debug.Log("We have been disconnected to the server");
+                Debug.Log(string.Format("User {0} has disconnected!", connectionId));
                 break;
 
             case NetworkEventType.BroadcastEvent:
@@ -110,24 +92,40 @@ public class Client : MonoBehaviour
                 break;
 
             case NetworkEventType.DataEvent:
-                Debug.Log("data");
+                BinaryFormatter formatter = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream(recBuffer);
+                NetMsg msg = (NetMsg)formatter.Deserialize(ms);
+
+                OnData(connectionId, channelId, recHostId, msg);
                 break;
             default:
                 break;
         }
     }
 
-    #region send
-    public void SendServer(NetMsg msg)
+    #region OnData
+    private void OnData(int cnnId,int channelId,int recHostId,NetMsg msg)
     {
-        byte[] buffer = new byte[BYTE_SIZE];
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        MemoryStream ms = new MemoryStream(buffer);
-        formatter.Serialize(ms, msg);
-        
-        NetworkTransport.Send(hostId, connectionId, reliableChannel, buffer, BYTE_SIZE, out error);
-        
+        Debug.Log("Received a message of type " + msg.OP);
+        switch (msg.OP)
+        {
+            case NetOP.None:
+                break;
+            case NetOP.CreateAccount:
+                CreateAccount(cnnId, channelId, recHostId, (CreateAccount)msg);
+                break;
+        }
     }
     #endregion
+    private void CreateAccount(int cnnId,int channelId,int recHostId,CreateAccount account)
+    {
+        Debug.Log(string.Format("Account: username:{0}, password: {1}, email: {2}", account.userName, account.passWd, account.email));
+
+    }
+
+    public void sendClient(NetMsg msg)
+    {
+
+    }
 }
+

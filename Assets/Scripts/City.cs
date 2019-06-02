@@ -44,7 +44,10 @@ public class City : MonoBehaviour
                     new Vector3(blockSize * (i + 0.5f) - 0.5f * mapSize, 0.01f, blockSize * (j + 0.5f) - 0.5f * mapSize),
                     new Quaternion());
                 temp.transform.localScale = new Vector3(blockScale, blockScale, blockScale);
+               
                 Block newBlock = temp.AddComponent<Block>();
+                newBlock.Pos_x = i;
+                newBlock.Pos_y = j;
                 blockList.Add(newBlock);
             }
         }
