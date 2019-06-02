@@ -10,14 +10,18 @@ public class BuildingManagement : MonoBehaviour
     private ScrollRect scrollrect;//blocks' scroll view
     private GameObject content;//content contains talent informations
     private RectTransform contentTR;
+    private Transform details;
 
     //objects in blockInfo
     private int serial;//displayed talent's serial number in blocks list
-    private Text payment; //cost on talents' salary
+    private Text buildingName;
+    private Text industry;
+    private Text costumer;
+    private InputField budget;
     private Text profit;
-    private Text type;//building's type
     private Text advertising; // cost on advertising
-    private Text run; //cost of running the building
+    private Text operating; //cost of running the building
+    private Slider budgetUse;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,16 @@ public class BuildingManagement : MonoBehaviour
         content = transform.Find("Blocks").transform.Find("Content").gameObject;
         contentTR = content.GetComponent<RectTransform>();
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+
+        details = transform.Find("Details");
+        buildingName = details.Find("Name").GetComponent<Text>();
+        industry = details.Find("Industry").GetComponent<Text>();
+        budget = details.Find("BudgetInput").GetComponent<InputField>();
+        costumer = details.Find("Costumer").GetComponent<Text>();
+        profit = details.Find("Profit").GetComponent<Text>();
+        advertising = details.Find("Advertising").GetComponent<Text>();
+        operating = details.Find("Operating").GetComponent<Text>();
+        budgetUse = details.Find("BudgetUse").GetComponent<Slider>();
     }
 
     // Update is called once per frame
@@ -38,6 +52,8 @@ public class BuildingManagement : MonoBehaviour
 
     public void OnOpen()
     {
+        details.gameObject.SetActive(false);
+
         //clear the previous content
         BroadcastMessage("DestroyItemInfo");
 
@@ -64,5 +80,11 @@ public class BuildingManagement : MonoBehaviour
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+    }
+
+    public void DisplayItemInfo(int _serial)
+    {
+        this.serial = _serial;
+        
     }
 }

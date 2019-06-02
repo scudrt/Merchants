@@ -86,7 +86,7 @@ public class TalentsMarket : MonoBehaviour
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
     }
 
-    public void DisplayTalentInfo(int _serial)
+    public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
         details.gameObject.SetActive(true);
