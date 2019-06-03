@@ -10,8 +10,9 @@ public class PlayerUI : MonoBehaviour
     private GameObject playerInfoPanel;
     private GameObject bottomPanel;
     private GameObject talentsManagePanel;
-    private GameObject decisionPanel;
+    private GameObject blocksManagePanel;
     private GameObject talentsMarketPanel;
+    private GameObject companiesPanel;
 
 
     /******get all data text on bottom panel*******/
@@ -29,8 +30,9 @@ public class PlayerUI : MonoBehaviour
         playerInfoPanel = transform.Find("PlayerInfoPanel").gameObject;
         bottomPanel = transform.Find("BottomPanel").gameObject;
         talentsManagePanel = transform.Find("TalentsManagePanel").gameObject;
-        decisionPanel = transform.Find("DecisionPanel").gameObject;
+        blocksManagePanel = transform.Find("BlocksManagePanel").gameObject;
         talentsMarketPanel = transform.Find("TalentsMarketPanel").gameObject;
+        companiesPanel = transform.Find("CompaniesPanel").gameObject;
 
         property = bottomPanel.transform.Find("Property").GetComponent<Text>();
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
@@ -63,9 +65,10 @@ public class PlayerUI : MonoBehaviour
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }
 
-    public void DecisionPanelEntry()
+    public void BlocksManagePanelEntry()
     {
-        decisionPanel.GetComponent<FullScreenPanel>().UIEntry();
+        blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
+        blocksManagePanel.GetComponent<BuildingManagement>().OnOpen();
     }
 
     public void TalentsManagePanelExit()
@@ -77,5 +80,11 @@ public class PlayerUI : MonoBehaviour
     {
         talentsMarketPanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsMarketPanel.GetComponent<TalentsMarket>().OnOpen();
+    }
+
+    public void CompaniesPanelEntry()
+    {
+        companiesPanel.GetComponent<FullScreenPanel>().UIEntry();
+        companiesPanel.GetComponent<CompaniesUI>().OnOpen();
     }
 }

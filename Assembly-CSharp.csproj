@@ -74,8 +74,11 @@
     <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\Cinema.cs" />
     <Compile Include="Assets\Scripts\City.cs" />
-    <Compile Include="Assets\Scripts\Client.cs" />
+    <Compile Include="Assets\Scripts\client.cs" />
+    <Compile Include="Assets\Scripts\CompaniesUI.cs" />
     <Compile Include="Assets\Scripts\Company.cs" />
+    <Compile Include="Assets\Scripts\Event.cs" />
+    <Compile Include="Assets\Scripts\EventsPanel.cs" />
     <Compile Include="Assets\Scripts\FullScreenPanel.cs" />
     <Compile Include="Assets\Scripts\Hospital.cs" />
     <Compile Include="Assets\Scripts\ItemInfo.cs" />

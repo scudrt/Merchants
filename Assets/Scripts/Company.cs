@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Company : MonoBehaviour{
     public int id { get; set; }
+    public string nickName { get; set; }
     public float fund { get; set; }
     public float fame{get; set;}
     public Color companyColor { get; set; }

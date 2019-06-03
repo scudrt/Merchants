@@ -60,7 +60,7 @@ public class BuildingManagement : MonoBehaviour
         List<Block> blocks = City.currentCompany.blockList;
         GameObject blockInfo;
         RectTransform rectTransform;
-        ItemInfo script; 
+        ItemInfo script;
         int i = 0;//i is the number of column
 
         foreach (Block block in blocks)

@@ -126,7 +126,7 @@ public class TalentManageUI : MonoBehaviour
     {
         Talent talent = City.currentCompany.talentList[serial];
         talent.salary = (float) System.Convert.ToDouble(salaryInput.text);
-        this.DisplayTalentInfo(serial);
+        this.DisplayItemInfo(serial);
     }
 
     public void OnFireButtonClicked()
