@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BlockUI : MonoBehaviour
 {
-    public Block targetBlock;//which Block's information to display
+    private Block targetBlock;//which Block's information to display
 
     private string type = "Sword";//constructed building's type
 
@@ -23,14 +23,21 @@ public class BlockUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
     }
 
-    public void EmptyBlockPanelEntry()
-    {
-        BroadcastMessage("UIExit");//make all other panel exit
+    public void setBlock(Block block) {
+        if (this.targetBlock != null) {
+            this.targetBlock.isChosen = false;
+        }
+        block.isChosen = true;
+        this.targetBlock = block;
+    }
+    
+    public void EmptyBlockPanelEntry() {
+        //let all other panel exit
+        BroadcastMessage("UIExit");
 
         //display UI
         emptyBlockPanel.GetComponent<UIPanel>().UIEntry();
@@ -40,9 +47,9 @@ public class BlockUI : MonoBehaviour
             = targetBlock.price.ToString();
     }
 
-    public void BuildingInfoPanelEntry()
-    {
-        BroadcastMessage("UIExit");//make all other panel exit
+    public void BuildingInfoPanelEntry() {
+        //let all other panel exit
+        BroadcastMessage("UIExit");
 
         //display UI
         buildingInfoPanel.GetComponent<UIPanel>().UIEntry();
@@ -50,9 +57,9 @@ public class BlockUI : MonoBehaviour
         //set the information
     }
 
-    public void OwnedBlockPanelEntry()
-    {
-        BroadcastMessage("UIExit");//make all other panel exit
+    public void OwnedBlockPanelEntry() {
+        //let all other panel exit
+        BroadcastMessage("UIExit");
 
         //display UI
         ownedBlockPanel.GetComponent<UIPanel>().UIEntry();
@@ -60,11 +67,9 @@ public class BlockUI : MonoBehaviour
         //set the information
     }
 
-    public void OnBuyButtonClick()
-    {
+    public void OnBuyButtonClick(){
         Company company = City.currentCompany;
-        if (!company.buyBlock(ref targetBlock))
-        {
+        if (!company.buyBlock(ref targetBlock)){
             //block buying faied
             Debug.Log("block buying failed.");
             return;
@@ -73,17 +78,20 @@ public class BlockUI : MonoBehaviour
         SendMessageUpwards("OwnedBlockPanelEntry");
     }
 
-    public void OnBuildButtonClick()
-    {
+    public void OnBuildButtonClick(){
         //build on the block
-        City.currentCompany.buildOnBlock(ref targetBlock, type);
+        City.currentCompany.buildOnBlock(ref targetBlock, this.type);
 
         ownedBlockPanel.GetComponent<UIPanel>().UIExit();
         SendMessageUpwards("BuildingInfoPanelEntry");
     }
 
-    public void OnBuildingTypeButtonClicked(string type)
-    {
+    public void onExitButtonClicked() {
+        this.targetBlock.isChosen = false;
+        this.GetComponent<UIPanel>().UIExit();
+    }
+
+    public void OnBuildingTypeButtonClicked(string type){
         this.type = type;
     }
 }

@@ -44,6 +44,9 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (City.currentCompany == null) {
+            return;
+        }
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.totalAmount.ToString();

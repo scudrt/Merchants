@@ -33,8 +33,20 @@ public class Company : MonoBehaviour{
         }
         this.fund -= block.price;
         block.companyBelong = this;
-        block.color = this.companyColor;
         return true;
+    }
+
+    public bool costMoney(float delta) {
+        //return true if it have enough money
+        if (delta > this.fund) {
+            return false;
+        }
+        this.fund -= delta;
+        return true;
+    }
+
+    public bool increaseMoney(float delta) {
+        return this.costMoney(-delta);
     }
 
     public bool buildOnBlock(ref Block block, string buildingType = "Sword") {
@@ -43,14 +55,7 @@ public class Company : MonoBehaviour{
         if (block.companyBelong != this) {
             return false;
         }
-        if (this.fund < Building.purchasePrice) {
-            return false;
-        }
         bool flag = block.build(buildingType);
-        if (flag) {
-            Debug.Log("building price: " + Building.purchasePrice);
-            this.fund -= Building.purchasePrice;
-        } else { }
         return flag;
     }
 
