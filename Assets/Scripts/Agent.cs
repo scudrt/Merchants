@@ -14,6 +14,8 @@ public class Agent : MonoBehaviour {
         GameObject.FindObjectOfType<News>().enabled = true;
         GameObject.FindObjectOfType<Sun>().enabled = true;
         GameObject.FindObjectOfType<TalentManageUI>().gameObject.SetActive(true);
+        GameObject.FindObjectOfType<Client>().enabled = true;
+        GameObject.FindObjectOfType<Server>().enabled = true;
     }
     void Start() {
     }

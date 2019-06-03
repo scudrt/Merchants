@@ -5,7 +5,20 @@ using UnityEngine.EventSystems;
 
 public class Block : MonoBehaviour {
     public Building building;
-    
+    public int Pos_x { set
+        { Pos_x = value; } get { return Pos_x; } }
+    public int Pos_y
+    {
+        set
+        {
+            Pos_y = value;
+        }
+
+        get
+        {
+            return Pos_y;
+        }
+    }
     private Renderer blockRenderer;
     private Color blockColor,
         activeColor = Color.red, 
