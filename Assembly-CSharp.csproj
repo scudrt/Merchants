@@ -89,6 +89,10 @@
     <Compile Include="Assets\Scripts\Restaurant.cs" />
     <Compile Include="Assets\Scripts\Scenic.cs" />
     <Compile Include="Assets\Scripts\School.cs" />
+    <Compile Include="Assets\Scripts\Server.cs" />
+    <Compile Include="Assets\Scripts\Shared\BlockInfo.cs" />
+    <Compile Include="Assets\Scripts\Shared\CreateAccount.cs" />
+    <Compile Include="Assets\Scripts\Shared\NetMsg.cs" />
     <Compile Include="Assets\Scripts\Stadium.cs" />
     <Compile Include="Assets\Scripts\Sun.cs" />
     <Compile Include="Assets\Scripts\SuperMarket.cs" />
