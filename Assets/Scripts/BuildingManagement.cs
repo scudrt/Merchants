@@ -50,6 +50,11 @@ public class BuildingManagement : MonoBehaviour
         
     }
 
+    private void DestroyItemInfo()
+    {
+
+    }
+
     public void OnOpen()
     {
         details.gameObject.SetActive(false);

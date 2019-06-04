@@ -46,6 +46,11 @@ public class TalentsMarket : MonoBehaviour
         
     }
 
+    private void DestroyItemInfo()
+    {
+
+    }
+
     public void OnOpen()
     {
         //disable the details panel

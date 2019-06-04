@@ -76,7 +76,19 @@ public class BlockUI : MonoBehaviour
         }
         emptyBlockPanel.GetComponent<UIPanel>().UIExit();
         SendMessageUpwards("OwnedBlockPanelEntry");
+
+        /***test code***/
+        Event.clickEvent clickEvent = new Event.clickEvent(() =>
+        {
+            PlayerUI playerUI = GameObject.FindObjectOfType<PlayerUI>();
+            playerUI.SendMessage("BlocksManagePanelEntry");
+        });
+
+        string eventText = "你购买了一块地！";
+        GameObject.FindObjectOfType<EventsPanel>().GetComponent<EventsPanel>().AddEvent(clickEvent, eventText);
+        /***test code***/
     }
+
 
     public void OnBuildButtonClick(){
         //build on the block
@@ -88,7 +100,7 @@ public class BlockUI : MonoBehaviour
 
     public void onExitButtonClicked() {
         this.targetBlock.isChosen = false;
-        this.GetComponent<UIPanel>().UIExit();
+        BroadcastMessage("UIExit");
     }
 
     public void OnBuildingTypeButtonClicked(string type){

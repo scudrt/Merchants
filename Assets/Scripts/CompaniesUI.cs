@@ -40,6 +40,11 @@ public class CompaniesUI : MonoBehaviour
         
     }
 
+    private void DestroyItemInfo()
+    {
+
+    }
+
     public void OnOpen()
     {
         details.gameObject.SetActive(false);

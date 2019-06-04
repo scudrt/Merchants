@@ -27,7 +27,6 @@ public class PlayerUI : MonoBehaviour
     {
         company = City.currentCompany;
 
-        playerInfoPanel = transform.Find("PlayerInfoPanel").gameObject;
         bottomPanel = transform.Find("BottomPanel").gameObject;
         talentsManagePanel = transform.Find("TalentsManagePanel").gameObject;
         blocksManagePanel = transform.Find("BlocksManagePanel").gameObject;
@@ -47,6 +46,7 @@ public class PlayerUI : MonoBehaviour
         if (City.currentCompany == null) {
             return;
         }
+
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.totalAmount.ToString();

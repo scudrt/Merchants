@@ -55,6 +55,11 @@ public class TalentManageUI : MonoBehaviour
         
     }
 
+    private void DestroyItemInfo()
+    {
+
+    }
+
     // Init information when open the panel
     public void OnOpen()
     {

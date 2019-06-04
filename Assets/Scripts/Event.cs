@@ -9,19 +9,27 @@ public class Event : MonoBehaviour
     public delegate void clickEvent(); //define delegate
     public clickEvent onClick;  //implement clickEvent
 
-    private Animator animator;
+    public Vector3 targetPos; //position the item should be in
+
+    private const int speed = 200; //speed when event info moving
+    private string text;
     private Text eventText;
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Event start");
         eventText = transform.Find("Text").GetComponent<Text>();
+        eventText.text = text;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.position != targetPos)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, speed * Time.deltaTime);
+        }
     }
 
     public void OnClick()
@@ -32,6 +40,6 @@ public class Event : MonoBehaviour
     
     public void setText(string text)
     {
-        eventText.text = text;
+        this.text = text;
     }
 }
