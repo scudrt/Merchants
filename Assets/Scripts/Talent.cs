@@ -5,11 +5,6 @@ using UnityEngine;
 public class Talent
 {
     private static int talentTick = 0; //record the talents have ever generated
-    private static float generateNormalDistribution(float expectation, float radius) {
-        //it is not a normal distribution in fact:)
-        float ret = Random.Range(expectation - radius, expectation);
-        return ret + Random.Range(0, radius);
-    }
     private static float floor(float x) {
         return (float)((int)x);
     }
@@ -25,13 +20,13 @@ public class Talent
         }
         _talent.name = _name;
         //generate talent's capacity
-        float _charm = floor(generateNormalDistribution(50f, 50f)),
-            _capacity = floor(generateNormalDistribution(50f, 50f));
+        float _charm = floor(City.generateNormalDistribution(50f, 50f)),
+            _capacity = floor(City.generateNormalDistribution(50f, 50f));
         _talent.capacity = _capacity;
         _talent.charm = _charm;
 
         _talent.satisfaction = 50f;
-        _talent.salary = _charm + _capacity + floor(generateNormalDistribution(50, 25));
+        _talent.salary = _charm + _capacity + floor(City.generateNormalDistribution(50, 25));
         //distribute id for every talent
         _talent.id = talentTick++;
         return _talent;

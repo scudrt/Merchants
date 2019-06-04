@@ -8,8 +8,7 @@ public class City : MonoBehaviour
     public static List<Block> blockList;
     public static List<Company> companyList;
     public static List<Talent> talentsMarketList;
-
-    public static Population population;
+    
     public static News newsMaker;
 
     private const int BLOCK_NUMBER = 49; // it must be a square of integer
@@ -26,6 +25,11 @@ public class City : MonoBehaviour
         {
             talentsMarketList.Add(Talent.generateTalent());
         }
+    }
+    public static float generateNormalDistribution(float expectation, float radius) {
+        //it is not a normal distribution in fact:)
+        float ret = Random.Range(expectation - radius, expectation);
+        return ret + Random.Range(0, radius);
     }
 
     private void makeBlocks() {
@@ -58,6 +62,10 @@ public class City : MonoBehaviour
         for (int i = 0; i < numOfPlayers; ++i) {
             Company temp = gameObject.AddComponent<Company>();
             temp.id = i;
+            //distribute random color to every company
+            float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
+            Debug.Log(r + " " + g + " " + b);
+            temp.companyColor = new Color(r, g, b);
             companyList.Add(temp);
         }
         currentCompany = companyList[0]; //zero is the host of game
@@ -69,7 +77,6 @@ public class City : MonoBehaviour
     void Start() {
         makeBlocks();
         makeCompanies();
-        population = GameObject.FindObjectOfType<Population>();
         newsMaker = GameObject.FindObjectOfType<News>();
         talentsMarketList = new List<Talent>();
         generateTalentsMarket();

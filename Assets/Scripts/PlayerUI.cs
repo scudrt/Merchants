@@ -46,10 +46,9 @@ public class PlayerUI : MonoBehaviour
         if (City.currentCompany == null) {
             return;
         }
-
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
-        population.text = Population.totalAmount.ToString();
+        population.text = Population.amount.ToString();
     }
 
     public void PlayerInfoPanelEntry()

@@ -22,7 +22,6 @@ public class Company : MonoBehaviour{
         this.fame = 50f;
         this.blockList = new List<Block>();
         this.talentList = new List<Talent>();
-        this.companyColor = Color.green;
 
         Debug.Log("Company init done");
     }
@@ -33,6 +32,7 @@ public class Company : MonoBehaviour{
         }
         this.fund -= block.price;
         block.companyBelong = this;
+        this.blockList.Add(block);
         return true;
     }
 
@@ -45,7 +45,7 @@ public class Company : MonoBehaviour{
         return true;
     }
 
-    public bool increaseMoney(float delta) {
+    public bool earnMoney(float delta) {
         return this.costMoney(-delta);
     }
 

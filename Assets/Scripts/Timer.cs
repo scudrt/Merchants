@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
-{
+public class Timer : MonoBehaviour {
+    public static int day, hour, minute;
     public static float delta = 0.0f;
     public static float dayMinute = 1.2f, nightMinute = 0.8f; //(day + night) minutes per day
 
     //private data
     float sumMinute;
     float second;
-    int day, hour, minute;
 
     private void Awake() {
 

@@ -14,7 +14,7 @@ public class EventsPanel : MonoBehaviour
         eventsPrefab = (GameObject)Resources.Load("Prefabs/Event");
 
         content = transform.Find("Content");
-        eventsList = new List<GameObject>(); 
+        eventsList = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -55,7 +55,6 @@ public class EventsPanel : MonoBehaviour
             eventsList[i].GetComponent<Event>().targetPos.y = i * 50;
         }
 
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical
-            , eventsList.Count * 50);
+        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,eventsList.Count * 50);
     }
 }

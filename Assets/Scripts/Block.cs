@@ -71,7 +71,7 @@ public class Block : MonoBehaviour {
         this.building = null;
         this.companyBelong = null;
 
-        this.price = 20000f;
+        this.price = 5000f;
         Debug.Log("Block onGenerate done");
     }
     
@@ -119,10 +119,12 @@ public class Block : MonoBehaviour {
             GameObject.Destroy(this.building);
             this.building = null;
             return false;
+        } else {
+            this.building.blockBelong = this;
         }
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);
-        newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
+        newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, newBuilding.transform.rotation);
         //set building's scale
         Vector3 blockScale = this.transform.localScale;
         Vector3 buildingScale = newBuilding.transform.localScale;
