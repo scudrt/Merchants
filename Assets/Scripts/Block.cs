@@ -5,34 +5,41 @@ using UnityEngine.EventSystems;
 
 public class Block : MonoBehaviour {
     public Building building;
-    public int Pos_x { set
-        { Pos_x = value; } get { return Pos_x; } }
-    public int Pos_y
-    {
-        set
-        {
-            Pos_y = value;
-        }
-
-        get
-        {
-            return Pos_y;
-        }
-    }
+    public int Pos_x { set; get; }
+    public int Pos_y { set; get; }
+    private bool _isChosen;
+    public bool isChosen { set {
+            _isChosen = value;
+            if (value == true) {
+                this.color = this.chosenColor;
+            } else {
+                this.color = this.blockColor;
+            }
+        } get {
+            return _isChosen;
+        }}
     private Renderer blockRenderer;
     private Color blockColor,
         activeColor = Color.red, 
         chosenColor = Color.blue;
     public Color color { get {
-            return this.blockColor;
+            return this.blockRenderer.material.color;
         }
         set {
-            this.blockRenderer.material.color = this.blockColor = value;
+            this.blockRenderer.material.color = value;
         }
     }
     //Block's attribute
     public float price { get; set; }
-    public Company companyBelong { get; set; }
+    private Company _companyBelong;
+    public Company companyBelong { get {
+            return _companyBelong;
+        } set {
+            _companyBelong = value;
+            if (value != null) {
+                this.blockColor = value.companyColor;
+            }
+        } }
     public bool isOwned{
         get{
             return this.companyBelong != null;
@@ -56,8 +63,10 @@ public class Block : MonoBehaviour {
 	}
 
     private void onGenerate() {
+        this._isChosen = false;
+
         this.blockRenderer = GetComponent<Renderer>();
-        this.color = blockRenderer.material.color;
+        this.blockColor = blockRenderer.material.color;
 
         this.building = null;
         this.companyBelong = null;
@@ -70,6 +79,47 @@ public class Block : MonoBehaviour {
         if (!isEmpty) { //current block isn't empty
             return false;
         }
+        //attach script to the new building
+        switch (buildingTypeName) {
+            case "ArtGallery":
+                this.building = gameObject.AddComponent<ArtGallery>();
+                break;
+            case "Bank":
+                this.building = gameObject.AddComponent<Bank>();
+                break;
+            case "Cinema":
+                this.building = gameObject.AddComponent<Cinema>();
+                break;
+            case "Hospital":
+                this.building = gameObject.AddComponent<Hospital>();
+                break;
+            case "Restaurant":
+                this.building = gameObject.AddComponent<Restaurant>();
+                break;
+            case "Scenic":
+                this.building = gameObject.AddComponent<Scenic>();
+                break;
+            case "School":
+                this.building = gameObject.AddComponent<School>();
+                break;
+            case "Stadium":
+                this.building = gameObject.AddComponent<Stadium>();
+                break;
+            case "SuperMarket":
+                this.building = gameObject.AddComponent<SuperMarket>();
+                break;
+            default:
+                this.building = gameObject.AddComponent<Scenic>();
+                //can throw an exception here
+                break;
+        }
+        //pay for the building
+        if (this.companyBelong.costMoney(this.building.price) == false) {
+            //don't have enough money, return false
+            GameObject.Destroy(this.building);
+            this.building = null;
+            return false;
+        }
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, new Quaternion());
@@ -80,41 +130,6 @@ public class Block : MonoBehaviour {
         buildingScale.y *= blockScale.y;
         buildingScale.z *= blockScale.z;
         newBuilding.transform.localScale = buildingScale;
-        //attach script to the new building
-        switch (buildingTypeName) {
-            case "ArtGallery":
-                this.building = newBuilding.AddComponent<ArtGallery>();
-                break;
-            case "Bank":
-                this.building = newBuilding.AddComponent<Bank>();
-                break;
-            case "Cinema":
-                this.building = newBuilding.AddComponent<Cinema>();
-                break;
-            case "Hospital":
-                this.building = newBuilding.AddComponent<Hospital>();
-                break;
-            case "Restaurant":
-                this.building = newBuilding.AddComponent<Restaurant>();
-                break;
-            case "Scenic":
-                this.building = newBuilding.AddComponent<Scenic>();
-                break;
-            case "School":
-                this.building = newBuilding.AddComponent<School>();
-                break;
-            case "Stadium":
-                this.building = newBuilding.AddComponent<Stadium>();
-                break;
-            case "SuperMarket":
-                this.building = newBuilding.AddComponent<SuperMarket>();
-                break;
-            default:
-                this.building = newBuilding.AddComponent<Scenic>();
-                //can throw an exception here
-                break;
-        }
-        this.building.blockBelong = this;
         return true;
     }
 
@@ -127,15 +142,21 @@ public class Block : MonoBehaviour {
     }
 
     private void OnMouseOver(){
-        if (!EventSystem.current.IsPointerOverGameObject()) {
-            blockRenderer.material.color = Color.red;
+        if (this.isChosen) {
+            this.color = this.chosenColor;
+        }else if (!EventSystem.current.IsPointerOverGameObject()) {
+            this.color = Color.red;
         } else {
-            blockRenderer.material.color = this.blockColor;
+            this.color = this.blockColor;
         }
     }
 
     private void OnMouseExit(){
-        blockRenderer.material.color = blockColor;
+        if (this.isChosen) {
+            this.color = this.chosenColor;
+        } else {
+            this.color = blockColor;
+        }
     }
 
     private void OnMouseDown(){
@@ -144,7 +165,7 @@ public class Block : MonoBehaviour {
         }
 
         BlockUI blockUI = Canvas.FindObjectOfType<BlockUI>();
-        blockUI.targetBlock = this;
+        blockUI.setBlock(this);
 
         GameObject.FindObjectOfType<BlockUI>().BroadcastMessage("UIExit");
         //display UI according to the Block's status

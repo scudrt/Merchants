@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Talent
 {
+    private static int talentTick = 0; //record the talents have ever generated
     private static float generateNormalDistribution(float expectation, float radius) {
+        //it is not a normal distribution in fact:)
         float ret = Random.Range(expectation - radius, expectation);
         return ret + Random.Range(0, radius);
     }
-    private static float floorOf(float x) {
+    private static float floor(float x) {
         return (float)((int)x);
     }
     public static Talent generateTalent() {
@@ -22,27 +24,27 @@ public class Talent
             _name += (char)Random.Range(97, 122); //'a' - 'z'
         }
         _talent.name = _name;
-        //generate other value
-        float _charm = floorOf(generateNormalDistribution(50f, 50f)),
-            _capacity = floorOf(generateNormalDistribution(50f, 50f));
+        //generate talent's capacity
+        float _charm = floor(generateNormalDistribution(50f, 50f)),
+            _capacity = floor(generateNormalDistribution(50f, 50f));
         _talent.capacity = _capacity;
         _talent.charm = _charm;
 
         _talent.satisfaction = 50f;
-        _talent.salary = _charm + _capacity + floorOf(generateNormalDistribution(50, 25));
+        _talent.salary = _charm + _capacity + floor(generateNormalDistribution(50, 25));
+        //distribute id for every talent
+        _talent.id = talentTick++;
         return _talent;
     }
+    public int id = 0;
     public string name { get; set; }
     public Building workPlace = null;
     private float _satisfaction;
-    public float satisfaction
-    {
-        get
-        {
+    public float satisfaction{
+        get{
             return _satisfaction;
         }
-        set
-        {
+        set{
             if (value > 100)
                 value = 100;
             if (value < 0)
@@ -54,12 +56,10 @@ public class Talent
     private float _salary;
     public float salary
     {
-        get
-        {
+        get{
             return _salary;
         }
-        set
-        {
+        set{
             if (value < 0)
                 value = 0;
             _salary = value;
@@ -67,14 +67,11 @@ public class Talent
     }
 
     private float _capacity;//capacity will increase speed of serving a customer
-    public float capacity
-    {
-        get
-        {
+    public float capacity{
+        get{
             return _capacity;
         }
-        set
-        {
+        set{
             if (value > 100)
                 value = 100;
             if (value < 0)
@@ -84,14 +81,11 @@ public class Talent
     }
 
     private float _charm;//charm will increase Block's reputation
-    public float charm
-    {
-        get
-        {
+    public float charm {
+        get{
             return _charm;
         }
-        set
-        {
+        set{
             if (value > 100)
                 value = 100;
             if (value < 0)

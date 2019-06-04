@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1844,7 +1844,7 @@ GameObject:
   - component: {fileID: 244134121}
   - component: {fileID: 244134120}
   m_Layer: 5
-  m_Name: FundUseLabel
+  m_Name: BudgetUseLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1993,7 +1993,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 126048862}
   m_Direction: 0
   m_Value: 0
+<<<<<<< HEAD
   m_Size: 0.9999999
+=======
+  m_Size: 1
+>>>>>>> 496a602381daebfbc6c938e853a08364b7f080cb
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3412,7 +3416,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 933798652}
   m_Direction: 0
   m_Value: 0
+<<<<<<< HEAD
   m_Size: 0.9999999
+=======
+  m_Size: 1
+>>>>>>> 496a602381daebfbc6c938e853a08364b7f080cb
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4036,7 +4044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45ad5e3b5a8ecb4c9cd81ea76056e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBlock: {fileID: 0}
 --- !u!114 &577095106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5656,7 +5663,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: scenic
+          m_StringArgument: Scenic
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -6198,6 +6205,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 577095105}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onExitButtonClicked
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126606cd48f70a04daa9de0d5bea2c7e, type: 3}
 --- !u!1 &858679194
@@ -6567,6 +6584,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 577095105}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onExitButtonClicked
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126606cd48f70a04daa9de0d5bea2c7e, type: 3}
@@ -11597,10 +11624,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -11628,7 +11655,7 @@ GameObject:
   - component: {fileID: 1508148949}
   - component: {fileID: 1508148950}
   m_Layer: 5
-  m_Name: FundUse
+  m_Name: BudgetUse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16941,7 +16968,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1794473794}
   m_Direction: 0
   m_Value: 0
+<<<<<<< HEAD
   m_Size: 0.9999999
+=======
+  m_Size: 1
+>>>>>>> 496a602381daebfbc6c938e853a08364b7f080cb
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18080,6 +18111,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 577095105}
+    - target: {fileID: 6347213675301187947, guid: 126606cd48f70a04daa9de0d5bea2c7e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onExitButtonClicked
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 126606cd48f70a04daa9de0d5bea2c7e, type: 3}
