@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Client.cs" />
     <Compile Include="Assets\Scripts\CompaniesUI.cs" />
     <Compile Include="Assets\Scripts\Company.cs" />
+    <Compile Include="Assets\Scripts\Contract.cs" />
     <Compile Include="Assets\Scripts\Event.cs" />
     <Compile Include="Assets\Scripts\EventsPanel.cs" />
     <Compile Include="Assets\Scripts\FullScreenPanel.cs" />

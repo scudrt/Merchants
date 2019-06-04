@@ -30,9 +30,28 @@ public class Company : MonoBehaviour{
         if (block.isOwned || this.fund < block.price) {
             return false;
         }
-        this.fund -= block.price;
+        fund -= block.price;
         block.companyBelong = this;
-        this.blockList.Add(block);
+        blockList.Add(block);
+        return true;
+    }
+
+    public bool hireTalent(ref Talent talent) {
+        if (talent.companyBelong != null) {
+            return false;
+        }
+        talent.companyBelong = this;
+        talentList.Add(talent);
+        return true;
+    }
+
+    public bool fireTalent(ref Talent talent) {
+        if (talent.companyBelong != this) {
+            return false;
+        }
+        talent.workPlace = null;
+        talent.companyBelong = null;
+        talentList.Remove(talent);
         return true;
     }
 

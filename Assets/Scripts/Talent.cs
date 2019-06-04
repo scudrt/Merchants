@@ -34,6 +34,7 @@ public class Talent
     public int id = 0;
     public string name { get; set; }
     public Building workPlace = null;
+    public Company companyBelong = null;
     private float _satisfaction;
     public float satisfaction{
         get{
