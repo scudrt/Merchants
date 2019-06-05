@@ -112,4 +112,5 @@ public class TalentsMarket : MonoBehaviour
         this.OnOpen();
         talentManageUI.OnOpen();
     }
+
 }

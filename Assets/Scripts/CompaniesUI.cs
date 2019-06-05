@@ -56,10 +56,14 @@ public class CompaniesUI : MonoBehaviour
         GameObject companyInfo;
         RectTransform rectTransform;
         ItemInfo script;
-        int i = 0;//i is the number of column
+        int i = 1;//i is the number of column
 
         foreach (Company company in companies)
         {
+            if(company == City.currentCompany)
+            {
+                continue;
+            }
             //add talent's information
             companyInfo = GameObject.Instantiate(companyInfoPrefab, content.transform);
             rectTransform = companyInfo.GetComponent<RectTransform>();
@@ -68,7 +72,7 @@ public class CompaniesUI : MonoBehaviour
             script.serial = i;
 
             //set position
-            rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, i * 50, 50);
+            rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, (i - 1) * 50, 50);
 
             //set text
             companyInfo.transform.Find("Name").GetComponent<Text>().text = company.nickName;
@@ -76,7 +80,7 @@ public class CompaniesUI : MonoBehaviour
         }
 
         //change content rect's height
-        contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+        contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (i - 1) * 50);
     }
 
     public void DisplayItemInfo(int _serial)
@@ -91,11 +95,11 @@ public class CompaniesUI : MonoBehaviour
         reputation.text = company.fame.ToString();
     }
 
-    public void onPoachButtonClicked()
+    public void onContractButtonClicked()
     {
         Company other = City.companyList[serial];
         Company current = City.currentCompany;
 
-
+        
     }
 }

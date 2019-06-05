@@ -16,7 +16,7 @@ public class BuildingManagement : MonoBehaviour
     private int serial;//displayed talent's serial number in blocks list
     private Text buildingName;
     private Text industry;
-    private Text costumer;
+    private Text customer;
     private InputField budget;
     private Text profit;
     private Text advertising; // cost on advertising
@@ -37,7 +37,7 @@ public class BuildingManagement : MonoBehaviour
         buildingName = details.Find("Name").GetComponent<Text>();
         industry = details.Find("Industry").GetComponent<Text>();
         budget = details.Find("BudgetInput").GetComponent<InputField>();
-        costumer = details.Find("Costumer").GetComponent<Text>();
+        customer = details.Find("Customer").GetComponent<Text>();
         profit = details.Find("Profit").GetComponent<Text>();
         advertising = details.Find("Advertising").GetComponent<Text>();
         operating = details.Find("Operating").GetComponent<Text>();
@@ -81,6 +81,22 @@ public class BuildingManagement : MonoBehaviour
             rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, i * 50, 50);
 
             //set text
+            string nameText;
+            string profitText;
+            if (block.isEmpty)
+            {
+                nameText = "暂无建筑";
+                profitText = "0";
+            }
+            else
+            {
+                nameText = block.building.nickName;
+                profitText = block.building.profitAmount.ToString();
+            }
+            blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
+            blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;
+
+            i++;
         }
 
         //change content rect's height
@@ -90,6 +106,39 @@ public class BuildingManagement : MonoBehaviour
     public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
-        
+
+        Block block = City.currentCompany.blockList[serial];
+        if (block.isEmpty)
+        {
+            Debug.Log("Is Empty");
+            return;
+        }
+
+        details.gameObject.SetActive(true);
+
+        buildingName.text = block.building.nickName;
+        industry.text = block.building.buildingType;
+        budget.text = block.building.budget.ToString();
+        customer.text = block.building.customerCount.ToString();
+        profit.text = block.building.profitAmount.ToString();
+        advertising.text = (budgetUse.value).ToString() + "%";
+        operating.text = (100 - budgetUse.value).ToString() + "%";
+    }
+
+    public void OnBudgetUseValueChanged()
+    {
+        Block block = City.currentCompany.blockList[serial];
+        int value = (int)budgetUse.value;
+
+        block.building.ADBudgetProportion = (float)value / 100;
+        advertising.text = (budgetUse.value).ToString() + "%";
+        operating.text = (100 - budgetUse.value).ToString() + "%";
+    }
+
+    public void OnChangeBudgetButtonClicked()
+    {
+        Block block = City.currentCompany.blockList[serial];
+        float value = (float)System.Convert.ToDouble(budget.text);
+        block.building.addBudget(value - block.building.budget);
     }
 }

@@ -27,4 +27,9 @@ public class ItemInfo : MonoBehaviour
     {
         SendMessageUpwards("DisplayItemInfo", serial);
     }
+
+    public void OnClickAndSetObject()
+    {
+        SendMessageUpwards("SetObjectBySerial", serial);
+    }
 }
