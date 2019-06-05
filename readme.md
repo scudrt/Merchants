@@ -6,7 +6,7 @@
     + Visual Studio 2015+
     + Unity3D 2019.1
 
-* 统计行数 find assets/ -name "*.cs" |xargs wc -l
+* 统计行数 find assets/scripts -name "*.cs" |xargs wc -l
 
 * ## **Version log**
     - TODO：
