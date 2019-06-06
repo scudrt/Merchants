@@ -12,6 +12,8 @@ public class BuildingManagement : MonoBehaviour
     private RectTransform contentTR;
     private Transform details;
 
+    private Color defaultColor;
+
     //objects in blockInfo
     private int serial;//displayed talent's serial number in blocks list
     private Text buildingName;
@@ -27,6 +29,7 @@ public class BuildingManagement : MonoBehaviour
     void Start()
     {
         blockInfoPrefab = (GameObject)Resources.Load("Prefabs/BlockInfo");
+        defaultColor = blockInfoPrefab.GetComponent<Image>().color;
 
         scrollrect = transform.Find("Blocks").GetComponent<ScrollRect>();
         content = transform.Find("Blocks").transform.Find("Content").gameObject;
@@ -106,6 +109,19 @@ public class BuildingManagement : MonoBehaviour
     public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
+
+        //change color of the item selected 
+        for (int i = 0; i < contentTR.childCount; i++)
+        {
+            if (i != serial)
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
+            }
+        }
 
         Block block = City.currentCompany.blockList[serial];
         if (block.isEmpty)

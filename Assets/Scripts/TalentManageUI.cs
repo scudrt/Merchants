@@ -17,6 +17,7 @@ public class TalentManageUI : MonoBehaviour
     private GameObject blocks;
     private GameObject blocksContent;
     private RectTransform blocksContentTr;
+    private int blockSerial;
 
     //details panel's objects
     private int serial;//displayed talent's serial number in talents list
@@ -30,12 +31,15 @@ public class TalentManageUI : MonoBehaviour
     private InputField salaryInput;
     private Text inputText;
     private Text status;
-    
+
+
+    private Button chooseBlockButton;
+    private Color defaultColor; //button's default color
     // Start is called before the first frame update
     void Start()
     {
         talentInfoPrefab = (GameObject) Resources.Load("Prefabs/TalentContent");
-        blockInfoPrefab = (GameObject)Resources.Load("Prefabs/BlockInfo");
+        blockInfoPrefab = (GameObject)Resources.Load("Prefabs/DistributeBlockInfo");
 
         scrollrect = transform.Find("Talents").GetComponent<ScrollRect>();
         scrollbar = transform.Find("Talents").Find("Scrollbar").GetComponent<Scrollbar>();
@@ -46,6 +50,8 @@ public class TalentManageUI : MonoBehaviour
         blocks = transform.Find("Blocks").gameObject;
         blocksContent = transform.Find("Blocks").Find("Content").gameObject;
         blocksContentTr = blocksContent.GetComponent<RectTransform>();
+        chooseBlockButton = blocks.transform.Find("Done").GetComponent<Button>();
+        defaultColor = talentInfoPrefab.GetComponent<Image>().color;
 
         details = transform.Find("Details");
         satisfaction = details.Find("Satisfaction").GetComponent<Text>();
@@ -172,10 +178,52 @@ public class TalentManageUI : MonoBehaviour
         blocksContentTr.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
     }
 
+    public void SetObjectBySerial(int _serial)
+    {
+        this.blockSerial = _serial;
+
+        //change color of the item selected 
+        for (int i = 0; i < blocksContentTr.childCount; i++)
+        {
+            if (i != blockSerial)
+            {
+                blocksContentTr.GetChild(i).GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                blocksContentTr.GetChild(i).GetComponent<Image>().color = Color.red;
+            }
+        }
+
+        //judge if the block is empty
+        Block block = City.currentCompany.blockList[serial];
+        if (block.isEmpty)
+        {
+            chooseBlockButton.interactable = false;
+        }
+        else
+        {
+            chooseBlockButton.interactable = true;
+        }
+    }
+
     public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
         details.gameObject.SetActive(true);
+
+        //change color of the item selected
+        for (int i = 0; i < contentTR.childCount; i++)
+        {
+            if (i != serial)
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
+            }
+        }
 
         Talent talent = City.currentCompany.talentList[_serial];
 
@@ -184,7 +232,8 @@ public class TalentManageUI : MonoBehaviour
         capacity.text = talent.capacity.ToString();
         charm.text = talent.charm.ToString();
         salary.text = talent.salary.ToString();
-        //status' content has not been decided yet
+        if(talent.workPlace != null)
+            status.text = talent.workPlace.buildingType;
         salaryController.value = 5;
         salaryInput.text = salary.text;
     }
@@ -207,12 +256,19 @@ public class TalentManageUI : MonoBehaviour
 
     public void OnFireButtonClicked()
     {
-        City.currentCompany.talentList.RemoveAt(serial);
+        Talent talent = City.currentCompany.talentList[serial];
+        City.currentCompany.fireTalent(ref talent);
         this.OnOpen();
     }
 
     public void OnReturnButtonClicked()
     {
         blocks.SetActive(false);
+    }
+
+    public void OnChooseBlockButtonClicked()
+    {
+        City.currentCompany.blockList[blockSerial].building.addTalent(City.currentCompany.talentList[serial]);
+        this.OnOpen();
     }
 }

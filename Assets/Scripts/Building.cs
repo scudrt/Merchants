@@ -19,7 +19,7 @@ public abstract class Building : MonoBehaviour{
     private float attrackRate = 0.01f;
     private float profitEach = 3f;
     private int talentCountLimit = 1;
-    private List<Talent> talentList; //index 0 is the building's manager
+    private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager
     /************common functions************/
     public float getADBudget() {
         return budget * ADBudgetProportion;
@@ -62,6 +62,7 @@ public abstract class Building : MonoBehaviour{
             return false;
         }
         talentList.Add(talent);
+        talent.workPlace = this;
         return true;
     }
     public virtual bool removeTalent(Talent talent) {

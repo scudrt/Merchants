@@ -13,6 +13,8 @@ public class TalentsMarket : MonoBehaviour
     private TalentManageUI talentManageUI;
     private RectTransform contentTR;
 
+    private Color defaultColor;
+
     //details panel's objects
     private int serial;//displayed talent's serial number in talents list
     private Transform details;
@@ -25,6 +27,7 @@ public class TalentsMarket : MonoBehaviour
     void Start()
     {
         talentInfoPrefab = (GameObject)Resources.Load("Prefabs/UnhiredTalentInfo");
+        defaultColor = talentInfoPrefab.GetComponent<Image>().color;
 
         talentManageUI = GameObject.FindObjectOfType<TalentManageUI>();
 
@@ -95,6 +98,19 @@ public class TalentsMarket : MonoBehaviour
     {
         this.serial = _serial;
         details.gameObject.SetActive(true);
+
+        //change color of the item selected 
+        for (int i = 0; i < contentTR.childCount; i++)
+        {
+            if (i != serial)
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
+            }
+        }
 
         Talent talent = City.talentsMarketList[serial];
 

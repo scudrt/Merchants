@@ -12,6 +12,8 @@ public class CompaniesUI : MonoBehaviour
     private RectTransform contentTR;
     private Transform details;
 
+    private Color defaultColor;
+
     //details' objs
     private int serial;//displayed serial number
     private Text companyName;
@@ -22,6 +24,7 @@ public class CompaniesUI : MonoBehaviour
     void Start()
     {
         companyInfoPrefab = (GameObject)Resources.Load("Prefabs/CompanyInfo");
+        defaultColor = companyInfoPrefab.GetComponent<Image>().color;
 
         scrollrect = transform.Find("Companies").GetComponent<ScrollRect>();
         content = transform.Find("Companies").transform.Find("Content").gameObject;
@@ -81,12 +84,27 @@ public class CompaniesUI : MonoBehaviour
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (i - 1) * 50);
+
+        i++;
     }
 
     public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
         details.gameObject.SetActive(true);
+
+        //change color of the item selected 
+        for (int i = 0; i < contentTR.childCount; i++)
+        {
+            if (i + 1 != serial)
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
+            }
+            else
+            {
+                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
+            }
+        }
 
         Company company = City.companyList[serial];
 
