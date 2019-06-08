@@ -6,6 +6,9 @@
     + Visual Studio 2015+
     + Unity3D 2019.1
 
+* 提交代码请使用：
+git add Assets ProjectSettings *.csproj *.sln
+
 * 统计行数 find assets/scripts -name "*.cs" |xargs wc -l
 
 * ## **Version log**
@@ -19,8 +22,10 @@
             - 建造界面增加一个建造费用的显示
 			- BlockUI完善
             - 合同接收界面
-    + ### **version 0.2.7** :
-        - Event的创建更简单了（可以通过EventManager添加删除Event）
+    + ### **2019.06.09** :
+        - 简化了项目文件结构
+        - 开始使用时间而不是版本号记录log
+        - Event的创建更简单了（可以通过EventMana er添加删除Event）
         - 完成合同发送界面
         - 完成了人才分配功能
         - 完成了列表项目选中变色

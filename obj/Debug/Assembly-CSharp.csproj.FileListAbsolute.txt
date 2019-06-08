@@ -1,2 +1,0 @@
-G:\UnityProjects\Merchants\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-G:\UnityProjects\Merchants\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
