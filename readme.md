@@ -23,7 +23,7 @@ git add Assets ProjectSettings *.csproj *.sln
 			- BlockUI完善
             - 合同接收界面
     + ### **2019.06.09** :
-        - 简化了项目文件结构
+        - 简化了项目文件结构，使用了exclude来忽略自动生成文件
         - 开始使用时间而不是版本号记录log
         - Event的创建更简单了（可以通过EventMana er添加删除Event）
         - 完成合同发送界面
