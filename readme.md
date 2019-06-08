@@ -6,9 +6,6 @@
     + Visual Studio 2015+
     + Unity3D 2019.1
 
-* 提交代码请使用：
-git add Assets ProjectSettings *.csproj *.sln
-
 * 统计行数 find assets/scripts -name "*.cs" |xargs wc -l
 
 * ## **Version log**
