@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Building : MonoBehaviour{
     //Data Area
-    public string nickName = "BuildingNickName"; //building's name made by player
+    public string nickName = "看不见的店铺"; //building's name made by player
     public string buildingType = "Building";
     public Block blockBelong = null;
     public int level = 1;
@@ -12,10 +12,11 @@ public abstract class Building : MonoBehaviour{
     public float budget = 0f;
     public float ADBudgetProportion = 0.5f;
     //statistics data
-    public float profitAmount = 0f;
+    public float monthlyProfit = 0f, annualProfit = 0f;
+    public float totalProfit = 0f;
     public int customerCount = 0;
     //private data
-    private int currentHour = Timer.hour;
+    private int currentHour = Timer.hour, currentMonth = Timer.month, currentYear = Timer.year;
     private float attrackRate = 0.01f;
     private float profitEach = 3f;
     private int talentCountLimit = 1;
@@ -66,6 +67,9 @@ public abstract class Building : MonoBehaviour{
         return true;
     }
     public virtual bool removeTalent(Talent talent) {
+        if (talent == null) {
+            return false;
+        }
         if (talentList.Contains(talent)) {
             talentList.Remove(talent);
             return true;
@@ -82,9 +86,19 @@ public abstract class Building : MonoBehaviour{
 
         newCustomer = (int)(City.generateNormalDistribution(attrackRate, 0.005f) * Population.amount);
         customerCount += newCustomer;
-
+        
         newProfit = profitEach * newCustomer;
-        profitAmount += newProfit;
+        if (currentMonth != Timer.month) {
+            currentMonth = Timer.month;
+            monthlyProfit = 0f;
+        }
+        if (currentYear != Timer.year) {
+            currentYear = Timer.year;
+            annualProfit = 0f;
+        }
+        totalProfit += newProfit;
+        monthlyProfit += newProfit;
+        annualProfit += newProfit;
 
         if (blockBelong.companyBelong != null) {
             if (blockBelong.companyBelong == City.currentCompany) { //TO BE DONE

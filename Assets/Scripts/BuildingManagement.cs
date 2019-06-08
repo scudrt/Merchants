@@ -94,7 +94,7 @@ public class BuildingManagement : MonoBehaviour
             else
             {
                 nameText = block.building.nickName;
-                profitText = block.building.profitAmount.ToString();
+                profitText = block.building.totalProfit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
             blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;
@@ -136,7 +136,7 @@ public class BuildingManagement : MonoBehaviour
         industry.text = block.building.buildingType;
         budget.text = block.building.budget.ToString();
         customer.text = block.building.customerCount.ToString();
-        profit.text = block.building.profitAmount.ToString();
+        profit.text = block.building.totalProfit.ToString();
         advertising.text = (budgetUse.value).ToString() + "%";
         operating.text = (100 - budgetUse.value).ToString() + "%";
     }

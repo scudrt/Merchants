@@ -166,7 +166,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.profitAmount.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
             }
             else
             {
@@ -260,7 +260,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.profitAmount.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
             }
             else
             {
@@ -354,7 +354,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.profitAmount.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
             }
             else
             {
@@ -448,7 +448,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.profitAmount.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
             }
             else
             {

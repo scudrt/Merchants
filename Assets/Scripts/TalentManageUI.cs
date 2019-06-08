@@ -166,7 +166,7 @@ public class TalentManageUI : MonoBehaviour
             else
             {
                 nameText = block.building.nickName;
-                profitText = block.building.profitAmount.ToString();
+                profitText = block.building.totalProfit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
             blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -915,7 +915,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u516C\u53F8\u8D22\u4EA7\uFF1A"
+  m_Text: "\u516C\u53F8\u8D44\u4EA7\uFF1A"
 --- !u!222 &61964450
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3225,7 +3225,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.000030517578}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276977052
 MonoBehaviour:
@@ -3519,7 +3519,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4EBA\u53E3\u8D8B\u52BF\uFF1A"
+  m_Text: "\u4EBA\u53E3\u53D8\u5316\uFF1A"
 --- !u!222 &284074616
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4490,8 +4490,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 933798653}
   m_HandleRect: {fileID: 933798652}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6115,7 +6115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5EFA\u7B51\u7BA1\u7406"
+  m_Text: "\u5E97\u94FA\u7BA1\u7406"
 --- !u!222 &625483901
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8603,7 +8603,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 499284847}
   m_HandleRect: {fileID: 499284846}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10401,7 +10401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4EBA\u624D\u7BA1\u7406"
+  m_Text: "\u804C\u5458\u7BA1\u7406"
 --- !u!222 &963184831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14770,7 +14770,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207195162}
   m_HandleRect: {fileID: 207195161}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -18596,7 +18596,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u516C\u53F8\u5217\u8868"
+  m_Text: "\u5176\u4ED6\u516C\u53F8"
 --- !u!222 &1727891654
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19892,7 +19892,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u516C\u53F8\u540D\u671B\uFF1A"
+  m_Text: "\u516C\u53F8\u58F0\u671B\uFF1A"
 --- !u!222 &1805462285
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22756,7 +22756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u540D\u671B\uFF1A"
+  m_Text: "\u58F0\u671B\uFF1A"
 --- !u!222 &2079369820
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23224,8 +23224,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1794473795}
   m_HandleRect: {fileID: 1794473794}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

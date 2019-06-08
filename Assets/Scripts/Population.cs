@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Population : MonoBehaviour{
+public class Population : MonoBehaviour{
     //public data
-    public static int amount = 10000; //size of population in this city
+    public static int amount;//size of population in this city
 
     //config data
     public static float naturalBirthRate { get; set; }
 
-    private static int currentHour = 12;
+    private static int currentDay = Timer.day;
     void Start(){
-        currentHour = Timer.hour;
+        currentDay = Timer.day;
+        amount = (int)City.generateNormalDistribution(100000f, 20000f);
     }
     void Update(){
-        if (currentHour != Timer.hour) {
-            naturalBirthRate = City.generateNormalDistribution(0.015f, 0.04f);
+        if (currentDay != Timer.day) {
+            //scale the annual growth rate to a day
+            naturalBirthRate = City.generateNormalDistribution(0.015f, 0.04f) / 365;
             amount = (int)(amount * (1 + naturalBirthRate));
-            currentHour = Timer.hour;
+            currentDay = Timer.day;
         }
     }
     public static bool setPopulation(int count) {

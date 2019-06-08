@@ -1,7 +1,11 @@
 ﻿public class Stadium: Building {
+    private static int buildingCount = 0; //count of this type of building
     public override void onGenerate() {
-        this.price = 3000f;
-        this.buildingType = "Stadium";
+        ++buildingCount;
+
+        price = 3000f;
+        buildingType = "Stadium";
+        nickName = blockBelong.companyBelong.nickName + "的体育场" + buildingCount;
     }
     void Start() {
         onGenerate();

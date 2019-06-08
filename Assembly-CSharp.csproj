@@ -66,10 +66,10 @@
     <Compile Include="Assets\Scripts\AIController.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\BlockUI.cs" />
-    <Compile Include="Assets\Scripts\Building.cs" />
     <Compile Include="Assets\Scripts\BuildingManagement.cs" />
     <Compile Include="Assets\Scripts\Buildings\ArtGallery.cs" />
     <Compile Include="Assets\Scripts\Buildings\Bank.cs" />
+    <Compile Include="Assets\Scripts\Buildings\Building.cs" />
     <Compile Include="Assets\Scripts\Buildings\Cinema.cs" />
     <Compile Include="Assets\Scripts\Buildings\Hospital.cs" />
     <Compile Include="Assets\Scripts\Buildings\Restaurant.cs" />

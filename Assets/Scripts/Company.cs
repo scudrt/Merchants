@@ -11,19 +11,24 @@ public class Company : MonoBehaviour{
 
     public List<Block> blockList;
     public List<Talent> talentList;
+
+    private static int playerCount = 0;
     
     void Start() {
         this.onGenerate();
     }
 
     private void onGenerate() {
-        this.id = 0;
-        this.fund = 100000f;
-        this.fame = 50f;
-        this.blockList = new List<Block>();
-        this.talentList = new List<Talent>();
+        id = ++playerCount;
+        fund = 100000f;
+        fame = 50f;
 
-        Debug.Log("Company init done");
+        blockList = new List<Block>();
+        talentList = new List<Talent>();
+
+        nickName = "玩家" + id;
+
+        Debug.Log("Company " + id + " init done");
     }
     public bool buyBlock(ref Block block) {
         //return false if block buying failed

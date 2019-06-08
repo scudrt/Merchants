@@ -87,6 +87,14 @@ public class Contract {
         return true;
     }
 
+    public void agree() {
+        //can only be called by target
+    }
+
+    public void refuse() {
+        //can only be called by target
+    }
+
     public void setTarget(Company target) { //set target company
         if (target == _offerer) {
             return;
