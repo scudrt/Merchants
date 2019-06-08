@@ -116,8 +116,7 @@ public class CompaniesUI : MonoBehaviour
     public void onContractButtonClicked()
     {
         Company other = City.companyList[serial];
-        Company current = City.currentCompany;
 
-        
+        SendMessageUpwards("ContractSendPanelEntry", other);
     }
 }

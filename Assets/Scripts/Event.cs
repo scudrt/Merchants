@@ -6,8 +6,9 @@ using System.Linq;
 
 public class Event : MonoBehaviour
 {
-    public delegate void clickEvent(); //define delegate
-    public clickEvent onClick;  //implement clickEvent
+    public delegate void EventFunc(Event evt); //define delegate
+    public EventFunc onClick;  //implement clickEvent
+    public EventFunc onEnd;
 
     public Vector3 targetPos; //position the item should be in
 
@@ -15,27 +16,53 @@ public class Event : MonoBehaviour
     private string text;
     private Text eventText;
 
+    private float existTime;
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Event start");
         eventText = transform.Find("Text").GetComponent<Text>();
         eventText.text = text;
+
+        existTime = 30;
     }
 
     // Update is called once per frame
     void Update()
     {
+        existTime -= Time.deltaTime;
+        if (existTime <= 0)
+        {
+            OnEnd();
+        }
+
         if (transform.position != targetPos)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, speed * Time.deltaTime);
         }
     }
 
+    public void addClickEvent(Event.EventFunc clickEvent)
+    {
+        this.onClick = clickEvent;
+    }
+
+    public void addEndEvent(Event.EventFunc endEvent)
+    {
+        this.onEnd = endEvent;
+    }
+
     public void OnClick()
     {
-        onClick();
-        SendMessageUpwards("DelEvent", this.gameObject);
+        onClick(this);
+        EventManager.removeEvent(this.gameObject);
+    }
+
+    public void OnEnd()
+    {
+        onEnd(this);
+        EventManager.removeEvent(this.gameObject);
     }
     
     public void setText(string text)

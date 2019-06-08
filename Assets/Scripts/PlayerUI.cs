@@ -13,6 +13,7 @@ public class PlayerUI : MonoBehaviour
     private GameObject blocksManagePanel;
     private GameObject talentsMarketPanel;
     private GameObject companiesPanel;
+    private GameObject contractSendPanel;
 
 
     /******get all data text on bottom panel*******/
@@ -32,6 +33,7 @@ public class PlayerUI : MonoBehaviour
         blocksManagePanel = transform.Find("BlocksManagePanel").gameObject;
         talentsMarketPanel = transform.Find("TalentsMarketPanel").gameObject;
         companiesPanel = transform.Find("CompaniesPanel").gameObject;
+        contractSendPanel = transform.Find("ContractSendPanel").gameObject;
 
         property = bottomPanel.transform.Find("Property").GetComponent<Text>();
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
@@ -88,5 +90,11 @@ public class PlayerUI : MonoBehaviour
     {
         companiesPanel.GetComponent<FullScreenPanel>().UIEntry();
         companiesPanel.GetComponent<CompaniesUI>().OnOpen();
+    }
+
+    public void ContractSendPanelEntry(Company other)
+    {
+        contractSendPanel.GetComponent<FullScreenPanel>().UIEntry();
+        contractSendPanel.GetComponent<ContractSendPanel>().OnOpen(City.currentCompany, other);
     }
 }

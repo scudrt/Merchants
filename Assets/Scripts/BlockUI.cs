@@ -78,14 +78,14 @@ public class BlockUI : MonoBehaviour
         SendMessageUpwards("OwnedBlockPanelEntry");
 
         /***test code***/
-        Event.clickEvent clickEvent = new Event.clickEvent(() =>
+        EventManager.addEvent(delegate (Event evt)
         {
-            PlayerUI playerUI = GameObject.FindObjectOfType<PlayerUI>();
-            playerUI.SendMessage("BlocksManagePanelEntry");
-        });
-
-        string eventText = "你购买了一块地！";
-        GameObject.FindObjectOfType<EventsPanel>().GetComponent<EventsPanel>().AddEvent(clickEvent, eventText);
+            evt.SendMessageUpwards("BlocksManagePanelEntry");
+        },
+        delegate (Event evt)
+        {
+            Debug.Log("Event Ends");
+        }, "你购买了一块地！");
         /***test code***/
     }
 

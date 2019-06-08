@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class EventsPanel : MonoBehaviour
 {
-    public GameObject eventsPrefab;
-    public List<GameObject> eventsList;
-    private Transform content;
+    public Transform content { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        eventsPrefab = (GameObject)Resources.Load("Prefabs/Event");
-
         content = transform.Find("Content");
-        eventsList = new List<GameObject>();
+        EventManager.panel = this;
+        EventManager.eventInfo = (GameObject)Resources.Load("Prefabs/Event");
     }
 
     // Update is called once per frame
@@ -23,38 +20,17 @@ public class EventsPanel : MonoBehaviour
         
     }
 
-    public void AddEvent(Event.clickEvent clickEvent, string eventText)
+    public void MoveEvents()
     {
-        //move all previous event upward
+        //move all previous event to correct places
         Event eventScript;
-        foreach (GameObject eventInfo in eventsList)
+        foreach (GameObject eventInfo in EventManager.eventsList)
         {
             eventScript = eventInfo.GetComponent<Event>();
-            eventScript.targetPos.y = (eventsList.IndexOf(eventInfo) + 1) * 50;
+            eventScript.targetPos.y = (EventManager.eventsList.IndexOf(eventInfo)) * 50;
         }
-
-        GameObject evt = GameObject.Instantiate(eventsPrefab, content);
-        evt.GetComponent<Event>().onClick = clickEvent;
-        evt.GetComponent<Event>().setText(eventText);
-
-        eventsList.Insert(0, evt);//add evt to the first
 
         content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical
-            ,eventsList.Count * 50);
-    }
-
-    public void DelEvent(GameObject evt)
-    {
-        int i = eventsList.IndexOf(evt);
-        eventsList.Remove(evt);
-        Destroy(evt);
-
-        //move events
-        for (; i < eventsList.Count; i++)
-        {
-            eventsList[i].GetComponent<Event>().targetPos.y = i * 50;
-        }
-
-        content.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,eventsList.Count * 50);
+            , EventManager.eventsList.Count * 50);
     }
 }
