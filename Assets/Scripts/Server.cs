@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+struct user
+{
+    public int recHostId;
+    public int channelId;
+    public int connectionId;
+}
 public class Server:MonoBehaviour
 {
     //block位置静态
-
+    private List<user> users = new List<user>();
 
     private byte reliableChannel;
     private int MAX_USER = 100;
@@ -80,11 +86,24 @@ public class Server:MonoBehaviour
             case NetworkEventType.Nothing:
                 break;
             case NetworkEventType.ConnectEvent:
+                user newUser = new user();
+                newUser.channelId = channelId;
+                newUser.connectionId = connectionId;
+                newUser.recHostId = recHostId;
+                users.Add(newUser);
                 Debug.Log(string.Format("User {0} has connected through {1} !", connectionId, recHostId));
                 break;
 
             case NetworkEventType.DisconnectEvent:
                 Debug.Log(string.Format("User {0} has disconnected!", connectionId));
+                foreach(user userObj in users)
+                {
+                    if (userObj.channelId==channelId && userObj.recHostId==recHostId && userObj.connectionId == connectionId)
+                    {
+                        users.Remove(userObj);
+                        break;
+                    }
+                }
                 break;
 
             case NetworkEventType.BroadcastEvent:
@@ -95,7 +114,7 @@ public class Server:MonoBehaviour
                 BinaryFormatter formatter = new BinaryFormatter();
                 MemoryStream ms = new MemoryStream(recBuffer);
                 NetMsg msg = (NetMsg)formatter.Deserialize(ms);
-
+                sendClient(msg);//发送消息到所有已经连接的用户
                 OnData(connectionId, channelId, recHostId, msg);
                 break;
             default:
@@ -114,6 +133,8 @@ public class Server:MonoBehaviour
             case NetOP.CreateAccount:
                 CreateAccount(cnnId, channelId, recHostId, (CreateAccount)msg);
                 break;
+            case NetOP.company:
+                break;
         }
     }
     #endregion
@@ -125,7 +146,17 @@ public class Server:MonoBehaviour
 
     public void sendClient(NetMsg msg)
     {
+        foreach(user userObj in users)
+        {
+            byte[] buffer = new byte[BYTE_SIZE];
 
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(buffer);
+            formatter.Serialize(ms, msg);
+            
+            NetworkTransport.Send(hostId, userObj.connectionId, reliableChannel, buffer, BYTE_SIZE, out error);
+            Debug.Log(string.Format("connectionId: {0} error {1}", userObj.connectionId, error));
+        }
     }
 }
 
