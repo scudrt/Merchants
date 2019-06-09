@@ -19,10 +19,12 @@ public class UIPanel : MonoBehaviour
     public void UIEntry()
     {
         animator.SetBool("isDisplayed", true);
+        PlayerUI.addUI();
     }
 
     public void UIExit()
     {
         animator.SetBool("isDisplayed", false);
+        PlayerUI.delUI();
     }
 }

@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Buildings\School.cs" />
     <Compile Include="Assets\Scripts\Buildings\Stadium.cs" />
     <Compile Include="Assets\Scripts\Buildings\SuperMarket.cs" />
+    <Compile Include="Assets\Scripts\ButtonGroup.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\City.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\Scripts\Company.cs" />
     <Compile Include="Assets\Scripts\Contract.cs" />
     <Compile Include="Assets\Scripts\ContractItemInfo.cs" />
+    <Compile Include="Assets\Scripts\ContractReceivePanel.cs" />
     <Compile Include="Assets\Scripts\ContractSendPanel.cs" />
     <Compile Include="Assets\Scripts\Event.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Assets\Scripts\Population.cs" />
     <Compile Include="Assets\Scripts\Server.cs" />
     <Compile Include="Assets\Scripts\Shared\BlockInfo.cs" />
+    <Compile Include="Assets\Scripts\Shared\CompanyInfo.cs" />
     <Compile Include="Assets\Scripts\Shared\CreateAccount.cs" />
     <Compile Include="Assets\Scripts\Shared\NetMsg.cs" />
     <Compile Include="Assets\Scripts\Sun.cs" />

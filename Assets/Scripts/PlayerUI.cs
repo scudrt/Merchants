@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
+    public static int isInUI = 0;
+
     public Company company;
 
     private GameObject playerInfoPanel;
@@ -22,6 +24,24 @@ public class PlayerUI : MonoBehaviour
     private Text GDP;
     private Text population;
     private Text trend;
+
+    public static void addUI()
+    {
+        isInUI++;
+        if (isInUI > 0)
+        {
+            GameObject.FindObjectOfType<Camera>().enabled = true;
+        }
+    }
+
+    public static void delUI()
+    {
+        isInUI--;
+        if (isInUI == 0)
+        {
+            GameObject.FindObjectOfType<Camera>().enabled = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -53,18 +73,9 @@ public class PlayerUI : MonoBehaviour
         population.text = Population.amount.ToString();
     }
 
-    public void PlayerInfoPanelEntry()
-    {
-        playerInfoPanel.SetActive(true);
-    }
-
-    public void PlayerInfoPanelExit()
-    {
-        playerInfoPanel.SetActive(false);
-    }
-
     public void TalentsManagePanelEntry()
     {
+
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }

@@ -7,11 +7,16 @@ public class BlockUI : MonoBehaviour
 {
     private Block targetBlock;//which Block's information to display
 
-    private string type = "Sword";//constructed building's type
+    private string type = "Restaurant";//constructed building's type
 
     private GameObject emptyBlockPanel;
     private GameObject buildingInfoPanel;
     private GameObject ownedBlockPanel; //UI when the Block is bought but not constructed any Block
+
+    //ownedBlockPanel's objects
+    private InputField nameInput;
+    private Text price;
+    private ButtonGroup buildingType;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +25,10 @@ public class BlockUI : MonoBehaviour
         emptyBlockPanel = transform.Find("EmptyBlockPanel").gameObject;
         buildingInfoPanel = transform.Find("BuildingInfoPanel").gameObject;
         ownedBlockPanel = transform.Find("OwnedBlockPanel").gameObject;
+
+        nameInput = ownedBlockPanel.transform.Find("NameInput").GetComponent<InputField>();
+        buildingType = ownedBlockPanel.transform.Find("BuildingType").GetComponent<ButtonGroup>();
+        buildingType.setSelect(0);//set the first type the default building type
     }
 
     // Update is called once per frame
@@ -65,6 +74,7 @@ public class BlockUI : MonoBehaviour
         ownedBlockPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
+        
     }
 
     public void OnBuyButtonClick(){
@@ -78,14 +88,9 @@ public class BlockUI : MonoBehaviour
         SendMessageUpwards("OwnedBlockPanelEntry");
 
         /***test code***/
-        EventManager.addEvent(delegate (Event evt)
-        {
+        EventManager.addEvent(delegate (Event evt){
             evt.SendMessageUpwards("BlocksManagePanelEntry");
-        },
-        delegate (Event evt)
-        {
-            Debug.Log("Event Ends");
-        }, "你购买了一块地！");
+        },null, "你购买了一块地！");
         /***test code***/
     }
 
@@ -103,7 +108,9 @@ public class BlockUI : MonoBehaviour
         BroadcastMessage("UIExit");
     }
 
-    public void OnBuildingTypeButtonClicked(string type){
-        this.type = type;
+    public void OnBuildingTypeButtonClicked(Button button){
+        buildingType.setSelect(buildingType.buttons.IndexOf(button));
+        Debug.Log(button.name);
+        type = button.name;
     }
 }

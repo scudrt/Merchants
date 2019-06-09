@@ -10,6 +10,8 @@ public class Event : MonoBehaviour
     public EventFunc onClick;  //implement clickEvent
     public EventFunc onEnd;
 
+    public object msg; //message object transferred
+
     public Vector3 targetPos; //position the item should be in
 
     private const int speed = 200; //speed when event info moving
@@ -25,20 +27,17 @@ public class Event : MonoBehaviour
         eventText = transform.Find("Text").GetComponent<Text>();
         eventText.text = text;
 
-        existTime = 30;
+        existTime = 15f;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         existTime -= Time.deltaTime;
-        if (existTime <= 0)
-        {
+        if (existTime <= 0){
             OnEnd();
         }
 
-        if (transform.position != targetPos)
-        {
+        if (transform.position != targetPos){
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPos, speed * Time.deltaTime);
         }
     }
@@ -55,18 +54,27 @@ public class Event : MonoBehaviour
 
     public void OnClick()
     {
-        onClick(this);
+        if (onClick != null) {
+            onClick(this);
+        }
         EventManager.removeEvent(this.gameObject);
     }
 
     public void OnEnd()
     {
-        onEnd(this);
+        if (onEnd != null) {
+            onEnd(this);
+        }
         EventManager.removeEvent(this.gameObject);
     }
     
     public void setText(string text)
     {
         this.text = text;
+    }
+
+    public void setMsg(object msg)
+    {
+        this.msg = msg;
     }
 }

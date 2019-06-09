@@ -234,6 +234,10 @@ public class TalentManageUI : MonoBehaviour
         salary.text = talent.salary.ToString();
         if(talent.workPlace != null)
             status.text = talent.workPlace.buildingType;
+        else
+        {
+            status.text = "";
+        }
         salaryController.value = 5;
         salaryInput.text = salary.text;
     }
@@ -257,7 +261,7 @@ public class TalentManageUI : MonoBehaviour
     public void OnFireButtonClicked()
     {
         Talent talent = City.currentCompany.talentList[serial];
-        City.currentCompany.fireTalent(ref talent);
+        City.currentCompany.fireTalent(talent);
         this.OnOpen();
     }
 
