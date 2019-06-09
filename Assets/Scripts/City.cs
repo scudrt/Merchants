@@ -34,6 +34,7 @@ public class City : MonoBehaviour
 
     private void makeBlocks() {
         GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/greenBlock");
+        GameObject treeBlock = (GameObject)Resources.Load("Prefabs/Tree9_2");
         blockList = new List<Block>();
 
         int n = (int)Mathf.Sqrt((float)BLOCK_NUMBER);
