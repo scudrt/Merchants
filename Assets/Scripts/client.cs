@@ -40,6 +40,8 @@ public class Client : MonoBehaviour
         account.email = "115452@qq.com";
         account.OP = NetOP.CreateAccount;
         SendServer(account);*/
+        CompanyInfo companyInfoObj = new CompanyInfo();
+        
         UpdateMessgaePump();
     }
     #endregion
@@ -111,6 +113,10 @@ public class Client : MonoBehaviour
 
             case NetworkEventType.DataEvent:
                 Debug.Log("data");
+                BinaryFormatter formatter = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream(recBuffer);
+                NetMsg msg = (NetMsg)formatter.Deserialize(ms);
+                OnData(connectionId, channelId, recHostId, msg);
                 break;
             default:
                 break;
@@ -130,4 +136,21 @@ public class Client : MonoBehaviour
         
     }
     #endregion
+    private void OnData(int cnnId, int channelId, int recHostId, NetMsg msg)
+    {
+        Debug.Log("Received a message of type " + msg.OP);
+        switch (msg.OP)
+        {
+            case NetOP.None:
+                break;
+            case NetOP.CreateAccount:
+                break;
+            case NetOP.company:
+                CompanyInfo company = (CompanyInfo)msg;
+                company.setData();
+                break;
+        }
+
+    }
+
 }
