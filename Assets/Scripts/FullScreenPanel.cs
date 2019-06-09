@@ -11,7 +11,6 @@ public class FullScreenPanel : MonoBehaviour
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        Debug.Log("Full Screen Panel init Done");
         UIExit();
     }
 
@@ -25,11 +24,13 @@ public class FullScreenPanel : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+        PlayerUI.delUI();
     }
 
     public void UIEntry(){
         canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
+        PlayerUI.addUI();
     }
 }

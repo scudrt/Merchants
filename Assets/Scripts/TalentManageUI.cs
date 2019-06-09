@@ -234,6 +234,10 @@ public class TalentManageUI : MonoBehaviour
         salary.text = talent.salary.ToString();
         if(talent.workPlace != null)
             status.text = talent.workPlace.buildingType;
+        else
+        {
+            status.text = "";
+        }
         salaryController.value = 5;
         salaryInput.text = salary.text;
     }

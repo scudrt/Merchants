@@ -10,6 +10,8 @@ public class Event : MonoBehaviour
     public EventFunc onClick;  //implement clickEvent
     public EventFunc onEnd;
 
+    public object msg; //message object transferred
+
     public Vector3 targetPos; //position the item should be in
 
     private const int speed = 200; //speed when event info moving
@@ -25,7 +27,7 @@ public class Event : MonoBehaviour
         eventText = transform.Find("Text").GetComponent<Text>();
         eventText.text = text;
 
-        existTime = 30;
+        existTime = 15;
     }
 
     // Update is called once per frame
@@ -68,5 +70,10 @@ public class Event : MonoBehaviour
     public void setText(string text)
     {
         this.text = text;
+    }
+
+    public void setMsg(object msg)
+    {
+        this.msg = msg;
     }
 }

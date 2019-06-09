@@ -167,11 +167,13 @@ public class ContractSendPanel : MonoBehaviour
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = "暂无建筑";
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = "";
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = "暂无建筑";
             }
 
             i++;
@@ -261,11 +263,13 @@ public class ContractSendPanel : MonoBehaviour
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = "暂无建筑";
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = "";
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = "暂无建筑";
             }
 
             i++;
@@ -355,11 +359,13 @@ public class ContractSendPanel : MonoBehaviour
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = "暂无建筑";
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = "";
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = "暂无建筑";
             }
 
             i++;
@@ -449,11 +455,13 @@ public class ContractSendPanel : MonoBehaviour
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = "暂无建筑";
                 blockInfo.transform.Find("Profit").GetComponent<Text>().text = "";
+                blockInfo.transform.Find("Name").GetComponent<Text>().text = "暂无建筑";
             }
 
             i++;

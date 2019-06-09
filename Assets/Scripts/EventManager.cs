@@ -8,7 +8,7 @@ public class EventManager
     public static GameObject eventInfo;
     public static EventsPanel panel;
 
-    public static void addEvent(Event.EventFunc clickEvent, Event.EventFunc endEvent, string eventText)
+    public static void addEvent(Event.EventFunc clickEvent, Event.EventFunc endEvent, string eventText, object msg = null)
     {
         GameObject evtObj = GameObject.Instantiate(eventInfo, panel.content);
 
@@ -17,6 +17,11 @@ public class EventManager
         script.setText(eventText);
         script.addClickEvent(clickEvent);
         script.addEndEvent(endEvent);
+
+        if (msg != null)
+        {
+            script.setMsg(msg);
+        }
 
         eventsList.Insert(0, evtObj);
 
