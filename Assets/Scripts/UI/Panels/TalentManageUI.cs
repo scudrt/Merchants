@@ -79,7 +79,7 @@ public class TalentManageUI : MonoBehaviour
     }
 
     // Init information when open the panel
-    public void OnOpen()
+    public void OnOpen(Talent targetTalent = null)
     {
         //disable the details panel
         details.gameObject.SetActive(false);
@@ -123,6 +123,13 @@ public class TalentManageUI : MonoBehaviour
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+
+        //display details if target talent exists
+        if(targetTalent != null)
+        {
+            serial = City.currentCompany.talentList.IndexOf(targetTalent);
+            DisplayItemInfo(serial);
+        }
     }
 
     public void DisplayBlocks()
@@ -166,7 +173,7 @@ public class TalentManageUI : MonoBehaviour
             else
             {
                 nameText = block.building.nickName;
-                profitText = block.building.totalProfit.ToString();
+                profitText = block.building.monthlyProfit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
             blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;

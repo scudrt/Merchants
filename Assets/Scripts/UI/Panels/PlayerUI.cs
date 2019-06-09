@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static int isInUI = 0;
+    public static int isInUI = 6;
 
     public Company company;
 
@@ -30,7 +30,7 @@ public class PlayerUI : MonoBehaviour
         isInUI++;
         if (isInUI > 0)
         {
-            GameObject.FindObjectOfType<Camera>().enabled = true;
+            GameObject.FindObjectOfType<Camera>().enabled = false;
         }
     }
 
@@ -39,7 +39,7 @@ public class PlayerUI : MonoBehaviour
         isInUI--;
         if (isInUI == 0)
         {
-            GameObject.FindObjectOfType<Camera>().enabled = false;
+            GameObject.FindObjectOfType<Camera>().enabled = true;
         }
     }
 
@@ -75,15 +75,27 @@ public class PlayerUI : MonoBehaviour
 
     public void TalentsManagePanelEntry()
     {
-
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
+    }
+
+    public void TalentsManagePanelEntry(Talent targetTalent)
+    {
+
+        talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
+        talentsManagePanel.GetComponent<TalentManageUI>().OnOpen(targetTalent);
     }
 
     public void BlocksManagePanelEntry()
     {
         blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         blocksManagePanel.GetComponent<BuildingManagement>().OnOpen();
+    }
+
+    public void BlocksManagePanelEntry(Block targetBlock)
+    {
+        blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
+        blocksManagePanel.GetComponent<BuildingManagement>().OnOpen(targetBlock);
     }
 
     public void TalentsManagePanelExit()
@@ -107,5 +119,20 @@ public class PlayerUI : MonoBehaviour
     {
         contractSendPanel.GetComponent<FullScreenPanel>().UIEntry();
         contractSendPanel.GetComponent<ContractSendPanel>().OnOpen(City.currentCompany, other);
+    }
+
+    public void OnTalentManageButtonClicked()
+    {
+        TalentsManagePanelEntry();
+    }
+
+    public void OnBlockManageButtonClicked()
+    {
+        BlocksManagePanelEntry();
+    }
+
+    public void OnExitButton(Button button)
+    {
+        button.SendMessageUpwards("UIExit");
     }
 }

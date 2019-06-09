@@ -166,7 +166,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.monthlyProfit.ToString();
                 blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
@@ -262,7 +262,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.annualProfit.ToString();
                 blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
@@ -358,7 +358,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.annualProfit.ToString();
                 blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else
@@ -454,7 +454,7 @@ public class ContractSendPanel : MonoBehaviour
             if (!block.isEmpty)
             {
                 blockInfo.transform.Find("Type").GetComponent<Text>().text = block.building.buildingType;
-                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.totalProfit.ToString();
+                blockInfo.transform.Find("Profit").GetComponent<Text>().text = block.building.annualProfit.ToString();
                 blockInfo.transform.Find("Name").GetComponent<Text>().text = block.building.nickName;
             }
             else

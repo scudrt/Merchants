@@ -7,7 +7,7 @@ public class BlockUI : MonoBehaviour
 {
     private Block targetBlock;//which Block's information to display
 
-    private string type = "Restaurant";//constructed building's type
+    private string type;//constructed building's type
 
     private GameObject emptyBlockPanel;
     private GameObject buildingInfoPanel;
@@ -17,6 +17,11 @@ public class BlockUI : MonoBehaviour
     private InputField nameInput;
     private Text price;
     private ButtonGroup buildingType;
+
+    //buildingInfoPanel's objects
+    private Text profit;
+    private Text name;
+    private Text typeText;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +33,14 @@ public class BlockUI : MonoBehaviour
 
         nameInput = ownedBlockPanel.transform.Find("NameInput").GetComponent<InputField>();
         buildingType = ownedBlockPanel.transform.Find("BuildingType").GetComponent<ButtonGroup>();
+        price = ownedBlockPanel.transform.Find("Price").GetComponent<Text>();
         buildingType.setSelect(0);//set the first type the default building type
+        type = "Restaurant";
+        price.text = "4000";
+
+        profit = buildingInfoPanel.transform.Find("Profit").GetComponent<Text>();
+        name = buildingInfoPanel.transform.Find("Name").GetComponent<Text>();
+        typeText = buildingInfoPanel.transform.Find("Type").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -64,6 +76,9 @@ public class BlockUI : MonoBehaviour
         buildingInfoPanel.GetComponent<UIPanel>().UIEntry();
 
         //set the information
+        profit.text = targetBlock.building.monthlyProfit.ToString();
+        name.text = targetBlock.building.nickName;
+        typeText.text = targetBlock.building.buildingType;
     }
 
     public void OwnedBlockPanelEntry() {
@@ -89,7 +104,7 @@ public class BlockUI : MonoBehaviour
 
         /***test code***/
         EventManager.addEvent(delegate (Event evt){
-            evt.SendMessageUpwards("BlocksManagePanelEntry");
+            evt.SendMessageUpwards("BlocksManagePanelEntry", null);
         },null, "你购买了一块地！");
         /***test code***/
     }
@@ -99,8 +114,24 @@ public class BlockUI : MonoBehaviour
         //build on the block
         City.currentCompany.buildOnBlock(ref targetBlock, this.type);
 
+        StartCoroutine(WaitUntilBuildingComplete());
+    }
+
+    private IEnumerator WaitUntilBuildingComplete()
+    {
+        Debug.Log("here1");
+
+        yield return new WaitUntil(() => { return !targetBlock.isEmpty; });
+
+        Debug.Log("Here3");
+
+        if (targetBlock.building != null && nameInput.text != "")
+        {
+            targetBlock.building.nickName = nameInput.text;
+        }
+
         ownedBlockPanel.GetComponent<UIPanel>().UIExit();
-        SendMessageUpwards("BuildingInfoPanelEntry");
+        BuildingInfoPanelEntry();
     }
 
     public void onExitButtonClicked() {
@@ -110,7 +141,41 @@ public class BlockUI : MonoBehaviour
 
     public void OnBuildingTypeButtonClicked(Button button){
         buildingType.setSelect(buildingType.buttons.IndexOf(button));
-        Debug.Log(button.name);
+        //clear the name input
+        if (type != button.name)
+        {
+            nameInput.text = "";
+        }
+
         type = button.name;
+
+        
+
+        //set price( should be modified after making price static)
+        switch (type)
+        {
+            case "ArtGallery": price.text = "4000"; break;
+            case "Bank": price.text = "12000"; break;
+            case "Cenema": price.text = "8000"; break;
+            case "Hospital": price.text = "6000"; break;
+            case "Restaurant": price.text = "4000"; break;
+            case "Scenic": price.text = "6000"; break;
+            case "School": price.text = "7000"; break;
+            case "Stadium": price.text = "3000"; break;
+            case "SuperMarket": price.text = "3000"; break;
+            default: break;
+        }
+    }
+
+    public void OnDetailsButtonClicked()
+    {
+        SendMessageUpwards("BlocksManagePanelEntry", targetBlock);
+    }
+
+    public void OnDestroyButtonClicked()
+    {
+        //destroy building
+        BroadcastMessage("UIExit");
+        OwnedBlockPanelEntry();
     }
 }

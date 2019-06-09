@@ -18,13 +18,19 @@ public class UIPanel : MonoBehaviour
 
     public void UIEntry()
     {
+        if (animator.GetBool("isDisplayed") != true)
+        {
+            PlayerUI.addUI();
+        }
         animator.SetBool("isDisplayed", true);
-        PlayerUI.addUI();
     }
 
     public void UIExit()
     {
+        if(animator.GetBool("isDisplayed") != false)
+        {
+            PlayerUI.delUI();
+        }
         animator.SetBool("isDisplayed", false);
-        PlayerUI.delUI();
     }
 }

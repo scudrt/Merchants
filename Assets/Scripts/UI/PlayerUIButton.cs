@@ -16,23 +16,8 @@ public class PlayerUIButton : MonoBehaviour
         
     }
 
-    public void OnPlayerButtonClicked()
-    {
-        SendMessageUpwards("PlayerInfoPanelEntry");
-    }
-
-    public void OnTalentsManageClicked()
-    {
-        SendMessageUpwards("TalentsManagePanelEntry");
-    }
-
     public void OnExitButton()
     {
         SendMessageUpwards("UIExit");
-    }
-
-    public void OnDecisionButtonClicked()
-    {
-        SendMessageUpwards("DecisionPanelEntry");
     }
 }

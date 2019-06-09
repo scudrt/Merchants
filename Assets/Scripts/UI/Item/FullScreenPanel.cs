@@ -21,10 +21,12 @@ public class FullScreenPanel : MonoBehaviour
     }
 
     public void UIExit() {
+        if(canvasGroup.alpha != 0) {
+            PlayerUI.delUI();
+        }
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
-        PlayerUI.delUI();
     }
 
     public void UIEntry(){

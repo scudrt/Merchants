@@ -7,6 +7,8 @@ public class BuildingManagement : MonoBehaviour
 {
     public GameObject blockInfoPrefab;
 
+    public Block targetBlock;
+
     private ScrollRect scrollrect;//blocks' scroll view
     private GameObject content;//content contains talent informations
     private RectTransform contentTR;
@@ -40,7 +42,6 @@ public class BuildingManagement : MonoBehaviour
         buildingName = details.Find("Name").GetComponent<Text>();
         industry = details.Find("Industry").GetComponent<Text>();
         budget = details.Find("BudgetInput").GetComponent<InputField>();
-        customer = details.Find("Customer").GetComponent<Text>();
         profit = details.Find("Profit").GetComponent<Text>();
         advertising = details.Find("Advertising").GetComponent<Text>();
         operating = details.Find("Operating").GetComponent<Text>();
@@ -58,7 +59,7 @@ public class BuildingManagement : MonoBehaviour
 
     }
 
-    public void OnOpen()
+    public void OnOpen(Block targetBlock = null)
     {
         details.gameObject.SetActive(false);
 
@@ -94,7 +95,7 @@ public class BuildingManagement : MonoBehaviour
             else
             {
                 nameText = block.building.nickName;
-                profitText = block.building.totalProfit.ToString();
+                profitText = block.building.monthlyProfit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
             blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;
@@ -104,6 +105,13 @@ public class BuildingManagement : MonoBehaviour
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
+
+        //if exist target block, display details
+        if (targetBlock != null)
+        {
+            serial = City.currentCompany.blockList.IndexOf(targetBlock);
+            DisplayItemInfo(serial);
+        }
     }
 
     public void DisplayItemInfo(int _serial)
@@ -135,8 +143,7 @@ public class BuildingManagement : MonoBehaviour
         buildingName.text = block.building.nickName;
         industry.text = block.building.buildingType;
         budget.text = block.building.budget.ToString();
-        customer.text = block.building.customerCount.ToString();
-        profit.text = block.building.totalProfit.ToString();
+        profit.text = block.building.annualProfit.ToString();
         advertising.text = (budgetUse.value).ToString() + "%";
         operating.text = (100 - budgetUse.value).ToString() + "%";
     }
