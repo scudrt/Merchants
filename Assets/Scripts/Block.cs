@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -80,39 +81,7 @@ public class Block : MonoBehaviour {
             return false;
         }
         //attach script to the new building
-        switch (buildingTypeName) {
-            case "ArtGallery":
-                this.building = gameObject.AddComponent<ArtGallery>();
-                break;
-            case "Bank":
-                this.building = gameObject.AddComponent<Bank>();
-                break;
-            case "Cinema":
-                this.building = gameObject.AddComponent<Cinema>();
-                break;
-            case "Hospital":
-                this.building = gameObject.AddComponent<Hospital>();
-                break;
-            case "Restaurant":
-                this.building = gameObject.AddComponent<Restaurant>();
-                break;
-            case "Scenic":
-                this.building = gameObject.AddComponent<Scenic>();
-                break;
-            case "School":
-                this.building = gameObject.AddComponent<School>();
-                break;
-            case "Stadium":
-                this.building = gameObject.AddComponent<Stadium>();
-                break;
-            case "SuperMarket":
-                this.building = gameObject.AddComponent<SuperMarket>();
-                break;
-            default:
-                this.building = gameObject.AddComponent<Scenic>();
-                //can throw an exception here
-                break;
-        }
+        this.building = (Building)gameObject.AddComponent(Type.GetType(buildingTypeName));
         //pay for the building
         if (this.isOwned){
             if (companyBelong.costMoney(building.price) == false) {
@@ -122,6 +91,7 @@ public class Block : MonoBehaviour {
                 return false;
             }
         }
+        this.price += this.building.price;
         this.building.blockBelong = this;
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);

@@ -11,6 +11,12 @@ public class City : MonoBehaviour
     
     public static News newsMaker;
 
+    //building type list
+    public static string[] buildingTypes =
+        { "ArtGallery", "Bank", "Cinema",
+        "Hospital", "Restaurant", "Scenic",
+        "School", "Stadium", "SuperMarket"};
+
     private const int NATURAL_BUILDING_COUNT = 12;
     private const int BLOCK_NUMBER = 64; // it must be a square of integer
     public static int numOfPlayers = 3;
@@ -75,8 +81,14 @@ public class City : MonoBehaviour
 
     private void generateNaturalBuildings() {
         //randomly generate buildings in city
+        int index;
         for (int k = 1; k <= NATURAL_BUILDING_COUNT; ++k) {
-            ;
+            do {
+                index = Random.Range(0, BLOCK_NUMBER);
+            } while (blockList[index].isEmpty == false);
+            string type = buildingTypes[Random.Range(0, 8)];
+            Debug.Log("natural building type = " + type);
+            blockList[index].build(type);
         }
     }
 
