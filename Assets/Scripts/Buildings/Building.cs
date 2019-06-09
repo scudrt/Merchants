@@ -8,7 +8,7 @@ public abstract class Building : MonoBehaviour{
     public string buildingType = "Building";
     public Block blockBelong = null;
     public int level = 1;
-    public float price = 1000f, upgradePrice = 2000f;
+    public float price = 8000f, upgradePrice = 2000f;
     public float budget = 0f;
     public float ADBudgetProportion = 0.5f;
     //statistics data
@@ -100,7 +100,7 @@ public abstract class Building : MonoBehaviour{
         monthlyProfit += newProfit;
         annualProfit += newProfit;
 
-        if (blockBelong.companyBelong != null) {
+        if (blockBelong.isOwned) {
             if (blockBelong.companyBelong == City.currentCompany) { //TO BE DONE
                 //show money flowing effect, empty for now
             }
@@ -109,7 +109,7 @@ public abstract class Building : MonoBehaviour{
     }
 
     public virtual bool addBudget(float delta) {
-        if (blockBelong == null || blockBelong.companyBelong == null) {
+        if (blockBelong == null || blockBelong.isOwned == false) {
             return false;
         }
         if (blockBelong.companyBelong.costMoney(delta)) {

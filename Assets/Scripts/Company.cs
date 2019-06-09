@@ -38,6 +38,7 @@ public class Company : MonoBehaviour{
         if (block.isOwned || this.fund < block.price) {
             return false;
         }
+        Debug.Log("buying costs " + block.price);
         fund -= block.price;
         block.companyBelong = this;
         blockList.Add(block);

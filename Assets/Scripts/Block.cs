@@ -108,8 +108,9 @@ public class Block : MonoBehaviour {
 
     public void sellBuilding() {
         if (companyBelong != null) {
-            companyBelong.fund += building.price;
+            companyBelong.fund += building.price / 2.0f;
         }
+        this.price -= building.price;
         GameObject.DestroyImmediate(building.GetComponentInParent<GameObject>());
         this.building = null;
     }
@@ -155,7 +156,7 @@ public class Block : MonoBehaviour {
                 blockUI.SendMessage("EmptyBlockPanelEntry");
             }
             else{
-                blockUI.SendMessage("NaturalBlockEntry");
+                blockUI.SendMessage("EmptyBlockPanelEntry");
             }
         }
     }

@@ -48,7 +48,6 @@ public class City : MonoBehaviour
         float mapSize = gameObject.GetComponent<Collider>().bounds.size.x;
         float blockSize = mapSize / n;
         float blockScale = blockSize / mapSize;
-        Debug.Log(mapSize + " " + blockSize + " " + blockScale + " " + n);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 //generate blocks using prefab
@@ -64,6 +63,8 @@ public class City : MonoBehaviour
                 blockList.Add(newBlock);
             }
         }
+        //generate natural buildings after generating blocks
+        generateNaturalBuildings();
     }
 
     private void makeCompanies() {
@@ -85,10 +86,9 @@ public class City : MonoBehaviour
         int index;
         for (int k = 1; k <= NATURAL_BUILDING_COUNT; ++k) {
             do {
-                index = Random.Range(0, BLOCK_NUMBER);
+                index = Random.Range(0, BLOCK_NUMBER - 1);
             } while (blockList[index].isEmpty == false);
             string type = buildingTypes[Random.Range(0, 8)];
-            Debug.Log("natural building type = " + type);
             blockList[index].build(type);
         }
     }
@@ -96,10 +96,10 @@ public class City : MonoBehaviour
     void Start() {
         makeBlocks();
         makeCompanies();
-        generateNaturalBuildings();
-        newsMaker = GameObject.FindObjectOfType<News>();
         talentsMarketList = new List<Talent>();
         generateTalentsMarket();
+
+        newsMaker = GameObject.FindObjectOfType<News>();
         Debug.Log("City init done");
     }
 
