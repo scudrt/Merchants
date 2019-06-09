@@ -32,6 +32,9 @@ public class Company : MonoBehaviour{
     }
     public bool buyBlock(ref Block block) {
         //return false if block buying failed
+        if (block == null) {
+            return false;
+        }
         if (block.isOwned || this.fund < block.price) {
             return false;
         }
@@ -41,7 +44,7 @@ public class Company : MonoBehaviour{
         return true;
     }
 
-    public bool hireTalent(ref Talent talent) {
+    public bool hireTalent(Talent talent) {
         if (talent.companyBelong != null) {
             return false;
         }
@@ -50,7 +53,7 @@ public class Company : MonoBehaviour{
         return true;
     }
 
-    public bool fireTalent(ref Talent talent) {
+    public bool fireTalent(Talent talent) {
         if (talent.companyBelong != this) {
             return false;
         }

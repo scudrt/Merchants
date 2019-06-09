@@ -15,8 +15,12 @@ public class EventManager
         //set Event's listeners and text
         Event script = evtObj.GetComponent<Event>();
         script.setText(eventText);
-        script.addClickEvent(clickEvent);
-        script.addEndEvent(endEvent);
+        if (clickEvent != null) {
+            script.addClickEvent(clickEvent);
+        }
+        if (endEvent != null) {
+            script.addEndEvent(endEvent);
+        }
 
         if (msg != null)
         {

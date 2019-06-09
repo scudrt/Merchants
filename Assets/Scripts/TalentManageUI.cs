@@ -261,7 +261,7 @@ public class TalentManageUI : MonoBehaviour
     public void OnFireButtonClicked()
     {
         Talent talent = City.currentCompany.talentList[serial];
-        City.currentCompany.fireTalent(ref talent);
+        City.currentCompany.fireTalent(talent);
         this.OnOpen();
     }
 

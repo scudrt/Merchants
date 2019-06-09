@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Talent
+public class Talent : MonoBehaviour
 {
+    private int currentDay = Timer.day;
     private static int talentTick = 0; //record the talents have ever generated
-    private static float floor(float x) {
-        return (float)((int)x);
-    }
     public static Talent generateTalent() {
         //return a randomly generated talent
         //generate name
-        Talent _talent = new Talent();
+        Talent _talent = GameObject.FindObjectOfType<City>().gameObject.AddComponent<Talent>();
 
         int lenOfName = Random.Range(3, 6);
         string _name = "" + (char)Random.Range(65, 90); //'A' - 'Z'
@@ -20,19 +18,19 @@ public class Talent
         }
         _talent.name = _name;
         //generate talent's capacity
-        float _charm = floor(City.generateNormalDistribution(50f, 50f)),
-            _capacity = floor(City.generateNormalDistribution(50f, 50f));
+        float _charm = Mathf.Floor(City.generateNormalDistribution(50f, 50f)),
+            _capacity = Mathf.Floor(City.generateNormalDistribution(50f, 50f));
         _talent.capacity = _capacity;
         _talent.charm = _charm;
 
         _talent.satisfaction = 50f;
-        _talent.salary = _charm + _capacity + floor(City.generateNormalDistribution(50, 25));
+        _talent.salary = _charm + _capacity + Mathf.Floor(City.generateNormalDistribution(50, 25));
         //distribute id for every talent
         _talent.id = talentTick++;
         return _talent;
     }
     public int id = 0;
-    public string name { get; set; }
+    public new string name { get; set; }
     public Building workPlace = null;
     public Company companyBelong = null;
     private float _satisfaction;
@@ -87,6 +85,45 @@ public class Talent
             if (value < 0)
                 value = 0;
             _charm = value;
+        }
+    }
+
+    private void leaveCompany() {
+        if (companyBelong == null) {
+            return;
+        }
+        //send event
+        EventManager.addEvent(null, null,
+            name + "因工资被拖欠而去世");
+        //leave company
+        companyBelong.fireTalent(this);
+        GameObject.DestroyImmediate(this);
+    }
+    private void getPaid() {
+        //get salary from its company
+        if (companyBelong != null) {
+            if (companyBelong.costMoney(_salary) == false) { //no enough money
+                //lose satisfaction
+                _satisfaction -= 10;
+                //send message to company's player
+                EventManager.addEvent(null, null,
+                    name + ":你拖欠我的工资!(满意度下降)");
+            }
+        }
+    }
+    void Start() {
+        ;
+    }
+
+    void Update() {
+        if (currentDay != Timer.day) {
+            currentDay = Timer.day;
+
+            getPaid();
+
+            if (_satisfaction <= 0) {
+                leaveCompany();
+            }
         }
     }
 }

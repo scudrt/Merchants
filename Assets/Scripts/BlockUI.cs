@@ -7,7 +7,7 @@ public class BlockUI : MonoBehaviour
 {
     private Block targetBlock;//which Block's information to display
 
-    private string type = "Sword";//constructed building's type
+    private string type = "Restaurant";//constructed building's type
 
     private GameObject emptyBlockPanel;
     private GameObject buildingInfoPanel;
@@ -88,14 +88,9 @@ public class BlockUI : MonoBehaviour
         SendMessageUpwards("OwnedBlockPanelEntry");
 
         /***test code***/
-        EventManager.addEvent(delegate (Event evt)
-        {
+        EventManager.addEvent(delegate (Event evt){
             evt.SendMessageUpwards("BlocksManagePanelEntry");
-        },
-        delegate (Event evt)
-        {
-            Debug.Log("Event Ends");
-        }, "你购买了一块地！");
+        },null, "你购买了一块地！");
         /***test code***/
     }
 
