@@ -4,7 +4,7 @@
     public const int CreateAccount = 1;
     public const int block = 2;
     public const int company = 3;
-
+    public const int trade = 4;
 }
 [System.Serializable]
 public abstract class NetMsg
