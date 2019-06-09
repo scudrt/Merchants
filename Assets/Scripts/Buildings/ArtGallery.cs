@@ -5,7 +5,10 @@
 
         price = 4000f;
         buildingType = "ArtGallery";
-        nickName = blockBelong.companyBelong.nickName + "的美术馆" + buildingCount;
+        nickName = "美术馆" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         onGenerate();

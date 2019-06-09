@@ -5,7 +5,10 @@
 
         price = 6000f;
         buildingType = "Hospital";
-        nickName = blockBelong.companyBelong.nickName + "的医院" + buildingCount;
+        nickName = "医院" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         this.onGenerate();

@@ -78,7 +78,6 @@ public class Company : MonoBehaviour{
 
     public bool buildOnBlock(ref Block block, string buildingType = "Sword") {
         //return false if building buying failed
-        //TODO: this implementation is ugly
         if (block.companyBelong != this) {
             return false;
         }

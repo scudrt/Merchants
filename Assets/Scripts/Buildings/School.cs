@@ -5,7 +5,10 @@
 
         price = 7000f;
         buildingType = "School";
-        nickName = blockBelong.companyBelong.nickName + "的学校" + buildingCount;
+        nickName = "学校" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         onGenerate();

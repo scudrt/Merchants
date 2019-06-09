@@ -20,7 +20,7 @@ public class Block : MonoBehaviour {
         }}
     private Renderer blockRenderer;
     private Color blockColor,
-        activeColor = Color.red, 
+        activeColor = Color.red,
         chosenColor = Color.blue;
     public Color color { get {
             return this.blockRenderer.material.color;
@@ -74,7 +74,7 @@ public class Block : MonoBehaviour {
         this.price = 5000f;
         Debug.Log("Block onGenerate done");
     }
-    
+
     public bool build(string buildingTypeName) {
         if (!isEmpty) { //current block isn't empty
             return false;
@@ -114,14 +114,15 @@ public class Block : MonoBehaviour {
                 break;
         }
         //pay for the building
-        if (this.companyBelong.costMoney(this.building.price) == false) {
-            //don't have enough money, return false
-            GameObject.Destroy(this.building);
-            this.building = null;
-            return false;
-        } else {
-            this.building.blockBelong = this;
+        if (this.isOwned){
+            if (companyBelong.costMoney(building.price) == false) {
+                //don't have enough money, return false
+                GameObject.Destroy(this.building);
+                building = null;
+                return false;
+            }
         }
+        this.building.blockBelong = this;
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, newBuilding.transform.rotation);

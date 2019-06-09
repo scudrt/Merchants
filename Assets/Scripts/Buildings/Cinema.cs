@@ -5,7 +5,10 @@
 
         price = 8000f;
         buildingType = "Cinema";
-        nickName = blockBelong.companyBelong.nickName + "的电影院" + buildingCount;
+        nickName = "电影院" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         onGenerate();

@@ -5,7 +5,10 @@
 
         price = 4000f;
         buildingType = "Restaurant";
-        nickName = blockBelong.companyBelong.nickName + "的餐厅" + buildingCount;
+        nickName = "餐厅" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         onGenerate();
