@@ -11,8 +11,9 @@ public class City : MonoBehaviour
     
     public static News newsMaker;
 
-    private const int BLOCK_NUMBER = 49; // it must be a square of integer
-    public static int numOfPlayers = 2;
+    private const int NATURAL_BUILDING_COUNT = 12;
+    private const int BLOCK_NUMBER = 64; // it must be a square of integer
+    public static int numOfPlayers = 3;
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
@@ -72,9 +73,17 @@ public class City : MonoBehaviour
         currentCompany = companyList[0]; //zero is the host of game
     }
 
+    private void generateNaturalBuildings() {
+        //randomly generate buildings in city
+        for (int k = 1; k <= NATURAL_BUILDING_COUNT; ++k) {
+            ;
+        }
+    }
+
     void Start() {
         makeBlocks();
         makeCompanies();
+        generateNaturalBuildings();
         newsMaker = GameObject.FindObjectOfType<News>();
         talentsMarketList = new List<Talent>();
         generateTalentsMarket();

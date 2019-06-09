@@ -5,7 +5,10 @@
 
         price = 12000f;
         buildingType = "Bank";
-        nickName = blockBelong.companyBelong.nickName + "的银行" + buildingCount;
+        nickName = "银行" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     // Start is called before the first frame update
     void Start() {

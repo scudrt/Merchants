@@ -5,7 +5,10 @@
 
         price = 3000f;
         buildingType = "SuperMarket";
-        nickName = blockBelong.companyBelong.nickName + "的超市" + buildingCount;
+        nickName = "超市" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         this.onGenerate();

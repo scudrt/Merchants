@@ -5,7 +5,10 @@
 
         price = 6000f;
         buildingType = "Scenic";
-        nickName = blockBelong.companyBelong.nickName + "的景区" + buildingCount;
+        nickName = "景区" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         this.onGenerate();

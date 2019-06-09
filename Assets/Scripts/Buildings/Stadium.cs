@@ -5,7 +5,10 @@
 
         price = 3000f;
         buildingType = "Stadium";
-        nickName = blockBelong.companyBelong.nickName + "的体育场" + buildingCount;
+        nickName = "体育场" + buildingCount;
+        if (blockBelong.companyBelong != null) {
+            nickName = blockBelong.companyBelong.nickName + "的" + nickName;
+        }
     }
     void Start() {
         onGenerate();

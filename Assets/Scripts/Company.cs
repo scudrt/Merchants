@@ -30,7 +30,7 @@ public class Company : MonoBehaviour{
 
         Debug.Log("Company " + id + " init done");
     }
-    public bool buyBlock(ref Block block) {
+    public bool buyBlock(Block block) {
         //return false if block buying failed
         if (block == null) {
             return false;
@@ -76,9 +76,8 @@ public class Company : MonoBehaviour{
         return this.costMoney(-delta);
     }
 
-    public bool buildOnBlock(ref Block block, string buildingType = "Sword") {
+    public bool buildOnBlock(Block block, string buildingType = "Sword") {
         //return false if building buying failed
-        //TODO: this implementation is ugly
         if (block.companyBelong != this) {
             return false;
         }
