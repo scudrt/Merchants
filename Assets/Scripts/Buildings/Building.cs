@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Building : MonoBehaviour{
+public abstract class Building : MonoBehaviour {
     //Data Area
     public string nickName = "看不见的店铺"; //building's name made by player
     public string buildingType = "Building";
     public Block blockBelong = null;
     public int level = 1;
-    public float price = 8000f, upgradePrice = 2000f;
+    public float price = 5000f, upgradePrice = 2000f;
     public float budget = 0f;
     public float ADBudgetProportion = 0.5f;
     //statistics data

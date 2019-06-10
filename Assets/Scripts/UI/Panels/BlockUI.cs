@@ -20,7 +20,7 @@ public class BlockUI : MonoBehaviour
 
     //buildingInfoPanel's objects
     private Text profit;
-    private Text name;
+    private new Text name;
     private Text typeText;
 
     // Start is called before the first frame update
@@ -100,7 +100,11 @@ public class BlockUI : MonoBehaviour
             return;
         }
         emptyBlockPanel.GetComponent<UIPanel>().UIExit();
-        SendMessageUpwards("OwnedBlockPanelEntry");
+        if (targetBlock.isEmpty) {
+            SendMessageUpwards("OwnedBlockPanelEntry");
+        } else {
+            SendMessageUpwards("BuildingInfoPanelEntry");
+        }
 
         /***test code***/
         EventManager.addEvent(delegate (Event evt){
@@ -113,17 +117,13 @@ public class BlockUI : MonoBehaviour
     public void OnBuildButtonClick(){
         //build on the block
         City.currentCompany.buildOnBlock(ref targetBlock, this.type);
-
+        
         StartCoroutine(WaitUntilBuildingComplete());
     }
 
     private IEnumerator WaitUntilBuildingComplete()
     {
-        Debug.Log("here1");
-
         yield return new WaitUntil(() => { return !targetBlock.isEmpty; });
-
-        Debug.Log("Here3");
 
         if (targetBlock.building != null && nameInput.text != "")
         {

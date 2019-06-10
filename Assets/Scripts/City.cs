@@ -40,7 +40,7 @@ public class City : MonoBehaviour
     }
 
     private void makeBlocks() {
-        GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/greenBlock");
+        GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/brickBlock");
         GameObject treeBlock = (GameObject)Resources.Load("Prefabs/Tree9_2");
         blockList = new List<Block>();
 
@@ -63,8 +63,6 @@ public class City : MonoBehaviour
                 blockList.Add(newBlock);
             }
         }
-        //generate natural buildings after generating blocks
-        generateNaturalBuildings();
     }
 
     private void makeCompanies() {
@@ -74,14 +72,16 @@ public class City : MonoBehaviour
             temp.id = i;
             //distribute random color to every company
             float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
-            Debug.Log(r + " " + g + " " + b);
             temp.companyColor = new Color(r, g, b);
             companyList.Add(temp);
         }
         currentCompany = companyList[0]; //zero is the host of game
     }
 
-    private void generateNaturalBuildings() {
+    private IEnumerator generateNaturalBuildings() {
+        //wait for city generating all blocks
+        yield return new WaitUntil(()=>{ return City.BLOCK_NUMBER == City.blockList.Count; });
+
         //randomly generate buildings in city
         int index;
         for (int k = 1; k <= NATURAL_BUILDING_COUNT; ++k) {
@@ -96,6 +96,7 @@ public class City : MonoBehaviour
     void Start() {
         makeBlocks();
         makeCompanies();
+        StartCoroutine(generateNaturalBuildings());
         talentsMarketList = new List<Talent>();
         generateTalentsMarket();
 

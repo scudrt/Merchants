@@ -28,18 +28,16 @@ public class PlayerUI : MonoBehaviour
     public static void addUI()
     {
         isInUI++;
-        if (isInUI > 0)
-        {
-            GameObject.FindObjectOfType<Camera>().enabled = false;
+        if (isInUI > 0){
+            GameObject.FindObjectOfType<Camera>().movable = false;
         }
     }
 
     public static void delUI()
     {
         isInUI--;
-        if (isInUI == 0)
-        {
-            GameObject.FindObjectOfType<Camera>().enabled = true;
+        if (isInUI == 0) {
+            GameObject.FindObjectOfType<Camera>().movable = true;
         }
     }
 
