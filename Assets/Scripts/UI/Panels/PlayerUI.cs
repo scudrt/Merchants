@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static int isInUI = 6;
+    public static int isInUI = 7;
 
     public Company company;
 
@@ -16,7 +16,7 @@ public class PlayerUI : MonoBehaviour
     private GameObject talentsMarketPanel;
     private GameObject companiesPanel;
     private GameObject contractSendPanel;
-
+    private GameObject newsPanel;
 
     /******get all data text on bottom panel*******/
     private Text property;
@@ -52,6 +52,7 @@ public class PlayerUI : MonoBehaviour
         talentsMarketPanel = transform.Find("TalentsMarketPanel").gameObject;
         companiesPanel = transform.Find("CompaniesPanel").gameObject;
         contractSendPanel = transform.Find("ContractSendPanel").gameObject;
+        newsPanel = transform.Find("NewsPanel").gameObject;
 
         property = bottomPanel.transform.Find("Property").GetComponent<Text>();
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
@@ -69,6 +70,12 @@ public class PlayerUI : MonoBehaviour
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.amount.ToString();
+    }
+
+    public void NewsPanelEntry(News news)
+    {
+        newsPanel.GetComponent<FullScreenPanel>().UIEntry();
+        newsPanel.GetComponent<NewsPanel>().OnOpen(news);
     }
 
     public void TalentsManagePanelEntry()
