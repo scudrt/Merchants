@@ -40,7 +40,7 @@ public class City : MonoBehaviour
     }
 
     private void makeBlocks() {
-        GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/greenBlock");
+        GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/brickBlock");
         GameObject treeBlock = (GameObject)Resources.Load("Prefabs/Tree9_2");
         blockList = new List<Block>();
 
