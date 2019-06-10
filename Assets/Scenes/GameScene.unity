@@ -14158,8 +14158,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1209254941}
-        m_MethodName: OnTalentsManageClicked
+      - m_Target: {fileID: 1981545646}
+        m_MethodName: OnTalentManageButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
