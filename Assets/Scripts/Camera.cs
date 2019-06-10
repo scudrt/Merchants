@@ -5,7 +5,8 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     //Data Area begin
-    bool movable; //not movable in main menu
+    public bool movable; //not movable in main menu
+
     float moveSpeed, rollSpeed;
     float rollLimitBack, rollLimitAhead, rotateSpeed;
     float sideLimit;
@@ -39,12 +40,6 @@ public class Camera : MonoBehaviour
 
     private void __judgeAndMove()
     {
-        //Camera movement ONLY for rotation:(45, 0, 0)
-        if (!movable)
-        {
-            return;
-        }
-
         //Get camera's position and rotation
         Vector3 pos = this.transform.position,
                 direction = Vector3.zero;
@@ -56,14 +51,30 @@ public class Camera : MonoBehaviour
         {
             direction.x = moveSpeed * sensity;
         }
-
         //forward and backward
         sensity = Input.GetAxis("Vertical");
         if (sensity != 0.0f)
         {
             direction.z = moveSpeed * sensity;
         }
-        
+        //camera rotation
+        if (Input.GetMouseButton(1)) //right click
+        {
+            sensity = Input.GetAxis("Mouse X");
+            this.transform.Rotate(0, sensity * rotateSpeed, 0, Space.World);
+            sensity = Input.GetAxis("Mouse Y");
+            rot = this.transform.rotation.eulerAngles.x;
+            sensity *= -rotateSpeed;
+            //angle limitation
+            if ((rot + sensity) >= 15.0f && (rot + sensity) <= 75.0f) {
+                this.transform.Rotate(sensity, 0, 0);
+            }
+        }
+
+        if (!movable) { //can not move when UIs are active
+            return;
+        }
+
         //turn vector to world space
         float tempx = Mathf.Sqrt(direction.x * direction.x + direction.z * direction.z), tempz;
         if (tempx != 0.0f)
@@ -73,6 +84,7 @@ public class Camera : MonoBehaviour
         float sin = Mathf.Sin(rot), cos = Mathf.Cos(rot);
         tempx = direction.z * sin + direction.x * cos;
         tempz = direction.z * cos - direction.x * sin;
+
         //check the border and move
         if (Mathf.Abs(pos.x + tempx) >= sideLimit)
         {
@@ -93,21 +105,6 @@ public class Camera : MonoBehaviour
                 this.transform.Translate(0, 0, rollSpeed * sensity);
             }
         }
-
-        //camera movement: horizontal rotation, no vertical for now
-        if (Input.GetMouseButton(1)) //right click
-        {
-            sensity = Input.GetAxis("Mouse X");
-            this.transform.Rotate(0, sensity * rotateSpeed, 0, Space.World);
-            sensity = Input.GetAxis("Mouse Y");
-            rot = this.transform.rotation.eulerAngles.x;
-            sensity *= -rotateSpeed;
-            if ((rot + sensity) >= 15.0f && (rot + sensity)<= 75.0f)
-            {
-                this.transform.Rotate(sensity, 0, 0);
-            }
-        }
-
     }
 
     // Update is called once per frame

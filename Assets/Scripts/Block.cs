@@ -30,8 +30,13 @@ public class Block : MonoBehaviour {
             this.blockRenderer.material.color = value;
         }
     }
-    //Block's attribute
-    public float price { get; set; }
+    //block's price includes building price
+    private float _blockPrice = 20000f;
+    public float price { get {
+            return _blockPrice + (building == null ? 0 : building.price);
+        }private set { }}
+
+    //company which block belongs
     private Company _companyBelong;
     public Company companyBelong { get {
             return _companyBelong;
@@ -41,13 +46,14 @@ public class Block : MonoBehaviour {
                 this.blockColor = value.companyColor;
             }
         } }
-    public bool isOwned{
+
+    public bool isOwned{ //whether the block belongs to a company
         get{
             return this.companyBelong != null;
         }
         private set {}
     }
-    public bool isEmpty {
+    public bool isEmpty { //whether there is a building on it
         get {
             return this.building == null;
         }
@@ -56,7 +62,7 @@ public class Block : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        this.onGenerate();
+        onGenerate();
     }
 	
 	// Update is called once per frame
@@ -80,8 +86,38 @@ public class Block : MonoBehaviour {
         if (!isEmpty) { //current block isn't empty
             return false;
         }
-        //attach script to the new building
-        this.building = (Building)gameObject.AddComponent(Type.GetType(buildingTypeName));
+        switch (buildingTypeName) {
+            case "ArtGallery":
+                this.building = gameObject.AddComponent<ArtGallery>();
+                break;
+            case "Bank":
+                this.building = gameObject.AddComponent<Bank>();
+                break;
+            case "Cinema":
+                this.building = gameObject.AddComponent<Cinema>();
+                break;
+            case "Hospital":
+                this.building = gameObject.AddComponent<Hospital>();
+                break;
+            case "Restaurant":
+                this.building = gameObject.AddComponent<Restaurant>();
+                break;
+            case "Scenic":
+                this.building = gameObject.AddComponent<Scenic>();
+                break;
+            case "School":
+                this.building = gameObject.AddComponent<School>();
+                break;
+            case "Stadium":
+                this.building = gameObject.AddComponent<Stadium>();
+                break;
+            case "SuperMarket":
+                this.building = gameObject.AddComponent<SuperMarket>();
+                break;
+            default:
+                Debug.Log("Block: building type error");
+                return false;
+        }
         //pay for the building
         if (this.isOwned){
             if (companyBelong.costMoney(building.price) == false) {
@@ -91,7 +127,6 @@ public class Block : MonoBehaviour {
                 return false;
             }
         }
-        this.price += this.building.price;
         this.building.blockBelong = this;
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);

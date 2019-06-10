@@ -3,7 +3,7 @@
     public override void onGenerate() {
         ++buildingCount;
 
-        price = 8000f;
+        price = 16000f;
         buildingType = "Cinema";
         nickName = "电影院" + buildingCount;
         if (blockBelong.companyBelong != null) {
