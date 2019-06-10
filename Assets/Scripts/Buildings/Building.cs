@@ -22,6 +22,13 @@ public abstract class Building : MonoBehaviour {
     private int talentCountLimit = 1;
     private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager
     /************common functions************/
+    public void clearRecord() {
+        //clear statistics for new owner
+        monthlyProfit = 0f;
+        annualProfit = 0f;
+        totalProfit = 0f;
+        customerCount = 0;
+    }
     public float getADBudget() {
         return budget * ADBudgetProportion;
     }

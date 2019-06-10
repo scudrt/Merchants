@@ -41,9 +41,17 @@ public class Block : MonoBehaviour {
     public Company companyBelong { get {
             return _companyBelong;
         } set {
+            if (_companyBelong == value) {
+                return;
+            }
             _companyBelong = value;
+            if (!isEmpty) { // clear profit record for new company
+                building.clearRecord();
+            }
             if (value != null) {
                 this.blockColor = value.companyColor;
+            } else {
+                this.blockColor = Color.clear;
             }
         } }
 
