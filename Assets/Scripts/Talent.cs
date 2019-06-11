@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Talent : MonoBehaviour
-{
-    private int currentDay = Timer.day;
+public class Talent : MonoBehaviour{
     private static int talentTick = 0; //record the talents have ever generated
     public static Talent generateTalent() {
         //return a randomly generated talent
@@ -31,10 +29,18 @@ public class Talent : MonoBehaviour
         _talent.id = talentTick++;
         return _talent;
     }
+
+
     public int id = 0;
     public new string name { get; set; }
+    public bool isHired { get {
+            return companyBelong != null;
+        }private set { } }
     public Building workPlace = null;
     public Company companyBelong = null;
+    
+    private int currentDay = Timer.day;
+
     private float _satisfaction;
     public float satisfaction{
         get{
@@ -100,7 +106,7 @@ public class Talent : MonoBehaviour
         }
         //send event
         EventManager.addEvent(null, null,
-            name + "因工资被拖欠而去世");
+            name + "因工资被拖欠而辞职");
         //leave company
         companyBelong.fireTalent(this);
         GameObject.DestroyImmediate(this);
