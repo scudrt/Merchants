@@ -70,13 +70,14 @@ public class PlayerUI : MonoBehaviour
             return;
         }
 
-
         //if fund changed, create money effect
         double delta;
         if (City.currentCompany.fund != preProperty)
         {
             delta = City.currentCompany.fund - preProperty;
-            MoneyEffect.CreateMoneyEffect(property.transform, delta > 0 ? ("+" + delta.ToString()) : delta.ToString());
+            MoneyEffect.CreateMoneyEffect(property.transform,
+                delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
+                delta > 0 ? new Color(255, 180, 0) : Color.red); //golden and red
         }
 
         //set bottom panel's information displayed

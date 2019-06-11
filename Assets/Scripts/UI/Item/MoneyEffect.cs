@@ -7,15 +7,24 @@ public class MoneyEffect : MonoBehaviour
 {
     public static GameObject moneyEffectPrefab;
 
-    private float speed = 50f;
+    private float speed = 100f;
     private Transform tr;
     private float exitTime;
 
-    public static void CreateMoneyEffect(Transform parent, string text)
-    {
-        moneyEffectPrefab = (GameObject)Resources.Load("Prefabs/MoneyEffect");
+    public static void CreateMoneyEffect(Transform parent, string text) {
+        if (moneyEffectPrefab == null) {
+            moneyEffectPrefab = (GameObject)Resources.Load("Prefabs/MoneyEffect");
+        }
         GameObject newEffect = GameObject.Instantiate(moneyEffectPrefab, parent);
         newEffect.GetComponent<Text>().text = text;
+    }
+    public static void CreateMoneyEffect(Transform parent, string text, Color color) {
+        if (moneyEffectPrefab == null) {
+            moneyEffectPrefab = (GameObject)Resources.Load("Prefabs/MoneyEffect");
+        }
+        GameObject newEffect = GameObject.Instantiate(moneyEffectPrefab, parent);
+        newEffect.GetComponent<Text>().text = text;
+        newEffect.GetComponent<Text>().color = color;
     }
 
     private void Awake()
@@ -27,7 +36,7 @@ public class MoneyEffect : MonoBehaviour
     void Start()
     {
         tr = GetComponent<Transform>();
-        exitTime = 1;
+        exitTime = 1.2f;
     }
 
     // Update is called once per frame

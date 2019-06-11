@@ -69,6 +69,10 @@ public class TalentsMarket : MonoBehaviour
 
         foreach (Talent talent in City.talentList)
         {
+            if (talent.isHired) {
+                continue;
+            }
+
             //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
