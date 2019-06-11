@@ -18,12 +18,13 @@ public class Talent : MonoBehaviour
         }
         _talent.name = _name;
         //generate talent's capacity
-        float _charm = Mathf.Floor(City.generateNormalDistribution(50f, 50f)),
-            _capacity = Mathf.Floor(City.generateNormalDistribution(50f, 50f));
+        float _charm = Mathf.Floor(City.generateNormalDistribution(40f, 40f)),
+            _capacity = Mathf.Floor(City.generateNormalDistribution(40f, 40f));
         _talent.capacity = _capacity;
         _talent.charm = _charm;
 
         _talent.satisfaction = 50f;
+        //to be modified********************************************
         _talent.salary = _charm + _capacity + Mathf.Floor(City.generateNormalDistribution(50, 25));
         //distribute id for every talent
         _talent.id = talentTick++;
@@ -39,8 +40,8 @@ public class Talent : MonoBehaviour
             return _satisfaction;
         }
         set{
-            if (value > 100)
-                value = 100;
+            if (value > 100f)
+                value = 100f;
             if (value < 0)
                 value = 0;
             _satisfaction = value;
@@ -66,8 +67,8 @@ public class Talent : MonoBehaviour
             return _capacity;
         }
         set{
-            if (value > 100)
-                value = 100;
+            if (value > 100f)
+                value = 100f;
             if (value < 0)
                 value = 0;
             _capacity = value;
@@ -80,8 +81,8 @@ public class Talent : MonoBehaviour
             return _charm;
         }
         set{
-            if (value > 100)
-                value = 100;
+            if (value > 100f)
+                value = 100f;
             if (value < 0)
                 value = 0;
             _charm = value;

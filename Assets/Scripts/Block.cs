@@ -31,7 +31,7 @@ public class Block : MonoBehaviour {
         }
     }
     //block's price includes building price
-    private float _blockPrice = 20000f;
+    private float _blockPrice;
     public float price { get {
             return _blockPrice + (building == null ? 0 : building.price);
         }private set { }}
@@ -86,7 +86,7 @@ public class Block : MonoBehaviour {
         this.building = null;
         this.companyBelong = null;
 
-        this.price = 5000f;
+        _blockPrice = City.generateNormalDistribution(100000f, 50000f);
         Debug.Log("Block onGenerate done");
     }
 

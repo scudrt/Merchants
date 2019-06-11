@@ -20,7 +20,7 @@ public class Company : MonoBehaviour{
 
     private void onGenerate() {
         id = ++playerCount;
-        fund = 100000f;
+        fund = 1000000f;
         fame = 50f;
 
         blockList = new List<Block>();

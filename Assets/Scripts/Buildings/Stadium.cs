@@ -1,9 +1,16 @@
 ﻿public class Stadium: Building {
+    public new float price {
+        get {
+            return _price + budget;
+        }
+        private set { }
+    }
+    private float _price;
     private static int buildingCount = 0; //count of this type of building
     public override void onGenerate() {
         ++buildingCount;
 
-        price = 8000f;
+        _price = 40000f;
         buildingType = "Stadium";
         nickName = "体育场" + buildingCount;
         if (blockBelong.companyBelong != null) {

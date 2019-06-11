@@ -8,7 +8,8 @@ public abstract class Building : MonoBehaviour {
     public string buildingType = "Building";
     public Block blockBelong = null;
     public int level = 1;
-    public float price = 5000f, upgradePrice = 2000f;
+    public float price;
+    public float upgradePrice = 150000f;
     public float budget = 0f;
     public float ADBudgetProportion = 0.5f;
     //statistics data
