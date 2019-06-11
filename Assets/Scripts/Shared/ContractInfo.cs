@@ -14,6 +14,6 @@ public class ContractInfo:NetMsg
     }
     public void setData()
     {
-        return 
+        return;
     }  
 }
