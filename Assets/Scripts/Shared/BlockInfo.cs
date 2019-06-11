@@ -8,7 +8,7 @@ public class BlockInfo:NetMsg
     public BlockInfo(Block block=null)
     {
         this.OP = NetOP.block;
-        if (!block)
+        if (block!=null)
         {
             this.Pos_x = block.Pos_x;
             this.Pos_y = block.Pos_y;
