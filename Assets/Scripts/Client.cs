@@ -149,6 +149,10 @@ public class Client : MonoBehaviour
                 CompanyInfo company = (CompanyInfo)msg;
                 company.setData();
                 break;
+            case NetOP.block:
+                BlockInfo blockInfo = (BlockInfo)msg;
+                blockInfo.SetData();
+                break;
         }
 
     }

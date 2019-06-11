@@ -9,6 +9,7 @@ public class Block : MonoBehaviour {
     public int Pos_x { set; get; }
     public int Pos_y { set; get; }
     private bool _isChosen;
+    public string buildTypeName { set; get; }
     public bool isChosen { set {
             _isChosen = value;
             if (value == true) {
@@ -126,6 +127,7 @@ public class Block : MonoBehaviour {
                 Debug.Log("Block: building type error");
                 return false;
         }
+        this.buildTypeName = buildTypeName;//保存build的类型便于同步
         //pay for the building
         if (this.isOwned){
             if (companyBelong.costMoney(building.price) == false) {

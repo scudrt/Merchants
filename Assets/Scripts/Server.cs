@@ -135,6 +135,8 @@ public class Server:MonoBehaviour
                 break;
             case NetOP.company:
                 break;
+            case NetOP.block:
+                break;
         }
     }
     #endregion

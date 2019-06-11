@@ -18,7 +18,7 @@ public class City : MonoBehaviour
         "School", "Stadium", "SuperMarket"};
 
     private const int NATURAL_BUILDING_COUNT = 12;
-    private const int BLOCK_NUMBER = 64; // it must be a square of integer
+    public static int BLOCK_NUMBER = 64; // it must be a square of integer
     public static int numOfPlayers = 3;
 
     public static Company currentCompany { get; set; }
