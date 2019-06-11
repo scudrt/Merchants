@@ -132,4 +132,15 @@ public abstract class Building : MonoBehaviour {
             return false;
         }
     }
+
+    public void onDestory() {
+        //return money
+        blockBelong.companyBelong.earnMoney(this.budget + this.basicPrice / 2f);
+        //send talents to company
+        foreach(Talent talent in talentList) {
+            talent.workPlace = null;
+        }
+        //destory its parents
+        GameObject.DestroyImmediate(this.gameObject);
+    }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Talent : MonoBehaviour{
+
+    /*****************static field*****************/
     private static int talentTick = 0; //record the talents have ever generated
     public static Talent generateTalent() {
         //return a randomly generated talent

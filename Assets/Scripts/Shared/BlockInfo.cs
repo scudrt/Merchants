@@ -13,7 +13,9 @@ public class BlockInfo:NetMsg
             this.Pos_x = block.Pos_x;
             this.Pos_y = block.Pos_y;
             this.companyBelong = block.companyBelong;
-            this.buildTypeName = block.buildTypeName;
+            if (block.isEmpty == false) {
+                this.buildTypeName = block.building.buildingType;
+            }
 
         }
     }
