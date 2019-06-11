@@ -86,7 +86,7 @@ public class Block : MonoBehaviour {
         this.building = null;
         this.companyBelong = null;
 
-        _blockPrice = City.generateNormalDistribution(100000f, 50000f);
+        _blockPrice = 100000f;
         Debug.Log("Block onGenerate done");
     }
 
