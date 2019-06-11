@@ -28,7 +28,8 @@ public class Population : MonoBehaviour{
     }
 
     //config data
-    public static float annualBirthRateExpect = 0.015f;
+    public static float annualBirthRateExpect, GDPGrowthRate;
+    private static float dailyBirthRate, dailyGDPGrowthRate;
 
     private static int currentDay = Timer.day;
     void Start() {
@@ -36,12 +37,17 @@ public class Population : MonoBehaviour{
         currentDay = Timer.day;
         amount = (int)City.generateNormalDistribution(100000f, 20000f);
         avgGDP = City.generateNormalDistribution(1000f, 150f);
+
+        annualBirthRateExpect = 0.015f;
+        GDPGrowthRate = 0.018f;
+        dailyBirthRate = annualBirthRateExpect / 365f;
+        dailyGDPGrowthRate = GDPGrowthRate / 365f;
     }
     void Update(){
         if (currentDay != Timer.day) {
             //scale the annual growth rate to a day
-            float birthRate = City.generateNormalDistribution(annualBirthRateExpect, 0.04f) / 365;
-            amount = (int)(amount * (1 + birthRate));
+            amount = (int)(amount * (1 + dailyBirthRate));
+            GDP *= 1 + dailyGDPGrowthRate;
             currentDay = Timer.day;
         }
     }
