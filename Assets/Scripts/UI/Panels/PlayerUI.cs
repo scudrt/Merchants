@@ -23,7 +23,6 @@ public class PlayerUI : MonoBehaviour
     private Text reputation;
     private Text GDP;
     private Text population;
-    private Text trend;
 
     private double preProperty = 0; //store property number in last frame
 
@@ -60,7 +59,6 @@ public class PlayerUI : MonoBehaviour
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
         GDP = bottomPanel.transform.Find("GDP").GetComponent<Text>();
         population = bottomPanel.transform.Find("Population").GetComponent<Text>();
-        trend = bottomPanel.transform.Find("Trend").GetComponent<Text>();
     }
 
     // Update is called once per frame

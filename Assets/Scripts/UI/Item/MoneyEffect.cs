@@ -27,11 +27,6 @@ public class MoneyEffect : MonoBehaviour
         newEffect.GetComponent<Text>().color = color;
     }
 
-    private void Awake()
-    {
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
