@@ -25,6 +25,8 @@ public class PlayerUI : MonoBehaviour
     private Text population;
     private Text trend;
 
+    private double preProperty = 0; //store property number in last frame
+
     public static void addUI()
     {
         isInUI++;
@@ -67,9 +69,24 @@ public class PlayerUI : MonoBehaviour
         if (City.currentCompany == null) {
             return;
         }
+
+
+        //if fund changed, create money effect
+        double delta;
+        if (City.currentCompany.fund != preProperty)
+        {
+            delta = City.currentCompany.fund - preProperty;
+            MoneyEffect.CreateMoneyEffect(property.transform, delta > 0 ? ("+" + delta.ToString()) : delta.ToString());
+        }
+
+        //set bottom panel's information displayed
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.amount.ToString();
+        GDP.text = Population.GDP.ToString();
+
+        //update preproperty
+        preProperty = City.currentCompany.fund;
     }
 
     public void NewsPanelEntry(News news)
