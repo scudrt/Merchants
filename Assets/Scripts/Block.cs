@@ -154,7 +154,7 @@ public class Block : MonoBehaviour {
             companyBelong.fund += building.price / 2.0f;
         }
         this.price -= building.price;
-        GameObject.DestroyImmediate(building.GetComponentInParent<GameObject>());
+        GameObject.DestroyImmediate(building.gameObject);
         this.building = null;
     }
 
