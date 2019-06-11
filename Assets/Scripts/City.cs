@@ -7,7 +7,7 @@ public class City : MonoBehaviour
     /**********data area**********/
     public static List<Block> blockList;
     public static List<Company> companyList;
-    public static List<Talent> talentsMarketList;
+    public static List<Talent> talentList;
     
     public static News newsMaker;
 
@@ -26,11 +26,11 @@ public class City : MonoBehaviour
 
     public static void generateTalentsMarket()
     {
-        talentsMarketList.Clear();
+        talentList.Clear();
         int num = Random.Range(10, 15);
         for(int i = 0; i < num; i++)
         {
-            talentsMarketList.Add(Talent.generateTalent());
+            talentList.Add(Talent.generateTalent());
         }
     }
     public static float generateNormalDistribution(float expectation, float radius) {
@@ -48,6 +48,7 @@ public class City : MonoBehaviour
         float mapSize = gameObject.GetComponent<Collider>().bounds.size.x;
         float blockSize = mapSize / n;
         float blockScale = blockSize / mapSize;
+        int blockTick = 0;
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 //generate blocks using prefab
@@ -60,6 +61,7 @@ public class City : MonoBehaviour
                 Block newBlock = temp.AddComponent<Block>();
                 newBlock.Pos_x = i;
                 newBlock.Pos_y = j;
+                newBlock.id = blockTick++;
                 blockList.Add(newBlock);
             }
         }
@@ -69,10 +71,10 @@ public class City : MonoBehaviour
         companyList = new List<Company>();
         for (int i = 0; i < numOfPlayers; ++i) {
             Company temp = gameObject.AddComponent<Company>();
-            temp.id = i;
             //distribute random color to every company
             float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
             temp.companyColor = new Color(r, g, b);
+            temp.id = i;
             companyList.Add(temp);
         }
         currentCompany = companyList[0]; //zero is the host of game
@@ -97,7 +99,7 @@ public class City : MonoBehaviour
         makeBlocks();
         makeCompanies();
         StartCoroutine(generateNaturalBuildings());
-        talentsMarketList = new List<Talent>();
+        talentList = new List<Talent>();
         generateTalentsMarket();
 
         newsMaker = GameObject.FindObjectOfType<News>();

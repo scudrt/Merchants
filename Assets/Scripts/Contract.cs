@@ -10,15 +10,15 @@ public class Contract {
     public float requiredFund { private set { } get {
             return Mathf.Max(-_offeredFund, 0f);
         } }
-    public List<Talent> offeredTalents { private set; get; }
-    public List<Talent> requiredTalents { private set; get; }
-    public List<Block> offeredBlocks { private set; get; }
-    public List<Block> requiredBlocks { private set; get; }
+    public List<int> offeredTalents { private set; get; }
+    public List<int> requiredTalents { private set; get; }
+    public List<int> offeredBlocks { private set; get; }
+    public List<int> requiredBlocks { private set; get; }
     /****************trading parties****************/
-    private Company _offerer, _target;
+    private int _offererId, _targetId; //id of companies
     /****************trading content****************/
-    private List<Talent> _offeredTalentList, _requiredTalentList;
-    private List<Block> _offeredBlockList, _requiredBlockList;
+    private List<int> _offeredTalentList, _requiredTalentList;
+    private List<int> _offeredBlockList, _requiredBlockList;
     private float _offeredFund;
     /****************other private arguments****************/
     private float timeout = 10f; //time delay of waiting for response
@@ -32,13 +32,13 @@ public class Contract {
         _isConfirmed = false;
         _isTargetAgreed = false;
 
-        _offerer = offerer;
-        _target = target;
+        _offererId = offerer.id;
+        _targetId = target == null ? -1 : target.id;
 
-        _offeredTalentList = new List<Talent>();
-        _requiredTalentList = new List<Talent>();
-        _offeredBlockList = new List<Block>();
-        _requiredBlockList = new List<Block>();
+        _offeredTalentList = new List<int>();
+        _requiredTalentList = new List<int>();
+        _offeredBlockList = new List<int>();
+        _requiredBlockList = new List<int>();
 
         offeredTalents = _offeredTalentList;
         requiredTalents = _requiredTalentList;
@@ -67,7 +67,7 @@ public class Contract {
     public bool confirm() {
         //commit the contract to the target company
         //return false if failed
-        if (_offerer == null || _target == null) {
+        if (_offererId == -1 || _targetId == -1) {
             return false;
         }
         _isConfirmed = true;
@@ -77,8 +77,8 @@ public class Contract {
 
     public bool cancel() {
         //clear all references, helpful for garbage collection
-        _offerer = null;
-        _target = null;
+        _offererId = -1;
+        _targetId = -1;
 
         _offeredBlockList.Clear();
         _offeredTalentList.Clear();
@@ -96,10 +96,10 @@ public class Contract {
     }
 
     public void setTarget(Company target) { //set target company
-        if (target == _offerer) {
+        if (target.id == _offererId) {
             return;
         }
-        _target = target;
+        _targetId = target.id;
     }
 
     public void setOfferedFund(float fund) { //negative means require money
@@ -111,17 +111,17 @@ public class Contract {
     }
 
     public void addTalent(Talent talent) { //offer or require talent in this contract
-        if (talent.companyBelong == _offerer) {
-            if (_offeredTalentList.Contains(talent)) {
+        if (talent.companyBelong.id == _offererId) {
+            if (_offeredTalentList.Contains(talent.id)) {
                 //already exists
                 return;
             }
-            _offeredTalentList.Add(talent);
-        }else if (talent.companyBelong == _target) {
-            if (_requiredTalentList.Contains(talent)) {
+            _offeredTalentList.Add(talent.id);
+        }else if (talent.companyBelong.id == _targetId) {
+            if (_requiredTalentList.Contains(talent.id)) {
                 return;
             }
-            _requiredTalentList.Add(talent);
+            _requiredTalentList.Add(talent.id);
         } else {
             //wrong talent, error
             Debug.Log("Contract: wrong talent input.");
@@ -129,16 +129,16 @@ public class Contract {
     }
 
     public void addBlock(Block block) { //offer or require block in this contract
-        if (block.companyBelong == _offerer) {
-            if (_offeredBlockList.Contains(block)) {
+        if (block.companyBelong.id == _offererId) {
+            if (_offeredBlockList.Contains(block.id)) {
                 return;
             }
-            _offeredBlockList.Add(block);
-        } else if (block.companyBelong == _target) {
-            if (_requiredBlockList.Contains(block)) {
+            _offeredBlockList.Add(block.id);
+        } else if (block.companyBelong.id == _targetId) {
+            if (_requiredBlockList.Contains(block.id)) {
                 return;
             }
-            _requiredBlockList.Add(block);
+            _requiredBlockList.Add(block.id);
         } else {
             //wrong block, error
             Debug.Log("Contract: wrong block input.");
@@ -146,10 +146,10 @@ public class Contract {
     }
 
     public void removeTalent(Talent talent) { //remove talent from contract
-        if (_offeredTalentList.Contains(talent)) {
-            _offeredTalentList.Remove(talent);
-        }else if (_requiredTalentList.Contains(talent)) {
-            _requiredTalentList.Remove(talent);
+        if (_offeredTalentList.Contains(talent.id)) {
+            _offeredTalentList.Remove(talent.id);
+        }else if (_requiredTalentList.Contains(talent.id)) {
+            _requiredTalentList.Remove(talent.id);
         } else {
             //invalid talent
             Debug.Log("Contract: try to remove talent that doesn't exist");
@@ -157,10 +157,10 @@ public class Contract {
     }
 
     public void removeBlock(Block block) { //remove block from contract
-        if (_offeredBlockList.Contains(block)) {
-            _offeredBlockList.Remove(block);
-        } else if (_requiredBlockList.Contains(block)) {
-            _requiredBlockList.Remove(block);
+        if (_offeredBlockList.Contains(block.id)) {
+            _offeredBlockList.Remove(block.id);
+        } else if (_requiredBlockList.Contains(block.id)) {
+            _requiredBlockList.Remove(block.id);
         } else {
             //invalid block
             Debug.Log("Contract: try to remove block that doesn't exist");

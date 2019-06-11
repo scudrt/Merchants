@@ -1,9 +1,10 @@
 ﻿public class Bank : Building {
+    public new static float PRICE = 80000f;
     private static int buildingCount = 0; //count of this type of building
     public override void onGenerate() {
         ++buildingCount;
 
-        basicPrice = 80000f;
+        basicPrice = PRICE;
         buildingType = "Bank";
         nickName = "银行" + buildingCount;
         if (blockBelong.companyBelong != null) {
