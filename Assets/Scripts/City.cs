@@ -21,6 +21,7 @@ public class City : MonoBehaviour
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
     public static int numOfPlayers = 3;
 
+    
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
