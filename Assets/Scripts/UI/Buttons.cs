@@ -21,6 +21,16 @@ public class Buttons : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    public void OnAboutButtonClick(GameObject aboutPanel)
+    {
+        aboutPanel.SetActive(true);
+    }
+
+    public void OnPanelExitButtonClick(GameObject panel)
+    {
+        panel.SetActive(false);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

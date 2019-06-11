@@ -56,8 +56,9 @@ public class ContractReceivePanel : MonoBehaviour
         GameObject talentInfo;
 
         /******set receive's item******/
-        foreach (Block block in contract.offeredBlocks)
-        {
+        for (int i = 0; i < contract.offeredBlocks.Count; ++i){
+            Block block = City.blockList[contract.offeredBlocks[i]];
+
             blockInfo = GameObject.Instantiate(contractBuildingInfo, receive.transform);
             rectTransform = blockInfo.GetComponent<RectTransform>();
 
@@ -79,8 +80,9 @@ public class ContractReceivePanel : MonoBehaviour
             receiveCount++;
         }
 
-        foreach(Talent talent in contract.offeredTalents)
-        {
+        for (int i = 0; i < contract.offeredTalents.Count; ++i) {
+            Talent talent = City.talentList[contract.offeredTalents[i]];
+
             talentInfo = GameObject.Instantiate(contractTalentInfo, receive.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
 
@@ -101,8 +103,9 @@ public class ContractReceivePanel : MonoBehaviour
         /******set receive's item******/
 
         /******set offer's item******/
-        foreach (Block block in contract.requiredBlocks)
-        {
+        for (int i = 0; i < contract.requiredBlocks.Count; ++i) {
+            Block block = City.blockList[contract.requiredBlocks[i]];
+
             blockInfo = GameObject.Instantiate(contractBuildingInfo, offer.transform);
             rectTransform = blockInfo.GetComponent<RectTransform>();
 
@@ -124,8 +127,9 @@ public class ContractReceivePanel : MonoBehaviour
             offerCount++;
         }
 
-        foreach (Talent talent in contract.requiredTalents)
-        {
+        for (int i = 0; i < contract.requiredTalents.Count; ++i) {
+            Talent talent= City.talentList[contract.requiredTalents[i]];
+
             talentInfo = GameObject.Instantiate(contractTalentInfo, offer.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
 

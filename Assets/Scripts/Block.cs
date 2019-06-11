@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Block : MonoBehaviour {
+    public int id;
     public Building building;
     public int Pos_x { set; get; }
     public int Pos_y { set; get; }
@@ -127,7 +128,6 @@ public class Block : MonoBehaviour {
                 Debug.Log("Block: building type error");
                 return false;
         }
-        this.buildTypeName = buildTypeName;//保存build的类型便于同步
         //pay for the building
         if (this.isOwned){
             if (companyBelong.costMoney(building.price) == false) {
@@ -148,6 +148,9 @@ public class Block : MonoBehaviour {
         buildingScale.y *= blockScale.y;
         buildingScale.z *= blockScale.z;
         newBuilding.transform.localScale = buildingScale;
+
+        //remember to send message to network
+
         return true;
     }
 
@@ -156,7 +159,7 @@ public class Block : MonoBehaviour {
             companyBelong.fund += building.price / 2.0f;
         }
         this.price -= building.price;
-        GameObject.DestroyImmediate(building.GetComponentInParent<GameObject>());
+        GameObject.DestroyImmediate(building.gameObject);
         this.building = null;
     }
 

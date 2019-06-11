@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Building : MonoBehaviour {
     //Data Area
+    public static float PRICE = 0f;
     public string nickName = "看不见的店铺"; //building's name made by player
     public string buildingType = "Building";
     public Block blockBelong = null;
@@ -18,12 +19,14 @@ public abstract class Building : MonoBehaviour {
     public float monthlyProfit = 0f, annualProfit = 0f;
     public float totalProfit = 0f;
     public int customerCount = 0;
+
     //private data
     private int currentHour = Timer.hour, currentMonth = Timer.month, currentYear = Timer.year;
     private float attrackRate = 0.01f;
     private float profitEach = 3f;
     private int talentCountLimit = 1;
     private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager
+
     /************common functions************/
     public void clearRecord() {
         //clear statistics for new owner

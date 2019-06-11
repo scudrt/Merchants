@@ -61,14 +61,13 @@ public class TalentsMarket : MonoBehaviour
 
         //clear the previous content
         BroadcastMessage("DestroyItemInfo");
-
-        List<Talent> talents = City.talentsMarketList;
+        
         GameObject talentInfo;
         RectTransform rectTransform;
         ItemInfo script;
         int i = 0;//i is the number of column
 
-        foreach (Talent talent in talents)
+        foreach (Talent talent in City.talentList)
         {
             //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
@@ -112,7 +111,7 @@ public class TalentsMarket : MonoBehaviour
             }
         }
 
-        Talent talent = City.talentsMarketList[serial];
+        Talent talent = City.talentList[serial];
 
         talentName.text = talent.name;
         capacity.text = talent.capacity.ToString();
@@ -122,9 +121,8 @@ public class TalentsMarket : MonoBehaviour
 
     public void OnHireButtonClicked()
     {
-        Talent talent = City.talentsMarketList[serial];
+        Talent talent = City.talentList[serial];
         City.currentCompany.hireTalent(talent);
-        City.talentsMarketList.RemoveAt(serial);
         this.OnOpen();
         talentManageUI.OnOpen();
     }

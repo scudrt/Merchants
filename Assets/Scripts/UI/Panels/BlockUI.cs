@@ -175,6 +175,7 @@ public class BlockUI : MonoBehaviour
     public void OnDestroyButtonClicked()
     {
         //destroy building
+        targetBlock.sellBuilding();
         BroadcastMessage("UIExit");
         OwnedBlockPanelEntry();
     }

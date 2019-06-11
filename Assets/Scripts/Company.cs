@@ -59,7 +59,7 @@ public class Company : MonoBehaviour{
         }
         talent.workPlace = null;
         talent.companyBelong = null;
-        talentList.Remove(talent);
+        this.talentList.Remove(talent);
         return true;
     }
 
