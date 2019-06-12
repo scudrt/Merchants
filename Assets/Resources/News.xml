@@ -4,23 +4,40 @@
 	  <title>天气炎热</title>
 	  <content>夏天到了，因为天气十分炎热，人们更喜欢呆在安装有空调的室内，而不会去会受到太阳摧残的户外场所，比如体育场与景区</content>
 	  <effects>
-	  	<effect object="Stadium" attribute="attrackRate" value="-0.002"/>
-		  <effect object="Scenic" attribute="attrackRate" value="-0.002"/>
+	  	<effect object="Stadium" range="all" attribute="attrackRate" value="-0.002"/>
+		  <effect object="Scenic" range="all" attribute="attrackRate" value="-0.002"/>
 	  </effects>
   </news>
   <news name="winter" company="all">
 	  <title>天气转凉</title>
 	  <content>天气不再炎热了，人们更乐意出来走走，呼吸新鲜空气，去一些户外场所，比如体育场与景区</content>
 	  <effects>
-	  	<effect object="Stadium" attribute="attrackRate" value="0.002"/>
-	  	<effect object="Stadium" attribute="attrackRate" value="0.002"/>
+	  	<effect object="Stadium" range="all" attribute="attrackRate" value="0.002"/>
+	  	<effect object="Stadium" range="all" attribute="attrackRate" value="0.002"/>
 	  </effects>
   </news>
   <news name="food_poisoning" company="all">
 	  <title>食物中毒</title>
 	  <content>城里发生里一起大规模的食物中毒，人们对餐馆里的食物的信任度大大下降，去餐厅就餐的次数明显减少了</content>
 	  <effects>
-	  	<effect object="Restaurant" attribute="attrackRate" value="-0.005"/>
+	  	<effect object="Restaurant" range="all" attribute="attrackRate" value="-0.005"/>
 	  </effects>
+  </news>
+  <news name="godzla" company="all">
+    <title>哥斯拉出没</title>
+    <content>哥斯拉出现在这座城市，和基多拉大打了一架，死伤惨重，城市人口骤降，建筑物也受到了破坏</content>
+    <effects>
+      <effect object="City" range="all" attribute="population" is_rate_value="" value="-0.1"/>
+      <effect object="Company" range="all" attribute="fund" value="-10000"/>
+    </effects>
+  </news>
+  <news name="spring_festival" company="all">
+    <title>春节</title>
+    <content>春节到了，人们热衷于在城市里到处游玩，所有产业的客流量都得到了提升，
+    不过春节还在你的公司工作的员工就有些不满了</content>
+    <effects>
+      <effect object="Building" range="all" attribute="attrackRate" value="0.005"/>
+      <effect object="Talent" range="all" attribute="satisfication" value="-10"/>
+    </effects>
   </news>
 </newsinfo>

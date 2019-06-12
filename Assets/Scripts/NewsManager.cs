@@ -84,42 +84,160 @@ public class NewsManager : MonoBehaviour {
             effects = newsEle.SelectSingleNode("effects");
             foreach(XmlElement effect in effects.SelectNodes("effect"))
             {
+                /*******************define all find objects function here************************/
+                string obj = effect.GetAttribute("object");
+                string range = effect.GetAttribute("range");
 
-                // delegate to find all buildings of a type
-                findObjects = delegate ()
+                if (obj == "Company" && range == "all")
                 {
-                    List<object> objs = new List<object>();
-                    foreach (Company company in City.companyList)
+                    findObjects = delegate ()
                     {
-                        foreach (Block block in company.blockList)
+                        List<object> objs = new List<object>();
+                        object temp;
+                        foreach (Company company in City.companyList)
                         {
-                            if (block.building.buildingType == effect.GetAttribute("object"))
+                            temp = company;
+                            objs.Add(temp);
+                        }
+                        return objs;
+                    };
+                }
+                else if (obj == "Company" && range == "random")
+                {
+                    findObjects = delegate ()
+                    {
+                        List<object> objs = new List<object>();
+                        object temp = City.companyList[Random.Range(0, City.companyList.Count)];
+                        objs.Add(temp);
+                        return objs;
+                    };
+                }
+                else if (obj == "City") //population is static...
+                {
+                    findObjects = delegate ()
+                    {
+                        return null;
+                    };
+                }
+                else if (obj == "Talent" && range == "all")
+                {
+                    findObjects = delegate ()
+                    {
+                        List<object> objs = new List<object>();
+                        foreach (Company company in City.companyList)
+                        {
+                            foreach (Talent talent in company.talentList)
                             {
-                                objs.Add(block.building);
+                                objs.Add(talent);
                             }
                         }
-                    }
-                    return objs;
-                };
-
-                // delegate to generate effects to objects
-                newsEffect = delegate (List<object> objs)
+                        return objs;
+                    };
+                }
+                else
                 {
-                    double value = System.Convert.ToDouble(effect.GetAttribute("value"));//value changed
-
-                    Building building;
-                    foreach (object obj in objs)
+                    // delegate to find all buildings of a type
+                    findObjects = delegate ()
                     {
-                        building = (Building)obj;
+                        List<object> objs = new List<object>();
+                        foreach (Company company in City.companyList)
+                        {
+                            foreach (Block block in company.blockList)
+                            {
+                                if (!block.isEmpty && block.building.buildingType == effect.GetAttribute("object"))
+                                {
+                                    objs.Add(block.building);
+                                }
+                            }
+                        }
+                        return objs;
+                    };
+                }
+
+                /**********************define all effects function here************************/
+                // delegate to generate effects to objects
+
+                if (obj == "City")
+                {
+                    newsEffect = delegate (List<object> objs)
+                    {
+                        double value = System.Convert.ToDouble(effect.GetAttribute("value"));
+
                         switch (effect.GetAttribute("attribute"))
                         {
-                            case "attrackRate": building.attrackRate += (float) value; break;
-                                //add some other attribute here
+                            case "population":
+                                if (effect.HasAttribute("is_rate_value"))
+                                    Population.amount = (int)(Population.amount * (1 + value));
+                                else
+                                    Population.amount += (int)value;
+                                break;
+                            //add other options
                             default: break;
                         }
-                    }
-                };
+                    };
+                }
+                else if (obj == "Talent")
+                {
+                    newsEffect = delegate (List<object> objs)
+                    {
+                        double value = System.Convert.ToDouble(effect.GetAttribute("value"));
 
+                        Talent talent;
+                        foreach (object temp in objs)
+                        {
+                            talent = (Talent)temp;
+                            switch (effect.GetAttribute("attribute"))
+                            {
+                                case "satisfication":
+                                    if (effect.HasAttribute("is_rate_value"))
+                                        talent.satisfaction = (int)(talent.satisfaction * (1 + value));
+                                    else
+                                        talent.satisfaction += (int)value;
+                                    break;
+                                //add other options
+                                default: break;
+                            }
+                        }
+                    };
+                }
+                else if (obj == "Company")
+                {
+                    newsEffect = delegate (List<object> objs)
+                    {
+                        double value = System.Convert.ToDouble(effect.GetAttribute("value"));
+
+                        Company company;
+                        foreach (object temp in objs)
+                        {
+                            company = (Company)temp;
+                            switch (effect.GetAttribute("attribute"))
+                            {
+                                case "fund": company.fund -= (float)value; break;
+                                //add other options
+                                default: break;
+                            }
+                        }
+                    };
+                }
+                else
+                {
+                    newsEffect = delegate (List<object> objs)
+                    {
+                        double value = System.Convert.ToDouble(effect.GetAttribute("value"));//value changed
+
+                    Building building;
+                        foreach (object temp in objs)
+                        {
+                            building = (Building)temp;
+                            switch (effect.GetAttribute("attribute"))
+                            {
+                                case "attrackRate": building.attrackRate += (float)value; break;
+                            //add some other attribute here
+                            default: break;
+                            }
+                        }
+                    };
+                }
                 news.addNewsEvent(findObjects, newsEffect);
             }
             /**********set news effect**********/

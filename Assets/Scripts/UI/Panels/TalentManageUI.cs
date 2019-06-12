@@ -203,7 +203,7 @@ public class TalentManageUI : MonoBehaviour
         }
 
         //judge if the block is empty
-        Block block = City.currentCompany.blockList[serial];
+        Block block = City.currentCompany.blockList[blockSerial];
         if (block.isEmpty)
         {
             chooseBlockButton.interactable = false;
@@ -280,7 +280,8 @@ public class TalentManageUI : MonoBehaviour
     public void OnChooseBlockButtonClicked()
     {
         Talent talent = City.currentCompany.talentList[serial];
-        talent.workPlace.removeTalent(talent);
+        if(talent.workPlace!=null)
+            talent.workPlace.removeTalent(talent);
         City.currentCompany.blockList[blockSerial].building.addTalent(talent);
         this.OnOpen();
     }
