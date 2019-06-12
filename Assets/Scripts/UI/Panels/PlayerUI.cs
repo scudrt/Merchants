@@ -23,7 +23,6 @@ public class PlayerUI : MonoBehaviour
     private Text reputation;
     private Text GDP;
     private Text population;
-    private Text trend;
 
     private double preProperty = 0; //store property number in last frame
 
