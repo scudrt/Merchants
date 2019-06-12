@@ -50,9 +50,9 @@ public class Block : MonoBehaviour {
                 building.clearRecord();
             }
             if (value != null) {
-                this.blockColor = value.companyColor;
+                this.color = this.blockColor = value.companyColor;
             } else {
-                this.blockColor = Color.clear;
+                this.color = this.blockColor = Color.clear;
             }
         } }
 

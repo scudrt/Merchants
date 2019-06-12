@@ -9,7 +9,8 @@ public class City : MonoBehaviour
     public static List<Company> companyList;
     public static List<Talent> talentList;
     
-    public static News newsMaker;
+    public News newsMaker;
+    private Agent agent;
 
     //building type list
     public static string[] buildingTypes =
@@ -17,19 +18,17 @@ public class City : MonoBehaviour
         "Hospital", "Restaurant", "Scenic",
         "School", "Stadium", "SuperMarket"};
 
-    private const int NATURAL_BUILDING_COUNT = 12;
+    private const int NATURAL_BUILDING_COUNT = 8;
+    public static int numOfCompany = 3;
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
-    public static int numOfPlayers = 3;
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
-    public static void generateTalentsMarket()
-    {
+    public static void generateTalentsMarket(){
         talentList.Clear();
         int num = Random.Range(10, 15);
-        for(int i = 0; i < num; i++)
-        {
+        for(int i = 0; i < num; i++){
             talentList.Add(Talent.generateTalent());
         }
     }
@@ -41,7 +40,6 @@ public class City : MonoBehaviour
 
     private void makeBlocks() {
         GameObject prefabBlock = (GameObject)Resources.Load("Prefabs/brickBlock");
-        GameObject treeBlock = (GameObject)Resources.Load("Prefabs/Tree9_2");
         blockList = new List<Block>();
 
         int n = (int)Mathf.Sqrt((float)BLOCK_NUMBER);
@@ -67,17 +65,25 @@ public class City : MonoBehaviour
         }
     }
 
+    public static Company generateNewCompany() {
+        Company temp =  GameObject.FindObjectOfType<City>().gameObject.AddComponent<Company>();
+        //distribute random color to every company
+        float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
+        temp.companyColor = new Color(r, g, b);
+        companyList.Add(temp);
+        return temp;
+    }
     private void makeCompanies() {
         companyList = new List<Company>();
-        for (int i = 0; i < numOfPlayers; ++i) {
-            Company temp = gameObject.AddComponent<Company>();
-            //distribute random color to every company
-            float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
-            temp.companyColor = new Color(r, g, b);
-            temp.id = i;
-            companyList.Add(temp);
+        for (int i = 0; i < numOfCompany; ++i) {
+            generateNewCompany();
         }
-        currentCompany = companyList[0]; //zero is the host of game
+        StartCoroutine(waitForPlayerDistribution());
+    }
+
+    private IEnumerator waitForPlayerDistribution() {
+        yield return new WaitUntil(()=> { return agent.initDone; });
+        currentCompany = agent.distributePlayer();
     }
 
     private IEnumerator generateNaturalBuildings() {
@@ -96,13 +102,14 @@ public class City : MonoBehaviour
     }
 
     void Start() {
+        agent = GameObject.FindObjectOfType<Agent>();
+
         makeBlocks();
         makeCompanies();
         StartCoroutine(generateNaturalBuildings());
         talentList = new List<Talent>();
         generateTalentsMarket();
 
-        //newsMaker = GameObject.FindObjectOfType<News>();
         Debug.Log("City init done");
     }
 

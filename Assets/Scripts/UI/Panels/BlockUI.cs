@@ -94,7 +94,7 @@ public class BlockUI : MonoBehaviour
 
     public void OnBuyButtonClick(){
         Company company = City.currentCompany;
-        if (!company.buyBlock(ref targetBlock)){
+        if (!company.buyBlock(targetBlock)){
             //block buying faied
             Debug.Log("block buying failed.");
             return;
@@ -116,7 +116,7 @@ public class BlockUI : MonoBehaviour
 
     public void OnBuildButtonClick(){
         //build on the block
-        City.currentCompany.buildOnBlock(ref targetBlock, this.type);
+        City.currentCompany.buildOnBlock(targetBlock, this.type);
         
         StartCoroutine(WaitUntilBuildingComplete());
     }
