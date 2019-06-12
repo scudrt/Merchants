@@ -156,7 +156,6 @@ public class NewsManager : MonoBehaviour {
 
                 /**********************define all effects function here************************/
                 // delegate to generate effects to objects
-
                 if (obj == "City")
                 {
                     newsEffect = delegate (List<object> objs)

@@ -126,7 +126,10 @@ public class TalentsMarket : MonoBehaviour
     public void OnHireButtonClicked()
     {
         Talent talent = City.talentList[serial];
-        City.currentCompany.hireTalent(talent);
+        if(City.currentCompany.hireTalent(talent))
+        {
+            City.talentList.Remove(talent);
+        }
         this.OnOpen();
         talentManageUI.OnOpen();
     }

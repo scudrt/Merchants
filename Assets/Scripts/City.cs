@@ -22,6 +22,8 @@ public class City : MonoBehaviour
     public static int numOfCompany = 3;
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
 
+    private float talentRefreshTime;
+
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
@@ -104,6 +106,8 @@ public class City : MonoBehaviour
     void Start() {
         agent = GameObject.FindObjectOfType<Agent>();
 
+        talentRefreshTime = 120;
+
         makeBlocks();
         makeCompanies();
         StartCoroutine(generateNaturalBuildings());
@@ -116,6 +120,11 @@ public class City : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        talentRefreshTime -= Time.deltaTime;
+        if (talentRefreshTime <= 0)
+        {
+            generateTalentsMarket();
+            talentRefreshTime = 120;
+        }
     }
 }

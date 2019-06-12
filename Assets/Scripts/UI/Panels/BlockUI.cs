@@ -155,14 +155,14 @@ public class BlockUI : MonoBehaviour
         switch (type)
         {
             case "ArtGallery": price.text = ArtGallery.PRICE.ToString(); break;
-            case "Bank": Bank.PRICE.ToString(); break;
-            case "Cinema": Cinema.PRICE.ToString(); break;
-            case "Hospital": Hospital.PRICE.ToString(); break;
-            case "Restaurant": Restaurant.PRICE.ToString(); break;
-            case "Scenic": Scenic.PRICE.ToString(); break;
-            case "School": School.PRICE.ToString(); break;
-            case "Stadium": Stadium.PRICE.ToString(); break;
-            case "SuperMarket": SuperMarket.PRICE.ToString(); break;
+            case "Bank": price.text = Bank.PRICE.ToString(); break;
+            case "Cinema": price.text = Cinema.PRICE.ToString(); break;
+            case "Hospital": price.text = Hospital.PRICE.ToString(); break;
+            case "Restaurant": price.text = Restaurant.PRICE.ToString(); break;
+            case "Scenic": price.text = Scenic.PRICE.ToString(); break;
+            case "School": price.text = School.PRICE.ToString(); break;
+            case "Stadium": price.text = Stadium.PRICE.ToString(); break;
+            case "SuperMarket": price.text = SuperMarket.PRICE.ToString(); break;
             default: break;
         }
     }

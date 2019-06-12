@@ -13,7 +13,7 @@
 	  <content>天气不再炎热了，人们更乐意出来走走，呼吸新鲜空气，去一些户外场所，比如体育场与景区</content>
 	  <effects>
 	  	<effect object="Stadium" range="all" attribute="attrackRate" value="0.002"/>
-	  	<effect object="Stadium" range="all" attribute="attrackRate" value="0.002"/>
+	  	<effect object="Scenic" range="all" attribute="attrackRate" value="0.002"/>
 	  </effects>
   </news>
   <news name="food_poisoning" company="all">
@@ -38,6 +38,29 @@
     <effects>
       <effect object="Building" range="all" attribute="attrackRate" value="0.005"/>
       <effect object="Talent" range="all" attribute="satisfication" value="-10"/>
+    </effects>
+  </news>
+  <news name="clone">
+    <title>克隆实验</title>
+    <content>城市的实验室里进行了一次大规模的人体克隆实验，许多克隆人诞生了，他们将全部作为这个城市的一员生活</content>
+    <effects>
+      <effect object="City" range="all" attribute="population" value="1000"/>
+    </effects>
+  </news>
+  <news name="notre_dame_de_paris">
+    <title>巴黎圣母院大火</title>
+    <content>巴黎圣母院大火的新闻在电视上播出了，人们觉得应该早一些去参观物质文化遗产。与此同时由于刺客信条大革命
+    免费了，更多的人想去看刺客信条电影了</content>
+    <effects>
+      <effect object="Scenic" range="all" attribute="attrackRate" value="0.003"/>
+      <effect object="Cinema" range="all" attribute="attrackRate" value="0.003"/>
+    </effects>
+  </news>
+  <news name="condom_accident">
+    <title>避孕套事件</title>
+    <content>城市附近生产避孕套的工厂由于一些小失误，导致一批完全没有作用的避孕套流入市场，城市人口将发生一次大幅上升</content>
+    <effects>
+      <effect object="City" range="all" attribute="population" is_rate_value="" value="0.05"/>
     </effects>
   </news>
 </newsinfo>
