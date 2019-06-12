@@ -134,6 +134,7 @@ public class TalentManageUI : MonoBehaviour
 
     public void DisplayBlocks()
     {
+        chooseBlockButton.interactable = false;
         blocks.SetActive(true);
 
         //clear the previous content

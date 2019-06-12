@@ -14,6 +14,9 @@ public class BuildingManagement : MonoBehaviour
     private RectTransform contentTR;
     private Transform details;
 
+    private bool isDisplayed;
+    private List<Text> profits;
+
     private Color defaultColor;
 
     //objects in blockInfo
@@ -38,6 +41,9 @@ public class BuildingManagement : MonoBehaviour
         contentTR = content.GetComponent<RectTransform>();
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
 
+        isDisplayed = false;
+        profits = new List<Text>();
+
         details = transform.Find("Details");
         buildingName = details.Find("Name").GetComponent<Text>();
         industry = details.Find("Industry").GetComponent<Text>();
@@ -51,6 +57,25 @@ public class BuildingManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDisplayed)
+        {
+            int i = 0;
+            foreach(Text text in profits)
+            {
+                if (!City.currentCompany.blockList[i].isEmpty)
+                    text.text = City.currentCompany.blockList[i].building.monthlyProfit.ToString();
+                else
+                    text.text = "0";
+                i++;
+            }
+            if (details.gameObject.activeSelf)
+            {
+                if (!City.currentCompany.blockList[serial].isEmpty)
+                    profit.text = City.currentCompany.blockList[serial].building.monthlyProfit.ToString();
+                else
+                    profit.text = "0";
+            }
+        }
         
     }
 
@@ -61,6 +86,8 @@ public class BuildingManagement : MonoBehaviour
 
     public void OnOpen(Block targetBlock = null)
     {
+        isDisplayed = true;
+        profits.Clear();
         details.gameObject.SetActive(false);
 
         //clear the previous content
@@ -98,7 +125,9 @@ public class BuildingManagement : MonoBehaviour
                 profitText = block.building.monthlyProfit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
-            blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;
+            Text temp = blockInfo.transform.Find("Profit").GetComponent<Text>();
+            temp.text = profitText;
+            profits.Add(temp);
 
             i++;
         }

@@ -36,7 +36,7 @@ public class BlockUI : MonoBehaviour
         price = ownedBlockPanel.transform.Find("Price").GetComponent<Text>();
         buildingType.setSelect(0);//set the first type the default building type
         type = "Restaurant";
-        price.text = "4000";
+        price.text = Restaurant.PRICE.ToString();
 
         profit = buildingInfoPanel.transform.Find("Profit").GetComponent<Text>();
         name = buildingInfoPanel.transform.Find("Name").GetComponent<Text>();
@@ -45,7 +45,10 @@ public class BlockUI : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        
+        if (!targetBlock.isEmpty)
+        {
+            profit.text = targetBlock.building.monthlyProfit.ToString();
+        }
     }
 
     public void setBlock(Block block) {
