@@ -22,7 +22,22 @@ public abstract class Building : MonoBehaviour {
 
     //private data
     private int currentHour = Timer.hour, currentMonth = Timer.month, currentYear = Timer.year;
-    private float attrackRate = 0.01f;
+
+    /*****test*****/
+    private float _attrackRate = 0.01f;
+    public float attrackRate { get
+        {
+            return _attrackRate;
+        }
+        set
+        {
+            if (value < 0 || value > 1)
+                return;
+            _attrackRate = value;
+        }
+    }
+
+
     private float profitEach = 3f;
     private int talentCountLimit = 1;
     private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager

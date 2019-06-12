@@ -102,7 +102,7 @@ public class City : MonoBehaviour
         talentList = new List<Talent>();
         generateTalentsMarket();
 
-        newsMaker = GameObject.FindObjectOfType<News>();
+        //newsMaker = GameObject.FindObjectOfType<News>();
         Debug.Log("City init done");
     }
 

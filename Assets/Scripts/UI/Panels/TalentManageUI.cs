@@ -279,7 +279,9 @@ public class TalentManageUI : MonoBehaviour
 
     public void OnChooseBlockButtonClicked()
     {
-        City.currentCompany.blockList[blockSerial].building.addTalent(City.currentCompany.talentList[serial]);
+        Talent talent = City.currentCompany.talentList[serial];
+        talent.workPlace.removeTalent(talent);
+        City.currentCompany.blockList[blockSerial].building.addTalent(talent);
         this.OnOpen();
     }
 }
