@@ -42,11 +42,11 @@ public class City : MonoBehaviour
             if (talent.isHired) { //skip the hired people
                 ++needCount;
             } else { //not hired people, need to be refreshed
-                //Talent.refreshTalent(talent);
+                Talent.refreshTalent(talent);
             }
         }
         //add new talent
-        for (int i=talentList.Count;i<=talentList.Count + needCount; ++i) {
+        for (int i=talentList.Count;i<talentList.Count + needCount; ++i) {
             talentList.Add(Talent.generateTalent());
             talentList[i].id = i;
         }
@@ -125,7 +125,7 @@ public class City : MonoBehaviour
         agent = GameObject.FindObjectOfType<Agent>();
 
         passedTime = 0f;
-        talentRefreshInterval = 10f;
+        talentRefreshInterval = 120f;
 
         makeBlocks();
         makeCompanies();
