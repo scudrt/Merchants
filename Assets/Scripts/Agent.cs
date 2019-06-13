@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Agent : MonoBehaviour {
+    public int seed;
     public bool initDone = false;
     private int numOfPlayer;
     private AIController AIPlayer;
@@ -22,7 +23,8 @@ public class Agent : MonoBehaviour {
     }
 
     private IEnumerator onGenerate() {
-
+        seed = (int)Time.time;
+        Random.seed = seed;
         numOfPlayer = 0;
         AIPlayer = GameObject.FindObjectOfType<AIController>();
         
