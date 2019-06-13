@@ -19,21 +19,39 @@ public class City : MonoBehaviour
         "School", "Stadium", "SuperMarket"};
 
     private const int NATURAL_BUILDING_COUNT = 8;
+    private const int TALENT_MERKET_SIZE = 15;
     public static int numOfCompany = 3;
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
 
-    private float talentRefreshTime;
+    private float talentRefreshInterval, passedTime;
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
     public static void generateTalentsMarket(){
+        //can be used only at the first time
         talentList.Clear();
-        int num = Random.Range(10, 15);
-        for(int i = 0; i < num; i++){
+        for(int i = 0; i < TALENT_MERKET_SIZE; i++){
             talentList.Add(Talent.generateTalent());
         }
     }
+
+    private void refreshTalentMarket() {
+        int needCount = 0;
+        foreach (Talent talent in talentList) {
+            if (talent.isHired) { //skip the hired people
+                ++needCount;
+            } else { //not hired people, need to be refreshed
+                //Talent.refreshTalent(talent);
+            }
+        }
+        //add new talent
+        for (int i=talentList.Count;i<=talentList.Count + needCount; ++i) {
+            talentList.Add(Talent.generateTalent());
+            talentList[i].id = i;
+        }
+    }
+
     public static float generateNormalDistribution(float expectation, float radius) {
         //it is not a normal distribution in fact:)
         float ret = Random.Range(expectation - radius, expectation);
@@ -106,7 +124,8 @@ public class City : MonoBehaviour
     void Start() {
         agent = GameObject.FindObjectOfType<Agent>();
 
-        talentRefreshTime = 120;
+        passedTime = 0f;
+        talentRefreshInterval = 10f;
 
         makeBlocks();
         makeCompanies();
@@ -120,11 +139,10 @@ public class City : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        talentRefreshTime -= Time.deltaTime;
-        if (talentRefreshTime <= 0)
-        {
-            generateTalentsMarket();
-            talentRefreshTime = 120;
+        passedTime += Time.deltaTime;
+        if (passedTime >= talentRefreshInterval){
+            refreshTalentMarket();
+            passedTime = 0f;
         }
     }
 }

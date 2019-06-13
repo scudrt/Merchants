@@ -45,9 +45,10 @@ public class BlockUI : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        if (!targetBlock.isEmpty)
-        {
-            profit.text = targetBlock.building.monthlyProfit.ToString();
+        if (targetBlock != null) {
+            if (!targetBlock.isEmpty) {
+                profit.text = targetBlock.building.monthlyProfit.ToString();
+            }
         }
     }
 
