@@ -13,6 +13,7 @@ public class BuildingManagement : MonoBehaviour
     private GameObject content;//content contains talent informations
     private RectTransform contentTR;
     private Transform details;
+    private ButtonGroup buttonGroup;
 
     private bool isDisplayed;
     private List<Text> profits;
@@ -40,6 +41,7 @@ public class BuildingManagement : MonoBehaviour
         content = transform.Find("Blocks").transform.Find("Content").gameObject;
         contentTR = content.GetComponent<RectTransform>();
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+        buttonGroup = contentTR.GetComponent<ButtonGroup>();
 
         isDisplayed = false;
         profits = new List<Text>();
@@ -92,11 +94,13 @@ public class BuildingManagement : MonoBehaviour
 
         //clear the previous content
         BroadcastMessage("DestroyItemInfo");
+        buttonGroup.buttons.Clear();
 
         List<Block> blocks = City.currentCompany.blockList;
         GameObject blockInfo;
         RectTransform rectTransform;
         ItemInfo script;
+        Button button;
         int i = 0;//i is the number of column
 
         foreach (Block block in blocks)
@@ -105,6 +109,9 @@ public class BuildingManagement : MonoBehaviour
             blockInfo = GameObject.Instantiate(blockInfoPrefab, content.transform);
             rectTransform = blockInfo.GetComponent<RectTransform>();
             script = blockInfo.GetComponent<ItemInfo>();
+            button = blockInfo.GetComponent<Button>();
+
+            buttonGroup.buttons.Add(button);
 
             script.serial = i;
 
@@ -135,34 +142,27 @@ public class BuildingManagement : MonoBehaviour
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, i * 50);
 
-        //if exist target block, display details
+        //if target block exist, display details
         if (targetBlock != null)
         {
             serial = City.currentCompany.blockList.IndexOf(targetBlock);
+            buttonGroup.setSelect(serial);
             DisplayItemInfo(serial);
         }
+        Debug.Log("Open end");
     }
 
     public void DisplayItemInfo(int _serial)
     {
         this.serial = _serial;
 
-        //change color of the item selected 
-        for (int i = 0; i < contentTR.childCount; i++)
-        {
-            if (i != serial)
-            {
-                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
-            }
-            else
-            {
-                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
-            }
-        }
+        //set color
+        buttonGroup.setSelect(serial);
 
         Block block = City.currentCompany.blockList[serial];
         if (block.isEmpty)
         {
+            details.gameObject.SetActive(false);
             Debug.Log("Is Empty");
             return;
         }

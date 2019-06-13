@@ -93,27 +93,27 @@ public class PlayerUI : MonoBehaviour
         newsPanel.GetComponent<FullScreenPanel>().UIEntry();
         newsPanel.GetComponent<NewsPanel>().OnOpen(news);
     }
-
+    
     public void TalentsManagePanelEntry()
     {
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }
 
-    public void TalentsManagePanelEntry(Talent targetTalent)
+    public void TalentsManagePanelEntry(Talent targetTalent=null)
     {
-
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen(targetTalent);
     }
 
+    /* 
     public void BlocksManagePanelEntry()
     {
         blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         blocksManagePanel.GetComponent<BuildingManagement>().OnOpen();
     }
-
-    public void BlocksManagePanelEntry(Block targetBlock)
+    */
+    public void BlocksManagePanelEntry(Block targetBlock=null)
     {
         blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         blocksManagePanel.GetComponent<BuildingManagement>().OnOpen(targetBlock);

@@ -39,7 +39,18 @@ public abstract class Building : MonoBehaviour {
 
 
     private float profitEach = 3f;
-    private int talentCountLimit = 1;
+
+    private int _talentCountLimit = 1;
+    public int talentCountLimit { private set
+        {
+            _talentCountLimit = value;
+        }
+        get
+        {
+            return _talentCountLimit;
+        }
+    }
+
     private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager
 
     /************common functions************/

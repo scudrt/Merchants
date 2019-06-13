@@ -49,7 +49,6 @@ public class NewsManager : MonoBehaviour {
 
     private void createNews(int randint)
     {
-        Debug.Log(intervalTime);
         News news = newsList[randint];
         news.newsEventHappen();
         sendNewsEvent(news);

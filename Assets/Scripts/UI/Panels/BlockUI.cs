@@ -111,8 +111,10 @@ public class BlockUI : MonoBehaviour
         }
 
         /***test code***/
-        EventManager.addEvent(delegate (Event evt){
-            evt.SendMessageUpwards("BlocksManagePanelEntry", null);
+        EventManager.addEvent((Event evt)=>{
+            Block block = targetBlock;
+            evt.SendMessageUpwards("BlocksManagePanelEntry", block);
+            Debug.Log("delegate end");
         },null, "你购买了一块地！");
         /***test code***/
     }
@@ -173,7 +175,8 @@ public class BlockUI : MonoBehaviour
 
     public void OnDetailsButtonClicked()
     {
-        SendMessageUpwards("BlocksManagePanelEntry", targetBlock);
+        GameObject.FindObjectOfType<PlayerUI>().GetComponent<PlayerUI>().BlocksManagePanelEntry(targetBlock);
+        //SendMessageUpwards("BlocksManagePanelEntry", targetBlock);
     }
 
     public void OnDestroyButtonClicked()

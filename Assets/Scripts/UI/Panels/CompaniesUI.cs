@@ -80,12 +80,12 @@ public class CompaniesUI : MonoBehaviour
             //set text
             companyInfo.transform.Find("Name").GetComponent<Text>().text = company.nickName;
             companyInfo.transform.Find("ID").GetComponent<Text>().text = company.id.ToString();
+
+            i++;
         }
 
         //change content rect's height
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (i - 1) * 50);
-
-        i++;
     }
 
     public void DisplayItemInfo(int _serial)

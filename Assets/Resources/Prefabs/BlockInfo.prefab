@@ -353,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serial: 0
   isChosen: 0
+  color: {r: 1, g: 1, b: 1, a: 0}
+  image: {fileID: 0}
 --- !u!114 &-1803508449664397190
 MonoBehaviour:
   m_ObjectHideFlags: 0

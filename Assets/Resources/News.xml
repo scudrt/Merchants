@@ -49,8 +49,7 @@
   </news>
   <news name="notre_dame_de_paris">
     <title>巴黎圣母院大火</title>
-    <content>巴黎圣母院大火的新闻在电视上播出了，人们觉得应该早一些去参观物质文化遗产。与此同时由于刺客信条大革命
-    免费了，更多的人想去看刺客信条电影了</content>
+    <content>巴黎圣母院大火的新闻在电视上播出了，人们觉得应该早一些去参观物质文化遗产。与此同时由于刺客信条大革命免费了，更多的人想去看刺客信条电影了</content>
     <effects>
       <effect object="Scenic" range="all" attribute="attrackRate" value="0.003"/>
       <effect object="Cinema" range="all" attribute="attrackRate" value="0.003"/>
@@ -61,6 +60,55 @@
     <content>城市附近生产避孕套的工厂由于一些小失误，导致一批完全没有作用的避孕套流入市场，城市人口将发生一次大幅上升</content>
     <effects>
       <effect object="City" range="all" attribute="population" is_rate_value="" value="0.05"/>
+    </effects>
+  </news>
+  <news>
+    <title>JOJO手办发售</title>
+    <content>JOJO的手办发售了，人们疯狂地抢购，人们纷纷前往超市购买</content>
+    <effects>
+      <effect object="SuperMarket" range="all" attribute="attrackRate" value="0.002"/>
+    </effects>
+  </news>
+  <news>
+    <title>T病毒泄露！</title>
+    <content>位于地下实验室的T病毒发生了泄露，城里的许多人都受到了感染，他们需要在医院得到救治</content>
+    <effects>
+      <effect object="Hospital" range="all" attribute="attrackRate" value="0.05"/>
+    </effects>
+  </news>
+  <news>
+    <title>大师作品</title>
+    <content>DRT·NB大师应邀来到城市展览他的作品，其中包括了他的成名作——《大热天南部》，人们争相到美术馆一睹大师真迹</content>
+    <effects>
+      <effect object="ArtGallery" range="all" attribute="attrackRate" value="0.03"/>
+    </effects>
+  </news>
+  <news>
+    <title>补习班</title>
+    <content>各个学校为了提高升学率，纷纷开了补习班，更多的学生需要在学校学习更长时间了</content>
+    <effects>
+      <effect object="School" range="all" attribute="attrackRate" value="0.02"/>
+    </effects>
+  </news>
+  <news>
+    <title>纪念币发售</title>
+    <content>银行发行了一批全新的纪念币，收藏爱好者们十分热衷于到银行去购买这套纪念币</content>
+    <effects>
+      <effect object="Bank" range="all" attribute="attrackRate" value="0.02"/>
+    </effects>
+  </news>
+  <news>
+    <title>新电影口碑极差</title>
+    <content>天使宝贝主演的新电影第一天上映就遭遇滑铁卢，半数观众在电影中途离场，人们需要一段时间平复心情</content>
+    <effects>
+      <effect object="Cinema" range="all" attribute="attrackRate" value="-0.02"/>
+    </effects>
+  </news>
+  <news>
+    <title>我是大哥大</title>
+    <content>沙雕电视剧《我是大哥大》全网热播，热(sha)血(diao)青年们纷纷表示要做不良少年，拒绝在学校好好上课</content>
+    <effects>
+      <effect object="School" range="all" attribute="attrackRate" value="-0.02"/>
     </effects>
   </news>
 </newsinfo>
