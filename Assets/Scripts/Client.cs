@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 public class Client : MonoBehaviour
 {
-    public Contract curContract;
+    public  Contract curContract;
     private byte reliableChannel;
     private const int MAX_USER = 100;
 
@@ -155,8 +155,15 @@ public class Client : MonoBehaviour
                 break;
             case NetOP.contract:
                 Debug.Log("接收到合同");
+
                 ContractInfo contract = (ContractInfo)msg;
+                Contract tempContract = contract.contract;
+                if (tempContract._targetId != City.currentCompany.id)
+                {
+                    return;
+                }
                 curContract = contract.contract;
+                
                 break;
         }
 

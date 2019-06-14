@@ -105,6 +105,7 @@ public class Contract {
             Client client = GameObject.FindObjectOfType<Client>();
             ContractInfo info = new ContractInfo(this);
             client.SendServer((NetMsg)info);
+            client.curContract = null;
             Debug.Log("同意合同");
             //发送同意的消息
         }
@@ -122,6 +123,7 @@ public class Contract {
             Client client = GameObject.FindObjectOfType<Client>();
             ContractInfo info = new ContractInfo(this);
             client.SendServer((NetMsg)info);
+            client.curContract = null;
             Debug.Log("拒绝合同");
             //发送拒绝的消息
         }
