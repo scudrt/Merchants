@@ -9326,7 +9326,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 149299534}
   m_HandleRect: {fileID: 149299533}
   m_Direction: 1
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14611,8 +14611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultColor: {r: 0.83921576, g: 0.83921576, b: 0.83921576, a: 0.54901963}
+  selectedColor: {r: 0.8773585, g: 0.12829298, b: 0.12829298, a: 0.8745098}
 --- !u!1 &1279441736
 GameObject:
   m_ObjectHideFlags: 0
@@ -19883,8 +19883,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultColor: {r: 0.83921576, g: 0.83921576, b: 0.83921576, a: 0.54901963}
+  selectedColor: {r: 0.8113208, g: 0.12629052, b: 0.12629052, a: 1}
 --- !u!1 &1765828871
 GameObject:
   m_ObjectHideFlags: 0
@@ -20416,11 +20416,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1981545646}
-        m_MethodName: BlocksManagePanelEntry
-        m_Mode: 2
+        m_MethodName: OnBlockManageButtonClicked
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Block, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
