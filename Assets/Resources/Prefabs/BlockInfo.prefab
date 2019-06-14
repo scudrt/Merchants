@@ -352,6 +352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serial: 0
+  isChosen: 0
+  color: {r: 1, g: 1, b: 1, a: 0}
+  image: {fileID: 0}
 --- !u!114 &-1803508449664397190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,8 +439,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

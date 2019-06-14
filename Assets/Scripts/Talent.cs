@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Talent : MonoBehaviour{
+
+    /*****************static field*****************/
     private static int talentTick = 0; //record the talents have ever generated
     public static Talent generateTalent() {
         //return a randomly generated talent
-        //generate name
         Talent _talent = GameObject.FindObjectOfType<City>().gameObject.AddComponent<Talent>();
-
+        //give new property
+        refreshTalent(_talent);
+        //distribute id for every talent
+        _talent.id = talentTick++;
+        return _talent;
+    }
+    public static void refreshTalent(Talent talent) {
+        //refresh the talent's property, except for the id
         int lenOfName = Random.Range(3, 6);
         string _name = "" + (char)Random.Range(65, 90); //'A' - 'Z'
         for (int i = 1; i < lenOfName; ++i) {
             _name += (char)Random.Range(97, 122); //'a' - 'z'
         }
-        _talent.name = _name;
         //generate talent's capacity
         float _charm = Mathf.Floor(City.generateNormalDistribution(45f, 40f)),
             _capacity = Mathf.Floor(City.generateNormalDistribution(45f, 40f));
-        _talent.capacity = _capacity;
-        _talent.charm = _charm;
 
-        _talent.satisfaction = 50f;
-        _talent.expectedSalary = Mathf.Floor(1.5f * _charm + 1.5f * _capacity +
+        talent.name = _name;
+        talent.capacity = _capacity;
+        talent.charm = _charm;
+
+        talent.satisfaction = 50f;
+        talent.expectedSalary = Mathf.Floor(1.5f * _charm + 1.5f * _capacity +
             City.generateNormalDistribution(20, 80));
-        _talent.salary = _talent.expectedSalary;
-        //distribute id for every talent
-        _talent.id = talentTick++;
-        return _talent;
+        talent.salary = talent.expectedSalary;
     }
-
 
     public int id = 0;
     public new string name { get; set; }
@@ -119,7 +124,7 @@ public class Talent : MonoBehaviour{
                 _satisfaction -= 10;
                 //send message to company's player
                 EventManager.addEvent(null, null,
-                    name + ":你拖欠我的工资!(满意度下降)");
+                    name + ":还我血汗钱!!!(满意度下降)");
             }
         }
     }
@@ -132,10 +137,9 @@ public class Talent : MonoBehaviour{
             currentDay = Timer.day;
 
             getPaid();
-
-            if (_satisfaction <= 0) {
-                leaveCompany();
-            }
+        }
+        if (_satisfaction <= 0) {
+            leaveCompany();
         }
     }
 }

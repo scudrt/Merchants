@@ -16,11 +16,11 @@ public class Population : MonoBehaviour{
         }
     }
     public static float avgGDP = 1000f;
-    public static float GDP {
+    public static int GDP {
         get {
-            return avgGDP * amount;
+            return (int)(avgGDP * amount);
         }set {
-            avgGDP = value / amount;
+            avgGDP = (float)value / amount;
             if (avgGDP < 0f) {
                 avgGDP = 0f;
             }
@@ -47,7 +47,7 @@ public class Population : MonoBehaviour{
         if (currentDay != Timer.day) {
             //scale the annual growth rate to a day
             amount = (int)(amount * (1 + dailyBirthRate));
-            GDP *= 1 + dailyGDPGrowthRate;
+            GDP = (int)(GDP * (1 + dailyGDPGrowthRate));
             currentDay = Timer.day;
         }
     }

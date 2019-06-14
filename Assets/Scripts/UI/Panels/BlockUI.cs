@@ -36,7 +36,7 @@ public class BlockUI : MonoBehaviour
         price = ownedBlockPanel.transform.Find("Price").GetComponent<Text>();
         buildingType.setSelect(0);//set the first type the default building type
         type = "Restaurant";
-        price.text = "4000";
+        price.text = Restaurant.PRICE.ToString();
 
         profit = buildingInfoPanel.transform.Find("Profit").GetComponent<Text>();
         name = buildingInfoPanel.transform.Find("Name").GetComponent<Text>();
@@ -45,7 +45,11 @@ public class BlockUI : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        
+        if (targetBlock != null) {
+            if (!targetBlock.isEmpty) {
+                profit.text = targetBlock.building.monthlyProfit.ToString();
+            }
+        }
     }
 
     public void setBlock(Block block) {
@@ -94,7 +98,7 @@ public class BlockUI : MonoBehaviour
 
     public void OnBuyButtonClick(){
         Company company = City.currentCompany;
-        if (!company.buyBlock(ref targetBlock)){
+        if (!company.buyBlock(targetBlock)){
             //block buying faied
             Debug.Log("block buying failed.");
             return;
@@ -107,8 +111,10 @@ public class BlockUI : MonoBehaviour
         }
 
         /***test code***/
-        EventManager.addEvent(delegate (Event evt){
-            evt.SendMessageUpwards("BlocksManagePanelEntry", null);
+        EventManager.addEvent((Event evt)=>{
+            Block block = targetBlock;
+            evt.SendMessageUpwards("BlocksManagePanelEntry", block);
+            Debug.Log("delegate end");
         },null, "你购买了一块地！");
         /***test code***/
     }
@@ -116,7 +122,7 @@ public class BlockUI : MonoBehaviour
 
     public void OnBuildButtonClick(){
         //build on the block
-        City.currentCompany.buildOnBlock(ref targetBlock, this.type);
+        City.currentCompany.buildOnBlock(targetBlock, this.type);
         
         StartCoroutine(WaitUntilBuildingComplete());
     }
@@ -154,22 +160,23 @@ public class BlockUI : MonoBehaviour
         //set price( should be modified after making price static)
         switch (type)
         {
-            case "ArtGallery": price.text = "4000"; break;
-            case "Bank": price.text = "12000"; break;
-            case "Cenema": price.text = "8000"; break;
-            case "Hospital": price.text = "6000"; break;
-            case "Restaurant": price.text = "4000"; break;
-            case "Scenic": price.text = "6000"; break;
-            case "School": price.text = "7000"; break;
-            case "Stadium": price.text = "3000"; break;
-            case "SuperMarket": price.text = "3000"; break;
+            case "ArtGallery": price.text = ArtGallery.PRICE.ToString(); break;
+            case "Bank": price.text = Bank.PRICE.ToString(); break;
+            case "Cinema": price.text = Cinema.PRICE.ToString(); break;
+            case "Hospital": price.text = Hospital.PRICE.ToString(); break;
+            case "Restaurant": price.text = Restaurant.PRICE.ToString(); break;
+            case "Scenic": price.text = Scenic.PRICE.ToString(); break;
+            case "School": price.text = School.PRICE.ToString(); break;
+            case "Stadium": price.text = Stadium.PRICE.ToString(); break;
+            case "SuperMarket": price.text = SuperMarket.PRICE.ToString(); break;
             default: break;
         }
     }
 
     public void OnDetailsButtonClicked()
     {
-        SendMessageUpwards("BlocksManagePanelEntry", targetBlock);
+        GameObject.FindObjectOfType<PlayerUI>().GetComponent<PlayerUI>().BlocksManagePanelEntry(targetBlock);
+        //SendMessageUpwards("BlocksManagePanelEntry", targetBlock);
     }
 
     public void OnDestroyButtonClicked()

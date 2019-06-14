@@ -10,7 +10,6 @@ public class Block : MonoBehaviour {
     public int Pos_x { set; get; }
     public int Pos_y { set; get; }
     private bool _isChosen;
-    public string buildTypeName { set; get; }
     public bool isChosen { set {
             _isChosen = value;
             if (value == true) {
@@ -51,9 +50,9 @@ public class Block : MonoBehaviour {
                 building.clearRecord();
             }
             if (value != null) {
-                this.blockColor = value.companyColor;
+                this.color = this.blockColor = value.companyColor;
             } else {
-                this.blockColor = Color.clear;
+                this.color = this.blockColor = Color.clear;
             }
         } }
 
@@ -96,52 +95,20 @@ public class Block : MonoBehaviour {
         if (!isEmpty) { //current block isn't empty
             return false;
         }
-        switch (buildingTypeName) {
-            case "ArtGallery":
-                this.building = gameObject.AddComponent<ArtGallery>();
-                break;
-            case "Bank":
-                this.building = gameObject.AddComponent<Bank>();
-                break;
-            case "Cinema":
-                this.building = gameObject.AddComponent<Cinema>();
-                break;
-            case "Hospital":
-                this.building = gameObject.AddComponent<Hospital>();
-                break;
-            case "Restaurant":
-                this.building = gameObject.AddComponent<Restaurant>();
-                break;
-            case "Scenic":
-                this.building = gameObject.AddComponent<Scenic>();
-                break;
-            case "School":
-                this.building = gameObject.AddComponent<School>();
-                break;
-            case "Stadium":
-                this.building = gameObject.AddComponent<Stadium>();
-                break;
-            case "SuperMarket":
-                this.building = gameObject.AddComponent<SuperMarket>();
-                break;
-            default:
-                Debug.Log("Block: building type error");
-                return false;
-        }
+
         //pay for the building
         if (this.isOwned){
-            if (companyBelong.costMoney(building.price) == false) {
-                //don't have enough money, return false
-                GameObject.Destroy(this.building);
-                building = null;
+            if (companyBelong.costMoney((float)Type.GetType(buildingTypeName).GetField("PRICE").GetValue(0)) == false) {
+                //don't have enough money
                 return false;
             }
         }
-        this.building.blockBelong = this;
+
         //load the prefab of building
         GameObject newBuilding = (GameObject)Resources.Load("Prefabs/" + buildingTypeName);
         newBuilding = GameObject.Instantiate(newBuilding, this.transform.position, newBuilding.transform.rotation);
-        //set building's scale
+
+        //set prefab's scale
         Vector3 blockScale = this.transform.localScale;
         Vector3 buildingScale = newBuilding.transform.localScale;
         buildingScale.x *= blockScale.x;
@@ -149,17 +116,17 @@ public class Block : MonoBehaviour {
         buildingScale.z *= blockScale.z;
         newBuilding.transform.localScale = buildingScale;
 
+        //bind script with building prefab
+        this.building = (Building)newBuilding.AddComponent(Type.GetType(buildingTypeName));
+        this.building.blockBelong = this;
+
         //remember to send message to network
 
         return true;
     }
 
     public void sellBuilding() {
-        if (companyBelong != null) {
-            companyBelong.fund += building.price / 2.0f;
-        }
-        this.price -= building.price;
-        GameObject.DestroyImmediate(building.gameObject);
+        this.building.onDestory();
         this.building = null;
     }
 

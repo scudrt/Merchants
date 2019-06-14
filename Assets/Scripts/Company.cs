@@ -8,11 +8,13 @@ public class Company : MonoBehaviour{
     public float fund { get; set; }
     public float fame{get; set;}
     public Color companyColor { get; set; }
+    public bool isAlive { get; set; } //TO BE DONE
+    public bool isHuman;
 
     public List<Block> blockList;
     public List<Talent> talentList;
 
-    private static int playerCount = 0;
+    private static int playerCount = -1;
     
     void Start() {
         this.onGenerate();
@@ -23,6 +25,9 @@ public class Company : MonoBehaviour{
         fund = 1000000f;
         fame = 50f;
 
+        isAlive = true;
+        isHuman = false;
+
         blockList = new List<Block>();
         talentList = new List<Talent>();
 
@@ -30,7 +35,7 @@ public class Company : MonoBehaviour{
 
         Debug.Log("Company " + id + " init done");
     }
-    public bool buyBlock(ref Block block) {
+    public bool buyBlock(Block block) {
         //return false if block buying failed
         if (block == null) {
             return false;
@@ -76,7 +81,7 @@ public class Company : MonoBehaviour{
         return this.costMoney(-delta);
     }
 
-    public bool buildOnBlock(ref Block block, string buildingType = "Sword") {
+    public bool buildOnBlock(Block block, string buildingType = "Sword") {
         //return false if building buying failed
         if (block.companyBelong != this) {
             return false;

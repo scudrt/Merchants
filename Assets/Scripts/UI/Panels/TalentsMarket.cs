@@ -16,6 +16,7 @@ public class TalentsMarket : MonoBehaviour
     private Color defaultColor;
 
     //details panel's objects
+    private List<Talent> talentMarket;
     private int serial;//displayed talent's serial number in talents list
     private Transform details;
     private Text talentName;
@@ -30,6 +31,8 @@ public class TalentsMarket : MonoBehaviour
         defaultColor = talentInfoPrefab.GetComponent<Image>().color;
 
         talentManageUI = GameObject.FindObjectOfType<TalentManageUI>();
+
+        talentMarket = new List<Talent>();
 
         scrollrect = transform.Find("Talents").GetComponent<ScrollRect>();
         content = transform.Find("Talents").transform.Find("Content").gameObject;
@@ -67,7 +70,17 @@ public class TalentsMarket : MonoBehaviour
         ItemInfo script;
         int i = 0;//i is the number of column
 
-        foreach (Talent talent in City.talentList)
+
+        talentMarket.Clear();
+        foreach(Talent talent in City.talentList)
+        {
+            if (!talent.isHired)
+            {
+                talentMarket.Add(talent);
+            }
+        }
+
+        foreach (Talent talent in talentMarket)
         {
             //add talent's information
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
@@ -111,7 +124,7 @@ public class TalentsMarket : MonoBehaviour
             }
         }
 
-        Talent talent = City.talentList[serial];
+        Talent talent = talentMarket[serial];
 
         talentName.text = talent.name;
         capacity.text = talent.capacity.ToString();
@@ -121,7 +134,7 @@ public class TalentsMarket : MonoBehaviour
 
     public void OnHireButtonClicked()
     {
-        Talent talent = City.talentList[serial];
+        Talent talent = talentMarket[serial];
         City.currentCompany.hireTalent(talent);
         this.OnOpen();
         talentManageUI.OnOpen();

@@ -11,6 +11,7 @@ public class TalentManageUI : MonoBehaviour
     private Scrollbar scrollbar;//bar controlling the talents' scroll view
     private GameObject content;//content contains talent informations
     private RectTransform contentTR;
+    private ButtonGroup talentButtonGroup;
 
     private Building targetBuilding;//talent's distribution building
 
@@ -46,6 +47,7 @@ public class TalentManageUI : MonoBehaviour
         content = transform.Find("Talents").transform.Find("Content").gameObject;
         contentTR = content.GetComponent<RectTransform>();
         contentTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);
+        talentButtonGroup = contentTR.GetComponent<ButtonGroup>();
 
         blocks = transform.Find("Blocks").gameObject;
         blocksContent = transform.Find("Blocks").Find("Content").gameObject;
@@ -92,11 +94,13 @@ public class TalentManageUI : MonoBehaviour
             child = content.transform.GetChild(j).gameObject;
             Destroy(child);
         }
+        talentButtonGroup.buttons.Clear();
 
         List<Talent> talents = City.currentCompany.talentList;
         GameObject talentInfo;
         RectTransform rectTransform;
         ItemInfo script;
+        Button button;
         int i = 0;//i is the number of column
 
         foreach(Talent talent in talents)
@@ -105,8 +109,10 @@ public class TalentManageUI : MonoBehaviour
             talentInfo = GameObject.Instantiate(talentInfoPrefab, content.transform);
             rectTransform = talentInfo.GetComponent<RectTransform>();
             script = talentInfo.GetComponent<ItemInfo>();
-
+            button = talentInfo.GetComponent<Button>();
+            
             script.serial = i;
+            talentButtonGroup.buttons.Add(button);
 
             //set position
             rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, i * 50, 50);
@@ -134,6 +140,7 @@ public class TalentManageUI : MonoBehaviour
 
     public void DisplayBlocks()
     {
+        chooseBlockButton.interactable = false;
         blocks.SetActive(true);
 
         //clear the previous content
@@ -164,19 +171,19 @@ public class TalentManageUI : MonoBehaviour
 
             //set text
             string nameText;
-            string profitText;
+            string talentText;
             if (block.isEmpty)
             {
                 nameText = "暂无建筑";
-                profitText = "0";
+                talentText = "0/0";
             }
             else
             {
                 nameText = block.building.nickName;
-                profitText = block.building.monthlyProfit.ToString();
+                talentText = block.building.getTalentCount().ToString() + "/" + block.building.talentCountLimit.ToString();
             }
             blockInfo.transform.Find("Name").GetComponent<Text>().text = nameText;
-            blockInfo.transform.Find("Profit").GetComponent<Text>().text = profitText;
+            blockInfo.transform.Find("Talent").GetComponent<Text>().text = talentText;
 
             i++;
         }
@@ -203,8 +210,8 @@ public class TalentManageUI : MonoBehaviour
         }
 
         //judge if the block is empty
-        Block block = City.currentCompany.blockList[serial];
-        if (block.isEmpty)
+        Block block = City.currentCompany.blockList[blockSerial];
+        if (block.isEmpty || block.building.getTalentCount() == block.building.talentCountLimit)
         {
             chooseBlockButton.interactable = false;
         }
@@ -212,6 +219,8 @@ public class TalentManageUI : MonoBehaviour
         {
             chooseBlockButton.interactable = true;
         }
+
+        
     }
 
     public void DisplayItemInfo(int _serial)
@@ -220,17 +229,7 @@ public class TalentManageUI : MonoBehaviour
         details.gameObject.SetActive(true);
 
         //change color of the item selected
-        for (int i = 0; i < contentTR.childCount; i++)
-        {
-            if (i != serial)
-            {
-                contentTR.GetChild(i).GetComponent<Image>().color = defaultColor;
-            }
-            else
-            {
-                contentTR.GetChild(i).GetComponent<Image>().color = Color.red;
-            }
-        }
+        talentButtonGroup.setSelect(serial);
 
         Talent talent = City.currentCompany.talentList[_serial];
 
@@ -279,7 +278,10 @@ public class TalentManageUI : MonoBehaviour
 
     public void OnChooseBlockButtonClicked()
     {
-        City.currentCompany.blockList[blockSerial].building.addTalent(City.currentCompany.talentList[serial]);
+        Talent talent = City.currentCompany.talentList[serial];
+        if(talent.workPlace!=null)
+            talent.workPlace.removeTalent(talent);
+        City.currentCompany.blockList[blockSerial].building.addTalent(talent);
         this.OnOpen();
     }
 }

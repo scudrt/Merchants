@@ -23,7 +23,8 @@ public class PlayerUI : MonoBehaviour
     private Text reputation;
     private Text GDP;
     private Text population;
-    private Text trend;
+
+    private double preProperty = 0; //store property number in last frame
 
     public static void addUI()
     {
@@ -58,7 +59,6 @@ public class PlayerUI : MonoBehaviour
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
         GDP = bottomPanel.transform.Find("GDP").GetComponent<Text>();
         population = bottomPanel.transform.Find("Population").GetComponent<Text>();
-        trend = bottomPanel.transform.Find("Trend").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -67,9 +67,25 @@ public class PlayerUI : MonoBehaviour
         if (City.currentCompany == null) {
             return;
         }
+
+        //if fund changed, create money effect
+        double delta;
+        if (City.currentCompany.fund != preProperty)
+        {
+            delta = City.currentCompany.fund - preProperty;
+            MoneyEffect.CreateMoneyEffect(property.transform,
+                delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
+                delta > 0 ? new Color(255, 180, 0) : Color.red); //golden and red
+        }
+
+        //set bottom panel's information displayed
         property.text = City.currentCompany.fund.ToString();
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.amount.ToString();
+        GDP.text = Population.GDP.ToString();
+
+        //update preproperty
+        preProperty = City.currentCompany.fund;
     }
 
     public void NewsPanelEntry(News news)
@@ -77,27 +93,27 @@ public class PlayerUI : MonoBehaviour
         newsPanel.GetComponent<FullScreenPanel>().UIEntry();
         newsPanel.GetComponent<NewsPanel>().OnOpen(news);
     }
-
+    
     public void TalentsManagePanelEntry()
     {
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen();
     }
 
-    public void TalentsManagePanelEntry(Talent targetTalent)
+    public void TalentsManagePanelEntry(Talent targetTalent=null)
     {
-
         talentsManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         talentsManagePanel.GetComponent<TalentManageUI>().OnOpen(targetTalent);
     }
 
+    /* 
     public void BlocksManagePanelEntry()
     {
         blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         blocksManagePanel.GetComponent<BuildingManagement>().OnOpen();
     }
-
-    public void BlocksManagePanelEntry(Block targetBlock)
+    */
+    public void BlocksManagePanelEntry(Block targetBlock=null)
     {
         blocksManagePanel.GetComponent<FullScreenPanel>().UIEntry();
         blocksManagePanel.GetComponent<BuildingManagement>().OnOpen(targetBlock);

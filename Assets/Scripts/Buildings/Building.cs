@@ -22,9 +22,35 @@ public abstract class Building : MonoBehaviour {
 
     //private data
     private int currentHour = Timer.hour, currentMonth = Timer.month, currentYear = Timer.year;
-    private float attrackRate = 0.01f;
+
+    /*****test*****/
+    private float _attrackRate = 0.01f;
+    public float attrackRate { get
+        {
+            return _attrackRate;
+        }
+        set
+        {
+            if (value < 0 || value > 1)
+                return;
+            _attrackRate = value;
+        }
+    }
+
+
     private float profitEach = 3f;
-    private int talentCountLimit = 1;
+
+    private int _talentCountLimit = 1;
+    public int talentCountLimit { private set
+        {
+            _talentCountLimit = value;
+        }
+        get
+        {
+            return _talentCountLimit;
+        }
+    }
+
     private List<Talent> talentList = new List<Talent>(); //index 0 is the building's manager
 
     /************common functions************/
@@ -131,5 +157,16 @@ public abstract class Building : MonoBehaviour {
         } else {
             return false;
         }
+    }
+
+    public void onDestory() {
+        //return money
+        blockBelong.companyBelong.earnMoney(this.budget + this.basicPrice / 2f);
+        //send talents to company
+        foreach(Talent talent in talentList) {
+            talent.workPlace = null;
+        }
+        //destory its parents
+        GameObject.DestroyImmediate(this.gameObject);
     }
 }
