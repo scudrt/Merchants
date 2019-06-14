@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Agent : MonoBehaviour {
+[System.Serializable]
+public class Agent:MonoBehaviour{
     public int seed;
     public bool initDone = false;
     private int numOfPlayer;
@@ -42,7 +43,7 @@ public class Agent : MonoBehaviour {
         yield return new WaitUntil(() => { return tick == City.companyList.Count; });
         initDone = true;
     }
-    void Start() {
+    void Start(){
         StartCoroutine(onGenerate());
     }
     void Update() {

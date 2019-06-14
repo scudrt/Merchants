@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-[Serializable]
+[System.Serializable]
 public class City : MonoBehaviour
 {
     /**********data area**********/
@@ -15,8 +15,8 @@ public class City : MonoBehaviour
 
     
     public News newsMaker;
-    private Agent agent;
-
+    public Agent agent;
+    private City_serializer serializer = new City_serializer();
     //building type list
 
     public static string[] buildingTypes =
@@ -30,7 +30,8 @@ public class City : MonoBehaviour
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
 
     private float talentRefreshInterval, passedTime;
-
+    private bool saved = false;
+    private bool readed = false;
 
     public static Company currentCompany { get; set; }
     /**********data area**********/
@@ -150,10 +151,40 @@ public class City : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         passedTime += Time.deltaTime;
         if (passedTime >= talentRefreshInterval){
             refreshTalentMarket();
             passedTime = 0f;
         }
     }
+
+    public void save()
+    {
+        if (!this.saved)
+        {
+            this.saved = true;
+            serializer.Serialize(this);
+            
+        }
+        
+    }
+
+    public void read()
+    {
+        if (!this.readed)
+        {
+            this.readed = true;
+            City_serializer c = serializer.DeSerialize();
+            //City.blockList = c.blockList;
+            //City.companyList = c.companyList;
+            this.newsMaker = c.newsMaker;
+            //City.talentList = c.talentList;
+            //this.agent = c.agent;
+            //City.currentCompany = c.currentCompany;
+            
+        }
+       
+       
+}
 }

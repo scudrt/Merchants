@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Company : MonoBehaviour{
+[System.Serializable]
+public class Company:MonoBehaviour{
     public int id { get; set; }
     public string nickName { get; set; }
     public float fund { get; set; }
@@ -16,7 +17,9 @@ public class Company : MonoBehaviour{
 
     private static int playerCount = -1;
     
-    void Start() {
+
+    void Start()
+    {
         this.onGenerate();
     }
 
@@ -95,6 +98,5 @@ public class Company : MonoBehaviour{
     }
 
     // Update is called once per frame
-    void Update(){
-    }
+  
 }

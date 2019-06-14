@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class News
 {
     public delegate List<object> FindObjects(); //function to find affected objects

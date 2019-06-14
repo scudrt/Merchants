@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
 public class Block : MonoBehaviour {
     public int id;
     public Building building;
@@ -70,13 +71,13 @@ public class Block : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         onGenerate();
     }
 	
 	// Update is called once per frame
-	void Update () {
-	}
+
 
     private void onGenerate() {
         this._isChosen = false;

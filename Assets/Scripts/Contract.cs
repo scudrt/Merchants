@@ -15,7 +15,7 @@ public class Contract {
     public List<int> offeredBlocks { private set; get; }
     public List<int> requiredBlocks { private set; get; }
     /****************trading parties****************/
-    private int _offererId, _targetId; //id of companies
+    public int _offererId, _targetId; //id of companies
     /****************trading content****************/
     private List<int> _offeredTalentList, _requiredTalentList;
     private List<int> _offeredBlockList, _requiredBlockList;
@@ -71,12 +71,17 @@ public class Contract {
             return false;
         }
         _isConfirmed = true;
-        waitForTargetResponse();
-        return deal();
+        Client client = GameObject.FindObjectOfType<Client>();
+        ContractInfo info = new ContractInfo(this);
+        client.SendServer((NetMsg)info);
+        //发送消息
+
+        return true;
     }
 
     public bool cancel() {
         //clear all references, helpful for garbage collection
+        
         _offererId = -1;
         _targetId = -1;
 
@@ -89,10 +94,37 @@ public class Contract {
 
     public void agree() {
         //can only be called by target
+        
+        if (this._targetId != City.currentCompany.id)
+        {
+            return;
+        }
+        else
+        {
+            this._isTargetAgreed = true;
+            Client client = GameObject.FindObjectOfType<Client>();
+            ContractInfo info = new ContractInfo(this);
+            client.SendServer((NetMsg)info);
+            Debug.Log("同意合同");
+            //发送同意的消息
+        }
     }
 
     public void refuse() {
         //can only be called by target
+        if (this._targetId != City.currentCompany.id)
+        {
+            return;
+        }
+        else
+        {
+            this._isTargetAgreed = false;
+            Client client = GameObject.FindObjectOfType<Client>();
+            ContractInfo info = new ContractInfo(this);
+            client.SendServer((NetMsg)info);
+            Debug.Log("拒绝合同");
+            //发送拒绝的消息
+        }
     }
 
     public void setTarget(Company target) { //set target company

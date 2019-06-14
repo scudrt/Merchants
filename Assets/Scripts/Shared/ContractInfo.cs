@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class ContractInfo:NetMsg
 {
-    public Contract contract { set; get; }
+    public Contract contract;
     public ContractInfo(Contract contract = null)
     {
         if (contract!=null)
