@@ -20,17 +20,19 @@ public class Client : MonoBehaviour
     private bool isStarted = false;
 
     //private const string SERVER_IP = "127.0.0.1";
-    private const string SERVER_IP = "192.168.123.13";
+    private  string SERVER_IP = Server.serverIp;
     //private const string SERVER_IP = "192.168.1.1";
     private byte error;
 
     private const int BYTE_SIZE = 1024;
+    private bool connected = false;
     // Start is called before the first frame update
     #region Monobehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         Init();
+        Connect();
     }
     
 
@@ -42,13 +44,22 @@ public class Client : MonoBehaviour
         account.email = "115452@qq.com";
         account.OP = NetOP.CreateAccount;
         SendServer(account);*/
-        CompanyInfo companyInfoObj = new CompanyInfo();
-        
+        //CompanyInfo companyInfoObj = new CompanyInfo();
+      
+        if (Server.serverIp!=null && Server.serverIp.Length>=7 && this.connected==false)
+        {
+            Connect();
+        }
         UpdateMessgaePump();
     }
     #endregion
-    public void Init()
+    public void Connect()
     {
+        
+        if (Server.serverIp==null || Server.serverIp.Length < 7)
+        {
+            return;
+        }
         NetworkTransport.Init();
 
         ConnectionConfig cc = new ConnectionConfig();
@@ -61,17 +72,22 @@ public class Client : MonoBehaviour
 #if UNITY_EDITOR || !UNITY_WEBGL
         //Stand alone client
         Debug.Log("connecting from standalone");
-        connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+        connectionId = NetworkTransport.Connect(hostId, Server.serverIp, PORT, 0, out error);
 
 #else
         //web client
         Debug.Log("connecting from web client");
         connectionId = NetworkTransport.Connect(hostId, SERVER_IP, WEB_PORT, 0, out error);
 #endif
-        
-        Debug.Log(string.Format("Attemping to connect on {0}...", SERVER_IP));
+
+        Debug.Log(string.Format("Attemping to connect on {0}...", Server.serverIp));
 
         isStarted = true;
+        connected = true;
+    }
+    public void Init()
+    {
+        ;  
     }
 
     public void ShutDown()
