@@ -46,6 +46,7 @@ public class Server:MonoBehaviour
         NetworkTransport.Init();
 
         ConnectionConfig cc = new ConnectionConfig();
+        
         cc.AddChannel(QosType.Reliable);
 
         HostTopology topo = new HostTopology(cc, MAX_USER);

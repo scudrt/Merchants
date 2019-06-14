@@ -19,7 +19,9 @@ public class Client : MonoBehaviour
    
     private bool isStarted = false;
 
-    private const string SERVER_IP = "127.0.0.1";
+    //private const string SERVER_IP = "127.0.0.1";
+    private const string SERVER_IP = "192.168.123.13";
+    //private const string SERVER_IP = "192.168.1.1";
     private byte error;
 
     private const int BYTE_SIZE = 1024;
