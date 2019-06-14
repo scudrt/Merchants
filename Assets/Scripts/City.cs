@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
+[Serializable]
 public class City : MonoBehaviour
 {
     /**********data area**********/
     public static List<Block> blockList;
     public static List<Company> companyList;
     public static List<Talent> talentList;
+
     
     public static News newsMaker;
 
     //building type list
+
     public static string[] buildingTypes =
         { "ArtGallery", "Bank", "Cinema",
         "Hospital", "Restaurant", "Scenic",
@@ -21,14 +27,14 @@ public class City : MonoBehaviour
     public static int BLOCK_NUMBER = 64; // it must be a square of integer
     public static int numOfPlayers = 3;
 
-    
+
     public static Company currentCompany { get; set; }
     /**********data area**********/
 
     public static void generateTalentsMarket()
     {
         talentList.Clear();
-        int num = Random.Range(10, 15);
+        int num = UnityEngine.Random.Range(10, 15);
         for(int i = 0; i < num; i++)
         {
             talentList.Add(Talent.generateTalent());
@@ -36,8 +42,8 @@ public class City : MonoBehaviour
     }
     public static float generateNormalDistribution(float expectation, float radius) {
         //it is not a normal distribution in fact:)
-        float ret = Random.Range(expectation - radius, expectation);
-        return ret + Random.Range(0, radius);
+        float ret = UnityEngine.Random.Range(expectation - radius, expectation);
+        return ret + UnityEngine.Random.Range(0, radius);
     }
 
     private void makeBlocks() {
@@ -53,7 +59,7 @@ public class City : MonoBehaviour
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
                 //generate blocks using prefab
-                GameObject temp = Object.Instantiate(prefabBlock,
+                GameObject temp = UnityEngine.Object.Instantiate(prefabBlock,
                     new Vector3(blockSize * (i + 0.5f) - 0.5f * mapSize, 0.01f, blockSize * (j + 0.5f) - 0.5f * mapSize),
                     new Quaternion());
                 temp.transform.localScale = new Vector3(blockScale, blockScale, blockScale);
@@ -73,7 +79,7 @@ public class City : MonoBehaviour
         for (int i = 0; i < numOfPlayers; ++i) {
             Company temp = gameObject.AddComponent<Company>();
             //distribute random color to every company
-            float r = Random.Range(0f, 1f), g = Random.Range(0f, 1f), b = Random.Range(0f, 1f);
+            float r = UnityEngine.Random.Range(0f, 1f), g = UnityEngine.Random.Range(0f, 1f), b = UnityEngine.Random.Range(0f, 1f);
             temp.companyColor = new Color(r, g, b);
             temp.id = i;
             companyList.Add(temp);
@@ -89,9 +95,9 @@ public class City : MonoBehaviour
         int index;
         for (int k = 1; k <= NATURAL_BUILDING_COUNT; ++k) {
             do {
-                index = Random.Range(0, BLOCK_NUMBER - 1);
+                index = UnityEngine.Random.Range(0, BLOCK_NUMBER - 1);
             } while (blockList[index].isEmpty == false);
-            string type = buildingTypes[Random.Range(0, 8)];
+            string type = buildingTypes[UnityEngine.Random.Range(0, 8)];
             blockList[index].build(type);
         }
     }
