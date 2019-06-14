@@ -37,7 +37,7 @@ public class City : MonoBehaviour
     /**********data area**********/
 
     public static void generateTalentsMarket(){
-        //can be used only at the first time
+        //can be used only once
         talentList.Clear();
 
         for(int i = 0; i < TALENT_MERKET_SIZE; i++){
@@ -137,7 +137,7 @@ public class City : MonoBehaviour
         agent = GameObject.FindObjectOfType<Agent>();
 
         passedTime = 0f;
-        talentRefreshInterval = 120f;
+        talentRefreshInterval = 120f; //refresh every 2 minutes
 
         makeBlocks();
         makeCompanies();
