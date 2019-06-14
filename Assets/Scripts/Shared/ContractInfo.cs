@@ -10,6 +10,7 @@ public class ContractInfo:NetMsg
         if (contract!=null)
         {
             this.contract = contract;
+            this.OP = NetOP.contract;
         }
     }
     public void setData()
