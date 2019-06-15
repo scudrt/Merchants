@@ -19,6 +19,7 @@ public class Buttons : MonoBehaviour
     public void OnSingleStartButtonClick()
     {
         SceneManager.LoadScene("GameScene");
+        Time.timeScale = 1;
     }
 
     public void OnAboutButtonClick(GameObject aboutPanel)

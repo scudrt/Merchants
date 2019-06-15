@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class NewsPanel : MonoBehaviour
 {
     private Text content;
+    private Text title;
 
     // Start is called before the first frame update
     void Start()
     {
+        title = transform.Find("Title").GetComponent<Text>();
         content = transform.Find("Content").GetComponent<Text>();        
     }
 
@@ -24,7 +26,8 @@ public class NewsPanel : MonoBehaviour
     {
         if (news != null)
         {
-            
+            title.text = news.title;
+            content.text = news.content;
         }
     }
 }

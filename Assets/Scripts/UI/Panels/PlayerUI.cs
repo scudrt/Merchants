@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static int isInUI = 8;
+    public static int isInUI = 9;
 
     public Company company;
 
-    private GameObject playerInfoPanel;
     private GameObject bottomPanel;
     private GameObject talentsManagePanel;
     private GameObject blocksManagePanel;
     private GameObject talentsMarketPanel;
     private GameObject companiesPanel;
     private GameObject contractSendPanel;
+    private GameObject contractReceivePanel;
     private GameObject newsPanel;
     private GameObject optionPanel;
 

@@ -183,7 +183,10 @@ public class BlockUI : MonoBehaviour
     {
         //destroy building
         targetBlock.sellBuilding();
-        BroadcastMessage("UIExit");
-        OwnedBlockPanelEntry();
+        if (targetBlock.isEmpty)
+        {
+            BroadcastMessage("UIExit");
+            OwnedBlockPanelEntry();
+        }
     }
 }

@@ -33,6 +33,11 @@ public class ContractReceivePanel : MonoBehaviour
 
     void OnOpen()
     {
+        if(contract != null)
+        {
+            contract.refuse();
+        }
+
         //clear the previous content
         GameObject child;
         for (int j = 0; j < receive.transform.childCount; j++)
@@ -156,10 +161,12 @@ public class ContractReceivePanel : MonoBehaviour
     public void OnAcceptButtonClicked()
     {
         contract.agree();
+        contract = null;
     }
 
     public void OnRefuseButtonClicked()
     {
         contract.refuse();
+        contract = null;
     }
 }

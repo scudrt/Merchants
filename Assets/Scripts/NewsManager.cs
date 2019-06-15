@@ -43,6 +43,7 @@ public class NewsManager : MonoBehaviour {
         {
             newsPanel.transform.Find("Title").GetComponent<Text>().text = news.title;
             newsPanel.transform.Find("Content").GetComponent<Text>().text = news.content;
+            newsPanel.SendMessage("UIExit");
             newsPanel.SendMessage("UIEntry");
         },null,news.title);
     }
