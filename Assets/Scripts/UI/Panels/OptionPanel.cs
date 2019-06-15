@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUIButton : MonoBehaviour
+public class OptionPanel : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,10 +14,5 @@ public class PlayerUIButton : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void OnExitButton()
-    {
-        SendMessageUpwards("UIExit");
     }
 }

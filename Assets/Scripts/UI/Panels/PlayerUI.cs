@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static int isInUI = 7;
+    public static int isInUI = 8;
 
     public Company company;
 
@@ -17,6 +17,7 @@ public class PlayerUI : MonoBehaviour
     private GameObject companiesPanel;
     private GameObject contractSendPanel;
     private GameObject newsPanel;
+    private GameObject optionPanel;
 
     /******get all data text on bottom panel*******/
     private Text property;
@@ -54,6 +55,7 @@ public class PlayerUI : MonoBehaviour
         companiesPanel = transform.Find("CompaniesPanel").gameObject;
         contractSendPanel = transform.Find("ContractSendPanel").gameObject;
         newsPanel = transform.Find("NewsPanel").gameObject;
+        optionPanel = transform.Find("OptionPanel").gameObject;
 
         property = bottomPanel.transform.Find("Property").GetComponent<Text>();
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
@@ -86,6 +88,11 @@ public class PlayerUI : MonoBehaviour
 
         //update preproperty
         preProperty = City.currentCompany.fund;
+    }
+
+    public void OptionPanelEntry()
+    {
+        optionPanel.GetComponent<FullScreenPanel>().UIEntry();
     }
 
     public void NewsPanelEntry(News news)
@@ -155,5 +162,10 @@ public class PlayerUI : MonoBehaviour
     public void OnExitButton(Button button)
     {
         button.SendMessageUpwards("UIExit");
+    }
+
+    public void OnOptionButtonClicked()
+    {
+        OptionPanelEntry();
     }
 }
