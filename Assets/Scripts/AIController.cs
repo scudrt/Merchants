@@ -31,7 +31,26 @@ public class AIController : MonoBehaviour {
 
         //deal with contract
         if (company.contract != null) {
-            company.contract.refuse();
+            if (company.contract._offererId == company.id) {
+                //it is the offerer, do nothing
+            } else {
+                //it is the target of contract
+                float profit = company.contract.offeredFund;
+
+                //analyze whether it can get profit
+                foreach (int i in company.contract.offeredBlocks) {
+                    profit += City.blockList[i].price;
+                }
+                foreach (int i in company.contract.requiredBlocks) {
+                    profit -= City.blockList[i].price;
+                }
+
+                if (profit > 0) { //could obtain profit, then agree
+                    company.contract.agree();
+                } else {
+                    company.contract.refuse();
+                }
+            }
         }
 
         //build something randomly

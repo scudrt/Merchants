@@ -60,17 +60,55 @@ public class Contract {
     private void deal() { //TO BE DONE
         //trade the resource, remember to notify target
         //return false if one of the parties doesn't have enough resource
+        bool failed = false;
+        Company offerer = City.companyList[_offererId];
+        Company target = City.companyList[_targetId];
         if (_isTargetAgreed) {
-            //swap resource here
-            EventManager.addEvent(null, null, "目标公司同意了你的合同");
-            ;
+            //deal with fund
+            if (target.earnMoney(offeredFund) == false) {
+                //offered fund might be negative
+                target.costMoney(offeredFund);
+                failed = false;
+            }
+            if (!failed) {
+                if (offerer.costMoney(offeredFund) == false) {
+                    offerer.earnMoney(offeredFund);
+                    failed = false;
+                }
+            }
+            if (!failed) {
+                //deal with blocks
+                foreach (int index in offeredBlocks) {
+                    Block block = City.blockList[index];
+                    block.companyBelong = target;
+                }
+                foreach (int index in requiredBlocks) {
+                    Block block = City.blockList[index];
+                    block.companyBelong = offerer;
+                }
+                //deal with talents
+                foreach (int index in offeredTalents) {
+                    Talent talent = City.talentList[index];
+                    talent.companyBelong = target;
+                    talent.workPlace = null;
+                }
+                foreach (int index in requiredTalents) {
+                    Talent talent = City.talentList[index];
+                    talent.companyBelong = offerer;
+                    talent.workPlace = null;
+                }
+            }
+            EventManager.addEvent(null, null, target.nickName + "同意与" + offerer.nickName+ "交易");
         } else {
             //nothing
-            EventManager.addEvent(null, null, "目标公司拒绝了你的合同");
+            EventManager.addEvent(null, null, target.nickName + "拒绝与" + offerer.nickName + "交易");
+        }
+        if (failed) { //illegal contract
+            EventManager.addEvent(null, null, target.nickName + "与" + offerer.nickName + "的交易因为资金不足而取消");
         }
         //destory this contract
-        City.companyList[_offererId].contract = null;
-        City.companyList[_targetId].contract = null;
+        offerer.contract = null;
+        target.contract = null;
         this.cancel();
     }
 
