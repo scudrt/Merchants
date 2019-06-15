@@ -12,14 +12,14 @@ public class Company:MonoBehaviour{
     public bool isAlive { get; set; } //TO BE DONE
     public bool isHuman;
 
+    public Contract contract;
     public List<Block> blockList;
     public List<Talent> talentList;
 
     private static int playerCount = -1;
     
 
-    void Start()
-    {
+    void Start(){
         this.onGenerate();
     }
 
@@ -31,6 +31,7 @@ public class Company:MonoBehaviour{
         isAlive = true;
         isHuman = false;
 
+        contract = null;
         blockList = new List<Block>();
         talentList = new List<Talent>();
 

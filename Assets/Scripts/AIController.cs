@@ -29,16 +29,51 @@ public class AIController : MonoBehaviour {
             return;
         }
 
-        //build restaurant first
-        foreach (Block block in company.blockList) {
-            if (block.isEmpty && company.buildOnBlock(block, "Restaurant")) {
-                //make decision and return
-                return;
+        //deal with contract
+        if (company.contract != null) {
+            if (company.contract._offererId == company.id) {
+                //it is the offerer, do nothing
+            } else {
+                //it is the target of contract
+                float profit = company.contract.offeredFund;
+
+                //analyze whether it can get profit
+                foreach (int i in company.contract.offeredBlocks) {
+                    profit += City.blockList[i].price;
+                }
+                foreach (int i in company.contract.requiredBlocks) {
+                    profit -= City.blockList[i].price;
+                }
+
+                if (profit > 0) { //could obtain profit, then agree
+                    company.contract.agree();
+                } else {
+                    company.contract.refuse();
+                }
             }
         }
-        Debug.Log(company.id + " no building");
+
+        //build something randomly
+       int index = Random.Range(0, company.blockList.Count - 1);
+       for (int i = index; i < company.blockList.Count; ++i) {
+            Block block = company.blockList[i];
+
+            //try four times
+            for (int j = 0; j < 4; ++j) {
+                int buildIndex = Random.Range(0, 8);
+                if (block.isEmpty && company.buildOnBlock(block, City.buildingTypes[buildIndex])) {
+                    //make decision and return
+                    return;
+                }
+            }
+        }
+
         //if couldn't build, then try buy a block
-        foreach (Block block in City.blockList) {
+        //randomly
+        index = Random.Range(0, City.blockList.Count - 1);
+        for (int i = index; i < City.blockList.Count; ++i) {
+            Block block = City.blockList[i];
+
             if (block.isOwned) {
                 continue;
             }
@@ -50,7 +85,6 @@ public class AIController : MonoBehaviour {
                 }
             }
         }
-        Debug.Log(company.id + " no buying");
     }
 
     void Start(){
@@ -60,14 +94,13 @@ public class AIController : MonoBehaviour {
 
     // Update is called once per frame
     void Update(){
-        //make decision every hour
-        if (currentHour == Timer.hour) {
+        //make decision every two hours
+        if (currentHour == Timer.hour || ((Timer.hour&1) == 0)) {
             return;
         }
         currentHour = Timer.hour;
 
         foreach (int index in companyIdList) {
-            Debug.Log("AI:index=" + index);
             makeDecisionFor(City.companyList[index]);
         }
     }
