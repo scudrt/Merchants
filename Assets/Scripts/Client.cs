@@ -24,7 +24,7 @@ public class Client : MonoBehaviour
     //private const string SERVER_IP = "192.168.1.1";
     private byte error;
 
-    private const int BYTE_SIZE = 1024;
+    private const int BYTE_SIZE = 4096;
     private bool connected = false;
     // Start is called before the first frame update
     #region Monobehaviour

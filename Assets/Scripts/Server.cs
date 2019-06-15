@@ -26,7 +26,7 @@ public class Server:MonoBehaviour
     private int webHostId;
 
     private bool isStarted = false;
-    private const int BYTE_SIZE = 1024;
+    private const int BYTE_SIZE = 4096;
     private byte error;
     // Start is called before the first frame update
     #region Monobehaviour
