@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Net;
 struct user
 {
     public int recHostId;
@@ -17,7 +18,7 @@ public class Server:MonoBehaviour
 
     private byte reliableChannel;
     private int MAX_USER = 100;
-
+    public static string serverIp;
     private int PORT = 26000;
     private int WEB_PORT = 26001;
 
@@ -25,7 +26,7 @@ public class Server:MonoBehaviour
     private int webHostId;
 
     private bool isStarted = false;
-    private const int BYTE_SIZE = 1024;
+    private const int BYTE_SIZE = 4096;
     private byte error;
     // Start is called before the first frame update
     #region Monobehaviour
@@ -37,15 +38,28 @@ public class Server:MonoBehaviour
 
     private void Update()
     {
+        IPAddress ipAddr = Dns.Resolve(Dns.GetHostName()).AddressList[0]; // 获得当前IP地址 
+        string AddressIP = string.Empty;
+        foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+        {
+            if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
+            {
+                AddressIP = _IPAddress.ToString();
+            }
+        }
+        serverIp = AddressIP;
+        //Debug.Log(string.Format("服务器ip:{0}", serverIp));
         UpdateMessgaePump();
     }
     #endregion
 
     public void Init()
     {
+        
         NetworkTransport.Init();
 
         ConnectionConfig cc = new ConnectionConfig();
+        
         cc.AddChannel(QosType.Reliable);
 
         HostTopology topo = new HostTopology(cc, MAX_USER);
