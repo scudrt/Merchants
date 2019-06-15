@@ -34,7 +34,12 @@ public class Contract {
         _isTargetAgreed = false;
 
         _offererId = offerer.id;
-        _targetId = target == null ? -1 : target.id;
+        offerer.contract = this;
+        if (target == null) {
+            _targetId = _targetId - 1;
+        } else {
+            _targetId = target.id;
+        }
 
         _offeredTalentList = new List<int>();
         _requiredTalentList = new List<int>();
@@ -52,16 +57,21 @@ public class Contract {
         //_isTargetAgreed = something
     }
 
-    private bool deal() { //TO BE DONE
+    private void deal() { //TO BE DONE
         //trade the resource, remember to notify target
         //return false if one of the parties doesn't have enough resource
         if (_isTargetAgreed) {
-            //swap resource
+            //swap resource here
+            EventManager.addEvent(null, null, "目标公司同意了你的合同");
             ;
-            return true;
         } else {
-            return false;
+            //nothing
+            EventManager.addEvent(null, null, "目标公司拒绝了你的合同");
         }
+        //destory this contract
+        City.companyList[_offererId].contract = null;
+        City.companyList[_targetId].contract = null;
+        this.cancel();
     }
 
     /**************** interface functions ****************/
@@ -72,10 +82,13 @@ public class Contract {
             return false;
         }
         _isConfirmed = true;
+
         Client client = GameObject.FindObjectOfType<Client>();
         ContractInfo info = new ContractInfo(this);
         client.SendServer((NetMsg)info);
-        //发送消息
+
+        //send message
+        City.companyList[_targetId].contract = this;
 
         return true;
     }
@@ -95,39 +108,28 @@ public class Contract {
 
     public void agree() {
         //can only be called by target
-        
-        if (this._targetId != City.currentCompany.id)
-        {
-            return;
-        }
-        else
-        {
-            this._isTargetAgreed = true;
-            Client client = GameObject.FindObjectOfType<Client>();
-            ContractInfo info = new ContractInfo(this);
-            client.SendServer((NetMsg)info);
-            client.curContract = null;
-            Debug.Log("同意合同");
-            //发送同意的消息
-        }
+        this._isTargetAgreed = true;
+        Client client = GameObject.FindObjectOfType<Client>();
+        ContractInfo info = new ContractInfo(this);
+        client.SendServer((NetMsg)info);
+        client.curContract = null;
+        Debug.Log("同意合同");
+        //发送同意的消息
+
+        this.deal();
     }
 
     public void refuse() {
         //can only be called by target
-        if (this._targetId != City.currentCompany.id)
-        {
-            return;
-        }
-        else
-        {
-            this._isTargetAgreed = false;
-            Client client = GameObject.FindObjectOfType<Client>();
-            ContractInfo info = new ContractInfo(this);
-            client.SendServer((NetMsg)info);
-            client.curContract = null;
-            Debug.Log("拒绝合同");
-            //发送拒绝的消息
-        }
+        this._isTargetAgreed = false;
+        Client client = GameObject.FindObjectOfType<Client>();
+        ContractInfo info = new ContractInfo(this);
+        client.SendServer((NetMsg)info);
+        client.curContract = null;
+        Debug.Log("拒绝合同");
+        //发送拒绝的消息
+
+        this.deal();
     }
 
     public void setTarget(Company target) { //set target company

@@ -25,7 +25,10 @@ public class PlayerUI : MonoBehaviour
     private Text GDP;
     private Text population;
 
-    private double preProperty = 0; //store property number in last frame
+    private float preProperty = 0; //store property number in last frame
+    private float preFame = 0;
+    private float preGDP = 0;
+    private float prePopulation = 0;
 
     public static void addUI()
     {
@@ -70,14 +73,36 @@ public class PlayerUI : MonoBehaviour
             return;
         }
 
-        //if fund changed, create money effect
-        double delta;
+        //make effect when the value changes
+        float delta;
         if (City.currentCompany.fund != preProperty)
         {
             delta = City.currentCompany.fund - preProperty;
             MoneyEffect.CreateMoneyEffect(property.transform,
                 delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
                 delta > 0 ? new Color(255, 180, 0) : Color.red); //golden and red
+            preProperty = City.currentCompany.fund;
+        }
+        if (City.currentCompany.fame != preFame) {
+            delta = City.currentCompany.fame - preFame;
+            MoneyEffect.CreateMoneyEffect(reputation.transform,
+                delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
+                delta > 0 ? Color.green : Color.red); //green and red
+            preFame = City.currentCompany.fame;
+        }
+        if (Population.GDP != preGDP) {
+            delta = Population.GDP - preGDP;
+            MoneyEffect.CreateMoneyEffect(GDP.transform,
+                delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
+                delta > 0 ? new Color(255, 180, 0) : Color.red); //golden and red
+            preGDP = Population.GDP;
+        }
+        if (Population.amount != prePopulation) {
+            delta = Population.amount - prePopulation;
+            MoneyEffect.CreateMoneyEffect(population.transform,
+                delta > 0 ? ("+" + delta.ToString()) : delta.ToString(),
+                delta > 0 ? Color.green : Color.red); //green and red
+            prePopulation = Population.amount;
         }
 
         //set bottom panel's information displayed
@@ -85,9 +110,6 @@ public class PlayerUI : MonoBehaviour
         reputation.text = City.currentCompany.fame.ToString();
         population.text = Population.amount.ToString();
         GDP.text = Population.GDP.ToString();
-
-        //update preproperty
-        preProperty = City.currentCompany.fund;
     }
 
     public void OptionPanelEntry()

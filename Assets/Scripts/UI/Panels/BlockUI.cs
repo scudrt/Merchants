@@ -181,6 +181,10 @@ public class BlockUI : MonoBehaviour
 
     public void OnDestroyButtonClicked()
     {
+        if (City.currentCompany != targetBlock.companyBelong) {
+            //illegal operation
+            return;
+        }
         //destroy building
         targetBlock.sellBuilding();
         BroadcastMessage("UIExit");
