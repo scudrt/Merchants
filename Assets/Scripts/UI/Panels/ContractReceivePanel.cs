@@ -14,6 +14,8 @@ public class ContractReceivePanel : MonoBehaviour
     private RectTransform offer;
     private Text fund;
 
+    private bool isDeal = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +30,31 @@ public class ContractReceivePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("currentCompany:" + (City.currentCompany == null));
+        if (!isDeal && City.currentCompany!=null && City.currentCompany.contract != null)
+        {
+            EventManager.addEvent((Event evt) =>
+            {
+                evt.SendMessageUpwards("ContractReceivePanelEntry", City.currentCompany.contract);
+            }, (Event evt) =>
+             {
+                 Contract contract = (Contract)evt.msg;
+                 contract.refuse();
+                 City.currentCompany.contract = null;
+                 isDeal = false;
+             }, "你有一份合同待处理", City.currentCompany.contract);
+            isDeal = true;
+        }
     }
 
-    void OnOpen()
+    public void OnOpen()
     {
+        /*
         if(contract != null)
         {
             contract.refuse();
         }
-
+        */
         //clear the previous content
         GameObject child;
         for (int j = 0; j < receive.transform.childCount; j++)
@@ -162,11 +179,17 @@ public class ContractReceivePanel : MonoBehaviour
     {
         contract.agree();
         contract = null;
+        City.currentCompany.contract = null;
+        isDeal = false;
+        SendMessage("UIExit");
     }
 
     public void OnRefuseButtonClicked()
     {
         contract.refuse();
         contract = null;
+        City.currentCompany.contract = null;
+        isDeal = false;
+        SendMessage("UIExit");
     }
 }

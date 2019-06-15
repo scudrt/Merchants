@@ -81,21 +81,29 @@ public class Contract {
                 foreach (int index in offeredBlocks) {
                     Block block = City.blockList[index];
                     block.companyBelong = target;
+                    target.blockList.Add(block);
+                    offerer.blockList.Remove(block);
                 }
                 foreach (int index in requiredBlocks) {
                     Block block = City.blockList[index];
                     block.companyBelong = offerer;
+                    target.blockList.Remove(block);
+                    offerer.blockList.Add(block);
                 }
                 //deal with talents
                 foreach (int index in offeredTalents) {
                     Talent talent = City.talentList[index];
                     talent.companyBelong = target;
                     talent.workPlace = null;
+                    target.talentList.Add(talent);
+                    offerer.talentList.Remove(talent);
                 }
                 foreach (int index in requiredTalents) {
                     Talent talent = City.talentList[index];
                     talent.companyBelong = offerer;
                     talent.workPlace = null;
+                    target.talentList.Remove(talent);
+                    offerer.talentList.Add(talent);
                 }
             }
             EventManager.addEvent(null, null, target.nickName + "同意与" + offerer.nickName+ "交易");

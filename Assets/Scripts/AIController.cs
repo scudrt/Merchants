@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AIController : MonoBehaviour {
+
+    private bool isSendContract = false;
+
     private int currentHour;
     private List<int> companyIdList;
     public void addCompany(int id) {
@@ -27,6 +30,17 @@ public class AIController : MonoBehaviour {
     private void makeDecisionFor(Company company) {
         if (company.isAlive == false) {
             return;
+        }
+
+        //send contract to player
+        if (company.blockList.Count > 1 && !isSendContract)
+        {
+            Debug.Log("Contract sent by ai");
+            Contract contract = new Contract(company, City.currentCompany);
+            contract.addBlock(company.blockList[0]);
+            contract.offerFundBy(-10000);
+            contract.confirm();
+            isSendContract = true;
         }
 
         //deal with contract
@@ -85,6 +99,10 @@ public class AIController : MonoBehaviour {
                 }
             }
         }
+
+
+        //
+        
     }
 
     void Start(){

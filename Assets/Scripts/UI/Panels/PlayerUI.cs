@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public static int isInUI = 9;
+    public static int isInUI = 8;
 
     public Company company;
 
@@ -59,6 +59,7 @@ public class PlayerUI : MonoBehaviour
         contractSendPanel = transform.Find("ContractSendPanel").gameObject;
         newsPanel = transform.Find("NewsPanel").gameObject;
         optionPanel = transform.Find("OptionPanel").gameObject;
+        contractReceivePanel = transform.Find("ContractReceivePanel").gameObject;
 
         property = bottomPanel.transform.Find("Property").GetComponent<Text>();
         reputation = bottomPanel.transform.Find("Reputation").GetComponent<Text>();
@@ -163,6 +164,13 @@ public class PlayerUI : MonoBehaviour
     {
         companiesPanel.GetComponent<FullScreenPanel>().UIEntry();
         companiesPanel.GetComponent<CompaniesUI>().OnOpen();
+    }
+
+    public void ContractReceivePanelEntry(Contract contract)
+    {
+        contractReceivePanel.GetComponent<FullScreenPanel>().UIEntry();
+        contractReceivePanel.GetComponent<ContractReceivePanel>().contract = contract;
+        contractReceivePanel.GetComponent<ContractReceivePanel>().OnOpen();
     }
 
     public void ContractSendPanelEntry(Company other)
