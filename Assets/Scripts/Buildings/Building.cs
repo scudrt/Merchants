@@ -24,16 +24,16 @@ public abstract class Building : MonoBehaviour {
     private int currentHour = Timer.hour, currentMonth = Timer.month, currentYear = Timer.year;
 
     /*****test*****/
-    private float _attrackRate = 0.01f;
-    public float attrackRate { get
+    private float _attractRate = 0.01f;
+    public float attractRate { get
         {
-            return _attrackRate;
+            return _attractRate;
         }
         set
         {
             if (value < 0 || value > 1)
                 return;
-            _attrackRate = value;
+            _attractRate = value;
         }
     }
 
@@ -82,7 +82,7 @@ public abstract class Building : MonoBehaviour {
             upgradePrice *= 2f;
 
             ++level;
-            attrackRate = Mathf.Min(1.0f, attrackRate + 0.02f);
+            attractRate = Mathf.Min(1.0f, attractRate + 0.02f);
             talentCountLimit += 2;
             profitEach += 2;
 
@@ -123,7 +123,7 @@ public abstract class Building : MonoBehaviour {
         float newProfit;
         int newCustomer;
 
-        newCustomer = (int)(City.generateNormalDistribution(attrackRate, 0.005f) * Population.amount);
+        newCustomer = (int)(City.generateNormalDistribution(attractRate, 0.005f) * Population.amount);
         customerCount += newCustomer;
         
         newProfit = profitEach * newCustomer;

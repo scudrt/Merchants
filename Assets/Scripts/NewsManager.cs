@@ -229,7 +229,7 @@ public class NewsManager : MonoBehaviour {
                             building = (Building)temp;
                             switch (effect.GetAttribute("attribute"))
                             {
-                                case "attrackRate": building.attrackRate += (float)value; break;
+                                case "attractRate": building.attractRate += (float)value; break;
                             //add some other attribute here
                             default: break;
                             }
